@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* Always show vertical scrollbar on the whole page */
+body {
+  overflow-y: scroll;
+}
+
+@theme {
+  --color-background: #f2f2f2;
+    --color-nav-link: #0000FF;
+    --color-scrollbar: #fe640b;
+}
+
+.nav-link {
+  @apply hover:text-nav-link transition-colors duration-100;
+}
+
+/* Scrollbar */
+* {
+scrollbar-width: thin;
+scrollbar-color: var(--color-scrollbar) var(--color-background) !important;
+}
+
+::selection {
+  background: hsla(0, 0%, 68%, 0.315);
+}
+
+/* Navigation animation */
+@keyframes terminal-fade {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

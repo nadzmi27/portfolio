@@ -1,4 +1,6 @@
 ---
+import Header from "../components/header/Header.astro";
+import "../styles/global.css";
 const { title = "Nadzmi's Porfolio" } = Astro.props;
 ---
 
@@ -13,6 +15,7 @@ const { title = "Nadzmi's Porfolio" } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <Header />
     <slot />
   </body>
 </html>
