@@ -8,6 +8,7 @@ const breadcrumbs = segments.map((segment, index) => ({
 })).slice(1);
 const current = breadcrumbs[breadcrumbs.length - 1];
 const ancestors = breadcrumbs.slice(0, -1);
+console.log(segments)
 ---
 
 <div class="flex items-center">
