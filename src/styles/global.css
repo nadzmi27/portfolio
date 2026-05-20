@@ -10,7 +10,8 @@ body {
   --color-nav-link:#3C3C3C;
   --color-scrollbar: #FF3131;
   --color-sidebar: var(--color-background);
-  --color-accent: #FF3131
+  --color-accent: #FF3131;
+  --color-text-secondary: #3C3C3C;
 }
 
 .nav-link {

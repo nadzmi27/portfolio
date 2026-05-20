@@ -34,7 +34,7 @@ export default function CursorCTA({
   }, []);
 
   return (
-    <>
+    <div className="size-fit">
       <div
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
@@ -53,13 +53,12 @@ export default function CursorCTA({
           }}
         >
           <div
-            className="bg-red-500 text-white px-2.5 py-2 text-base 
-          flex items-center justify-center"
+            className="bg-red-500 text-white px-2.5 pt-2 pb-2.5 text-base max-w-64 whitespace-pre-line leading-tight"
           >
             {tooltip}
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

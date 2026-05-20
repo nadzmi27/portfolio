@@ -16,7 +16,7 @@ const Navigation = ({
   const current = breadcrumbs[breadcrumbs.length - 1];
   const ancestors = breadcrumbs.slice(0, -1);
   return (
-    <div className="flex items-center">
+    <div className="flex items-center text-">
       <a href={base} className="flex items-center">
         <span className="nav-link">~</span>
         <span className="ml-2">/</span>
@@ -33,7 +33,7 @@ const Navigation = ({
         return (
           <>
             {"/"}
-            <a href={href} className="hover:text-amber-300 mx-1">
+            <a href={href} className="hover:tesxt-amber-300 mx-1">
               {crumb.label}
             </a>
           </>
@@ -44,7 +44,7 @@ const Navigation = ({
       {current && (
         <>
           <span className="mr-1">/</span>
-          <span>{current.label}</span>
+          <span className="text-nav-link">{current.label}</span>
         </>
       )}
 

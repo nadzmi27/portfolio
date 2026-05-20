@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navigation from "./Navigation.tsx";
 import CursorCTA from "../CursorCTA.tsx";
-import { link } from "motion/react-client";
 
 const links = [
   { href: "/about", label: "About", tooltip: "Learn more about me :)" },
@@ -45,13 +44,13 @@ export default function Header({
           <Navigation segments={segments} base={base} />
 
           {/* Desktop nav */}
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-4">
             {links.slice(0, -1).map((link) => (
               <CursorCTA tooltip={link.tooltip}>
                 <a
                   key={link.href}
                   href={`/portfolio${link.href}`}
-                  className="nav-link cursor-default py-3"
+                  className="nav-link cursor-default px-2 py-3"
                 >
                   {link.label}
                 </a>
@@ -61,7 +60,7 @@ export default function Header({
               <a
                 key={links.at(-1)!.href}
                 href={`/portfolio${links.at(-1)!.href}`}
-                className="nav-link cursor-default px-2 py-1.25 border"
+                className="nav-link cursor-default px-2 ml-2 py-1.25 border"
               >
                 {links.at(-1)!.label}
               </a>
