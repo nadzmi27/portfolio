@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navigation from "./Navigation.tsx";
+import CursorCTA from "../CursorCTA.tsx";
+import { link } from "motion/react-client";
 
 const links = [
-  { href: "/about", label: "About Me" },
-  { href: "/project", label: "Project" },
-  { href: "/blog", label: "Blog" },
-  { href: "/visitor", label: "Visitor Corner" },
+  { href: "/about", label: "About", tooltip: "Learn more about me :)" },
+  { href: "/project", label: "Projects", tooltip: "Check out my works!" },
+  { href: "/blog", label: "Blog", tooltip: "Read what I've written!" },
+  {
+    href: "/visitor",
+    label: "Visitor Corner",
+    tooltip: "Under construction :(",
+  },
 ];
 
-export default function HeaderClient({
+export default function Header({
   segments,
   base,
 }: {
@@ -23,7 +29,7 @@ export default function HeaderClient({
       <header
         className="
           fixed top-0 left-0 right-0 z-50
-          flex justify-center w-full
+          flex justify-center w-full h-[80px]
           pt-4 px-4 pb-4
           bg-white/10 backdrop-blur-lg
         "
@@ -32,7 +38,7 @@ export default function HeaderClient({
           className="
             flex justify-between items-center
             w-full max-w-[1040px]
-            text-[18px]
+            text-base
           "
         >
           {/* Left side */}
@@ -40,21 +46,34 @@ export default function HeaderClient({
 
           {/* Desktop nav */}
           <div className="hidden md:flex gap-8">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={`/portfolio${link.href}`}
-                className="nav-link"
-              >
-                {link.label}
-              </a>
+            {links.slice(0, -1).map((link) => (
+              <CursorCTA tooltip={link.tooltip}>
+                <a
+                  key={link.href}
+                  href={`/portfolio${link.href}`}
+                  className="nav-link cursor-default py-3"
+                >
+                  {link.label}
+                </a>
+              </CursorCTA>
             ))}
+            <CursorCTA tooltip={links.at(-1)!.tooltip}>
+              <a
+                key={links.at(-1)!.href}
+                href={`/portfolio${links.at(-1)!.href}`}
+                className="nav-link cursor-default px-2 py-1.25 border"
+              >
+                {links.at(-1)!.label}
+              </a>
+            </CursorCTA>
           </div>
 
           {/* Mobile button */}
-          <button className="md:hidden text-xl" onClick={() => setOpen(true)}>
-            ☰
-          </button>
+          {!open && (
+            <button className="md:hidden text-xl" onClick={() => setOpen(true)}>
+              ☰
+            </button>
+          )}
         </nav>
       </header>
 
@@ -64,7 +83,7 @@ export default function HeaderClient({
           <>
             {/* Overlay */}
             <motion.div
-              className="fixed inset-0 z-40 backdrop-blur-xs bg-black/10"
+              className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -76,21 +95,22 @@ export default function HeaderClient({
               className="
                 fixed top-0 right-0 z-50
                 h-full w-[280px]
-                bg-amber-50
+                bg-sidebar/50
                 flex flex-col gap-4
                 border-l
                 shadow-xl
+                backdrop-blur-2xl
               "
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{
                 type: "spring",
-                stiffness: 260,
-                damping: 24,
+                stiffness: 300,
+                damping: 25,
               }}
             >
-              <div className="border-b-1 w-full p-4 text-[18px]">
+              <div className="border-b-1 w-full p-4 text-base">
                 <span className="flex justify-between items-center">
                   <p className="font-bold">Navigation</p>
                   <button
@@ -107,7 +127,7 @@ export default function HeaderClient({
                   <a
                     key={link.href}
                     href={`/portfolio${link.href}`}
-                    className="nav-link pl-2 py-2 text-[18px] rounded-md hover:bg-black/10"
+                    className="nav-link pl-2 py-2 text-base rounded-md hover:bg-black/10"
                   >
                     {link.label}
                   </a>

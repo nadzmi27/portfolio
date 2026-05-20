@@ -6,19 +6,21 @@ body {
 }
 
 @theme {
-  --color-background: #f2f2f2;
-    --color-nav-link: #0000FF;
-    --color-scrollbar: #fe640b;
+  --color-background: #F9F7F7;
+  --color-nav-link:#3C3C3C;
+  --color-scrollbar: #FF3131;
+  --color-sidebar: var(--color-background);
+  --color-accent: #FF3131
 }
 
 .nav-link {
-  @apply hover:text-nav-link transition-colors duration-100;
+  @apply hover:text-black text-nav-link transition-colors duration-100;
 }
 
 /* Scrollbar */
 * {
-scrollbar-width: thin;
-scrollbar-color: var(--color-scrollbar) var(--color-background) !important;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar) var(--color-background) !important;
 }
 
 ::selection {
