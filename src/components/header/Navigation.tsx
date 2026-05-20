@@ -22,7 +22,7 @@ const Navigation = ({
         <span className="ml-2">/</span>
 
         <span className="flex items-center nav-link">
-          <FolderOpen className="ml-2 mr-1" size={18} />
+          <FolderOpen className="ml-2 mr-1 translate-y-[1px]" size={18} />
           portfolio
         </span>
       </a>
@@ -33,7 +33,7 @@ const Navigation = ({
         return (
           <>
             {"/"}
-            <a href={href} className="hover:tesxt-amber-300 mx-1">
+            <a href={href} className="nav-link mx-1">
               {crumb.label}
             </a>
           </>
