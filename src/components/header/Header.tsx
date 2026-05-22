@@ -44,22 +44,20 @@ export default function Header({
           <Navigation segments={segments} base={base} />
 
           {/* Desktop nav */}
-          <div className="hidden md:flex gap-4">
+          <div className="hidden md:flex md:items-center gap-4">
             {links.slice(0, -1).map((link) => (
-              <CursorCTA tooltip={link.tooltip}>
-                <a
-                  key={link.href}
-                  href={`/portfolio${link.href}`}
-                  className="nav-link cursor-default px-2 py-3"
-                >
-                  {link.label}
-                </a>
-              </CursorCTA>
+              <a
+                key={link.href}
+                href={`${base}${link.href}`}
+                className="nav-link cursor-default px-2 py-1.25 hover-underline-animation"
+              >
+                {link.label}
+              </a>
             ))}
             <CursorCTA tooltip={links.at(-1)!.tooltip}>
               <a
                 key={links.at(-1)!.href}
-                href={`/portfolio${links.at(-1)!.href}`}
+                href={`${base}${links.at(-1)!.href}`}
                 className="nav-link cursor-default px-2 ml-2 py-1.25 border"
               >
                 {links.at(-1)!.label}

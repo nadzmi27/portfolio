@@ -34,7 +34,7 @@ export default function CursorCTA({
   }, []);
 
   return (
-    <div className="size-fit">
+    <div className="w-fit h-fit">
       <div
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}

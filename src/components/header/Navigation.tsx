@@ -16,17 +16,17 @@ const Navigation = ({
   const current = breadcrumbs[breadcrumbs.length - 1];
   const ancestors = breadcrumbs.slice(0, -1);
   return (
-    <div className="flex items-center text-">
+    <div className="flex items-center z-50">
       <a href={base} className="flex items-center">
         <span className="nav-link">~</span>
-        <span className="ml-2">/</span>
+        <span className="ml-0.5">/</span>
 
         <span className="flex items-center nav-link">
-          <FolderOpen className="ml-2 mr-1 translate-y-[1px]" size={18} />
+          <FolderOpen className="ml-1 mr-1 translate-y-[1px]" size={16} />
           portfolio
         </span>
       </a>
-      <span className="ml-1"></span>
+      <span className="ml-0.5"></span>
 
       {ancestors.map((crumb) => {
         const href = crumb.href;
@@ -43,13 +43,13 @@ const Navigation = ({
       {/* current (NOT clickable) */}
       {current && (
         <>
-          <span className="mr-1">/</span>
+          <span className="mr-0.5">/</span>
           <span className="text-nav-link">{current.label}</span>
         </>
       )}
 
-      <span className="ml-1">/</span>
-      <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-[terminal-fade_3s_ease-in-out_infinite]"></span>
+      <span className="ml-0.5">/</span>
+      <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-[terminal-fade_2s_ease-in-out_infinite]"></span>
     </div>
   );
 };

@@ -14,8 +14,31 @@ body {
   --color-text-secondary: #3C3C3C;
 }
 
+/* Navigation */
 .nav-link {
   @apply hover:text-black text-nav-link transition-colors duration-100;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+}
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 /* Scrollbar */
@@ -34,11 +57,11 @@ body {
     opacity: 0;
   }
 
-  20% {
+  35% {
     opacity: 1;
   }
 
-  70% {
+  60% {
     opacity: 1;
   }
 

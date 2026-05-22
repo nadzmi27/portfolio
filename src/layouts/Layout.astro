@@ -1,5 +1,5 @@
 ---
-import Header from "../components/header/Header.tsx";
+import Header from "../components/header/Header2.tsx";
 import CursorCTA from "../components/CursorCTA1";
 import "../styles/global.css";
 import HeaderClient from "../components/header/Header";
@@ -19,13 +19,15 @@ const { title = "Nadzmi's Porfolio" } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="bg-background">
-    <Header client:load segments={segments} base={base} />
     <main class="pt-[80px] min-h-screen">
-      <div class="max-w-[1024px] mx-auto w-full">
-        <slot />
+      <div class="max-w-[1120px] mx-auto w-full">
+        <div class="px-6 md:px-[48px]">
+          <slot />
+        </div>
       </div>
     </main>
   </body>
+  <Header client:load segments={segments} base={base} />
 </html>
 
 <style>
