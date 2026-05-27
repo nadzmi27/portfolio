@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Kalam:wght@300;400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 @import "tailwindcss";
 
 /* Always show vertical scrollbar on the whole page */
 body {
   overflow-y: scroll;
+  font-family: var(--font-serif);
 }
 
+
 @theme {
+  --font-mono: "JetBrains", monospace; 
+  --font-serif: "Source Serif 4", serif;
   --color-background: #F9F7F7;
   --color-nav-link:#3C3C3C;
   --color-scrollbar: #FF3131;
@@ -13,6 +18,26 @@ body {
   --color-accent: #FF3131;
   --color-text-secondary: #3C3C3C;
 }
+
+/* Tailwind import doesn't work for this */
+.font-cursive-light {
+  font-family: "Kalam", cursive;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-cursive-regular {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-cursive-bold {
+  font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 /* Navigation */
 .nav-link {

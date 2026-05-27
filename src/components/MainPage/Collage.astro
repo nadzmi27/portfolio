@@ -1,0 +1,109 @@
+---
+import abbeyroad from "../../assets/abbeyroad.jpg";
+import dorohedoro from "../../assets/dorohedoro.webp";
+import knight from "../../assets/knight.webp";
+import capo from "../../assets/capo.webp";
+import hold from "../../assets/hold.webp";
+import dice from "../../assets/dice.webp";
+import CursorCTA from "../CursorCTA.tsx";
+import { Image } from "astro:assets";
+---
+
+<div class="w-full h-[320px] relative hidden md:block">
+  <!-- Chess knight - top left top-[4%]-->
+  <CursorCTA
+    client:load
+    tooltip="Come play chess with me!"
+    className="absolute bottom-[52%] left-[7%] z-2"
+  >
+    <Image
+      src={knight}
+      alt="Chess Knight"
+      loading="eager"
+      class="max-w-[145px] w-[15vw] shrink rotate-[-11deg] hover:scale-110 hover:drop-shadow-xl/30"
+      width={knight.width}
+      height={knight.height}
+    />
+  </CursorCTA>
+
+  <!-- Abbey road - top center-right -->
+  <CursorCTA
+    client:load
+    tooltip="I love listening to music, especially older music"
+    className="absolute top-[5%] left-[40%] z-1"
+  >
+    <Image
+      src={abbeyroad}
+      alt="Abbey Road Beatles Album Cover"
+      loading="eager"
+      class="max-w-[210px] w-[22vw] shrink rotate-[-5deg] hover:scale-110 hover:drop-shadow-2xl/30"
+      width={abbeyroad.width}
+      height={abbeyroad.height}
+    />
+  </CursorCTA>
+
+  <!-- Bouldering Hold - top right -->
+  <CursorCTA
+    client:load
+    tooltip="I love bouldering!"
+    className="absolute top-[6%] left-[83%] z-2"
+  >
+    <Image
+      src={hold}
+      alt="Bouldering Hold"
+      loading="eager"
+      class="max-w-[80px] w-[8vw] shrink -scale-x-100 rotate-[-30deg]
+      hover:scale-110 hover:-scale-x-110 hover:drop-shadow-xl/25"
+      width={hold.width}
+      height={hold.height}
+    />
+  </CursorCTA>
+
+  <!-- Dorohedoro - bottom left -->
+  <CursorCTA
+    client:load
+    tooltip="I love watching movie/anime, my recent fave is Dorohedoro"
+    className="absolute bottom-[0%] left-[0%]"
+  >
+    <Image
+      src={dorohedoro}
+      alt="Dorohedoro"
+      loading="eager"
+      class="max-w-[240px] w-[28vw] shrink rotate-[9deg] hover:scale-110 hover:drop-shadow-2xl/30"
+      width={dorohedoro.width}
+      height={dorohedoro.height}
+    />
+  </CursorCTA>
+
+  <!-- Dice - bottom center -->
+  <CursorCTA
+    client:load
+    tooltip="I like the look of the dice xD"
+    className="absolute top-[78%] left-[40%] z-2"
+  >
+    <Image
+      src={dice}
+      alt="Two dice"
+      loading="eager"
+      class="max-w-[140px] w-[15vw] shrink hover:scale-110 hover:drop-shadow-xl/25"
+      width={dice.width}
+      height={dice.height}
+    />
+  </CursorCTA>
+
+  <!-- Capo - bottom right -->
+  <CursorCTA
+    client:load
+    tooltip="Playing guitar is my meditation :)"
+    className="absolute top-[55%] left-[70%] z-2"
+  >
+    <Image
+      src={capo}
+      alt="Guitar Capo"
+      loading="eager"
+      class="max-w-[140px] w-[15vw] shrink hover:scale-110 hover:drop-shadow-xl/25"
+      width={capo.width}
+      height={capo.height}
+    />
+  </CursorCTA>
+</div>

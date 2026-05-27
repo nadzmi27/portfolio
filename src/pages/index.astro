@@ -1,17 +1,15 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
-import CursorCTA from "../components/CursorCTA1";
 import Intro from "../components/MainPage/Intro.astro";
-import AsciiGallery from "../components/MainPage/AsciiGallery.astro";
+import Collage from "../components/MainPage/Collage.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-  <div class="grid grid-cols-2 mt-20">
+  <div class="grid md:grid-cols-[55%_45%] mt-20 max-w-[1048px] mx-auto pl-4 pr-4">
     <Intro />
-    <AsciiGallery />
+    <Collage/>
   </div>
 </Layout>

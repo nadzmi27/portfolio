@@ -3,13 +3,15 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 export default function CursorCTA({
   children,
   tooltip,
+  className,
 }: {
   children: ReactNode;
   tooltip: String;
+  className?: string;
 }) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const target = useRef({ x: 0, y: 0 });
-
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,7 +26,6 @@ export default function CursorCTA({
         x: prev.x + (target.current.x - prev.x) * 0.15,
         y: prev.y + (target.current.y - prev.y) * 0.15,
       }));
-
       requestAnimationFrame(animate);
     };
 
@@ -33,8 +34,23 @@ export default function CursorCTA({
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
+const tooltipWidth = tooltipRef.current?.offsetWidth ?? 0;
+const proximity =
+  typeof window !== "undefined"
+    ? Math.min(
+        1,
+        Math.max(
+          0,
+          (pos.x - (window.innerWidth - tooltipWidth - 100)) / tooltipWidth,
+        ),
+      )
+    : 0;
+const xOffset = 16 - proximity * (tooltipWidth + 32);
+
   return (
-    <div className="w-fit h-fit">
+    <div
+      className={`w-fit h-fit ${className ?? ""} ${visible ? "z-9999" : ""}`}
+    >
       <div
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
@@ -44,17 +60,17 @@ export default function CursorCTA({
 
       {visible && (
         <div
+          ref={tooltipRef}
           style={{
             position: "fixed",
-            left: pos.x + 16,
+            left: pos.x,
             top: pos.y + 16,
+            transform: `translateX(${xOffset}px)`,
             pointerEvents: "none",
             zIndex: 9999,
           }}
         >
-          <div
-            className="bg-red-500 text-white px-2.5 pt-2 pb-2.5 text-base max-w-64 whitespace-pre-line leading-tight"
-          >
+          <div className="bg-red-500 text-white px-2.5 pt-2 pb-2.5 text-base max-w-64 whitespace-pre-line leading-tight">
             {tooltip}
           </div>
         </div>

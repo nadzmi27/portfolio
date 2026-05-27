@@ -6,13 +6,16 @@ import Link from "../Link.astro";
 ---
 
 <div class="size-full">
-  <h1 class="text-5xl">Hey, I'm Nadzmi!</h1>
+  <h1 class="text-5xl font-serif">
+    Hey, I'm <span class="font-cursive-regular">Nadzmi!</span>
+  </h1>
+
   <p class="text-xl mt-6 leading-tight">
-    I'm a <u>software developer</u> with a <u>background in data</u>. <br />
+    I'm a <u>software developer</u> with a <u>background in data</u>. 
     I build full-stack apps and data tools, from a React frontend down to the database
-    and pipeline
+    and pipeline.
   </p>
-  <div class="mt-4 text-text-secondary text-base leading-tight">
+  <div class="mt-6 text-text-secondary text-base leading-tight">
     <span class="flex gap-1.5">
       <span>Melbourne</span>
       <span>/</span>
@@ -20,9 +23,9 @@ import Link from "../Link.astro";
     </span>
     <a href="mailto:nadzmiagthomas@gmail.com">nadzmiagthomas@gmail.com</a>
   </div>
-  <CursorCTA client:load tooltip={"Find out more :)"}>
+  <CursorCTA client:load tooltip={"Find out more :)"} className="mt-8">
     <Link
-      class="flex items-center w-fit mt-4 py-1.5 pl-3 pr-2 gap-2
+      class="flex items-center w-fit py-1.5 pl-3 pr-2 gap-2
        text-white text-lg bg-nav-link hover:bg-black"
       href="/about"
     >
