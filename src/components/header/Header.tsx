@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navigation from "./Navigation.tsx";
-import CursorCTA from "../CursorCTA.tsx";
+import CursorCTA from "../Tooltip.tsx";
 
 const links = [
   { href: "/about", label: "About", tooltip: "Learn more about me :)" },

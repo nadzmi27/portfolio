@@ -60,7 +60,7 @@ const Navbar = () => {
       >
         {!open ? <Menu size={16} /> : <X size={16} />}
       </div> */}
-      <MenuToX open={open} toggleMenu={toggleMenu}/>
+      <MenuToX open={open} toggleMenu={toggleMenu} />
       <AnimatePresence>
         {open && (
           <motion.div
@@ -76,7 +76,7 @@ const Navbar = () => {
                 initial="initial"
                 animate="open"
                 exit="initial"
-                className="flex flex-col h-full justify-center font-lora items-center gap-4 "
+                className="flex flex-col h-full justify-center font-mono items-center gap-4 -translate-y-8"
               >
                 {navLinks.map((link, index) => {
                   return (
@@ -120,7 +120,7 @@ const MobileNavLink = ({ title, href }) => {
   return (
     <motion.div
       variants={mobileLinkVars}
-      className="text-5xl uppercase text-black"
+      className="text-4xl uppercase text-black"
     >
       <a href={base + href}>{title}</a>
     </motion.div>
@@ -129,14 +129,17 @@ const MobileNavLink = ({ title, href }) => {
 
 const MenuToX = ({ open, toggleMenu, size = 18 }) => {
   return (
-    <div className="relative z-50 p-1.5 border cursor-pointer" onClick={toggleMenu}>
+    <div
+      className="relative z-50 p-1.5 border cursor-pointer"
+      onClick={toggleMenu}
+    >
       <div
         className="cursor-pointer text-black flex items-center justify-center"
         style={{ width: size, height: size }}
       >
         <motion.span
           animate={open ? "open" : "closed"}
-          style={{ width: size  }}
+          style={{ width: size }}
           className="flex flex-col gap-[5px]"
         >
           <motion.span

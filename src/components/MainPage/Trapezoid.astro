@@ -1,0 +1,17 @@
+---
+const { class: className } = Astro.props;
+---
+
+<div class=`trapezoid ${className ?? ''}`><slot /></div>
+
+<style>
+  /* Trapezoid */
+  .trapezoid {
+    width: fit-content;
+    height: fit-content;
+    clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+
+    display: flex;
+    align-items: center; /* or center, flex-start */
+  }
+</style>

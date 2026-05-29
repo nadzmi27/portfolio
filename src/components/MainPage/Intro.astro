@@ -1,19 +1,19 @@
 ---
 import LiveClock from "./LiveClock.astro";
 import { ArrowRight } from "@lucide/astro";
-import CursorCTA from "../CursorCTA.tsx";
+import CursorCTA from "../Tooltip.tsx";
 import Link from "../Link.astro";
 ---
 
-<div class="size-full">
+<div class="size-full md:pr-10">
   <h1 class="text-5xl font-serif">
     Hey, I'm <span class="font-cursive-regular">Nadzmi!</span>
   </h1>
 
   <p class="text-xl mt-6 leading-tight">
-    I'm a <u>software developer</u> with a <u>background in data</u>. 
-    I build full-stack apps and data tools, from a React frontend down to the database
-    and pipeline.
+    I'm a <u>software developer</u> with a <u>background in data</u>.
+    <span class="whitespace-nowrap">I build </span>full-stack apps and data
+    tools, from a React frontend down to the database and pipeline.
   </p>
   <div class="mt-6 text-text-secondary text-base leading-tight">
     <span class="flex gap-1.5">

@@ -1,6 +1,6 @@
 ---
 import Header from "../components/header/Header2.tsx";
-import CursorCTA from "../components/CursorCTA1";
+import CursorCTA from "../components/CursorCTA_old.tsx";
 import "../styles/global.css";
 import HeaderClient from "../components/header/Header";
 const base = import.meta.env.BASE_URL;
@@ -20,9 +20,7 @@ const { title = "Nadzmi's Porfolio" } = Astro.props;
   </head>
   <body class="bg-background">
     <main class="pt-[80px] min-h-screen">
-      <div class="max-w-[1120px] mx-auto w-full">
           <slot />
-      </div>
     </main>
   </body>
   <Header client:load segments={segments} base={base} />

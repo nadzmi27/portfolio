@@ -1,0 +1,25 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import { getEntry } from "astro:content";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const project = await getEntry("projects", id);
+if (!project) throw new Error(`Project '${id}' not found`);
+---
+
+<ProjectCard
+  title={project.data.title}
+  label={project.data.label}
+  description={project.data.description}
+  image={project.data.image}
+  imageAlt={project.data.imageAlt}
+  href={project.data.href}
+  skills={project.data.skills}
+  borderColor={project.data.borderColor}
+  bgColor={project.data.bgColor}
+  skillColor={project.data.skillColor}
+/>

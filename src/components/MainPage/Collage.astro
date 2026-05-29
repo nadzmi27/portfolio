@@ -5,7 +5,7 @@ import knight from "../../assets/knight.webp";
 import capo from "../../assets/capo.webp";
 import hold from "../../assets/hold.webp";
 import dice from "../../assets/dice.webp";
-import CursorCTA from "../CursorCTA.tsx";
+import CursorCTA from "../Tooltip.tsx";
 import { Image } from "astro:assets";
 ---
 
@@ -16,20 +16,26 @@ import { Image } from "astro:assets";
     tooltip="Come play chess with me!"
     className="absolute bottom-[52%] left-[7%] z-2"
   >
-    <Image
-      src={knight}
-      alt="Chess Knight"
-      loading="eager"
-      class="max-w-[145px] w-[15vw] shrink rotate-[-11deg] hover:scale-110 hover:drop-shadow-xl/30"
-      width={knight.width}
-      height={knight.height}
-    />
+    <a
+      href="https://lichess.org/@/hiapplenx"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Image
+        src={knight}
+        alt="Chess Knight"
+        loading="eager"
+        class="max-w-[145px] w-[15vw] shrink rotate-[-11deg] hover:scale-110 hover:drop-shadow-md/20"
+        width={knight.width}
+        height={knight.height}
+      />
+    </a>
   </CursorCTA>
 
   <!-- Abbey road - top center-right -->
   <CursorCTA
     client:load
-    tooltip="I love listening to music, especially older music"
+    tooltip="I love listening to music, \n especially older music"
     className="absolute top-[5%] left-[40%] z-1"
   >
     <Image
@@ -94,7 +100,7 @@ import { Image } from "astro:assets";
   <!-- Capo - bottom right -->
   <CursorCTA
     client:load
-    tooltip="Playing guitar is my meditation :)"
+    tooltip="Playing guitar is my\nmeditation :)"
     className="absolute top-[55%] left-[70%] z-2"
   >
     <Image

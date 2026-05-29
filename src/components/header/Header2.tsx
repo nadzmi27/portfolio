@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import Navigation from "./Navigation.tsx";
-import CursorCTA from "../CursorCTA.tsx";
+import Tooltip from "../Tooltip.tsx";
 import Navbar from "./Navbar.jsx";
 
 const links = [
@@ -28,18 +27,26 @@ export default function Header({
     <>
       <header
         className="
-          fixed top-0 left-0 right-0 z-50
+          fixed top-0 left-0 right-0 z-9999
           flex justify-center w-full h-[80px]
           pt-4 px-4 pb-4
-          bg-white/10 backdrop-blur-lg
           font-mono
         "
       >
+        {/* Blur layer */}
+        <div
+          className="
+    absolute inset-0 backdrop-blur-xl bg-white/20
+    [mask-image:linear-gradient(to_bottom,white,rgba(0,0,0,0.8))]
+  "
+        />
+
         <nav
           className="
+            relative z-10
             flex justify-between items-center
             w-full max-w-[1048px]
-            text-base
+            text-lg
           "
         >
           {/* Left side */}
@@ -56,7 +63,7 @@ export default function Header({
                 {link.label}
               </a>
             ))}
-            <CursorCTA tooltip={links.at(-1)!.tooltip}>
+            <Tooltip tooltip={links.at(-1)!.tooltip}>
               <p
                 key={links.at(-1)!.href}
                 // href={`/portfolio${links.at(-1)!.href}`}
@@ -64,12 +71,12 @@ export default function Header({
               >
                 {links.at(-1)!.label}
               </p>
-            </CursorCTA>
+            </Tooltip>
           </div>
 
           {/* Mobile button */}
           <div className="md:hidden pr-1">
-              <Navbar />
+            <Navbar />
           </div>
         </nav>
       </header>

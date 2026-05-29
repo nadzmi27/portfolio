@@ -49,7 +49,7 @@ const Navigation = ({
       )}
 
       <span className="ml-0.5">/</span>
-      <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-[terminal-fade_2s_ease-in-out_infinite]"></span>
+      <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-terminal-fade"></span>
     </div>
   );
 };
