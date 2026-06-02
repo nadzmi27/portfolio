@@ -11,19 +11,20 @@ import FeaturedProjects from "../components/MainPage/FeaturedProjects.astro";
 
 <Layout>
   <div
-    class="content-width grid md:grid-cols-[55%_45%] mt-20 pl-4 pr-4 overflow-x-clip"
+    class="content-width grid md:grid-cols-[55%_45%] pl-4 pr-4
+    overflow-x-clip h-[calc(100vh-80px-48px)] pb-12"
   >
     <Intro />
     <Collage />
   </div>
 
   <!-- Selected Projects -->
-  <div class="bg-[#DDDDDD] h-fit mt-30">
+  <div class="bg-[#DDDDDD] h-fit">
     <div class="bg-background">
       <div class="content-width flex items-end translate-y-1">
-        <Trapezoid class="bg-[#DDDDDD] px-6 md:px-10 pt-3 ">
+        <Trapezoid class="bg-[#DDDDDD] px-6 md:px-10 pt-3">
           <h1
-            class="text-black font-sans font-semibold text-lg md:text-2xl pb-1 "
+            class="text-black font-sans font-semibold text-lg md:text-2xl pb-1"
           >
             FEATURED PROJECT<span class="animate-terminal-fade">_</span>
           </h1>

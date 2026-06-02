@@ -17,5 +17,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [react(), icon(), mdx()],
+  integrations: [
+    react(),
+    icon(),
+    mdx(),
+  ],
 });

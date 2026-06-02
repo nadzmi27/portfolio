@@ -11,7 +11,16 @@ const projects = defineCollection({
       description: z.string(),
       image: image(),
       imageAlt: z.string().optional(),
+      tooltip: z.string().optional(),
       href: z.string().optional(),
+      links: z.array(
+        z.object({
+          icon: z.string(),
+          name: z.string(),
+          size: z.number().optional(),
+          href: z.string()
+        })
+      ).optional(),
       skills: z
         .array(
           z.object({
@@ -24,6 +33,8 @@ const projects = defineCollection({
       borderColor: z.string().optional(),
       bgColor: z.string().optional(),
       skillColor: z.string().optional(),
+      skillBorder: z.string().optional(),
+      theme: z.enum(["light", "dark"]).optional()
     }),
 });
 

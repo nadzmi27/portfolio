@@ -5,13 +5,16 @@ import { Image, getImage } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import watercolor from "../assets/watercolor.webp";
 import paper from "../assets/paper.avif";
-const watercolorBg = await getImage({ src: watercolor });
 const paperBg = await getImage({ src: paper });
 
 interface Skill {
   icon: string;
   name: string;
   size?: number;
+}
+
+interface ExternalLink extends Skill {
+  href: string;
 }
 
 interface Props {
@@ -21,10 +24,15 @@ interface Props {
   image: ImageMetadata;
   imageAlt?: string;
   href?: string;
+  tooltip?: string;
+  links?: ExternalLink[];
   skills?: Skill[];
   borderColor?: string;
   bgColor?: string;
   skillColor?: string;
+  skillBorder?: string;
+
+  theme?: "light" | "dark";
 }
 
 const {
@@ -34,71 +42,97 @@ const {
   image,
   imageAlt = "",
   href = "#",
+  tooltip = "Read case study",
+  links,
   skills,
   borderColor = "#000000",
   bgColor = "#FFFEF2",
   skillColor = "#FFFDD1",
+  skillBorder = "000000",
+  theme = "light",
 } = Astro.props;
 ---
 
-<Tooltip client:visible tooltip="Read case study">
-  <Link href={href}>
-    <div
-      class="card-texture w-full h-fit py-4 px-4 border shadow-sm font-sans hover:scale-101 hover:shadow-xl"
-      style={`--bg-url: url(${paperBg.src}); background-color: ${bgColor};`}
-    >
-      <!-- Header -->
-      <div class="px-0.5">
-        <h1 class="font-bold text-xl">
-          {title}
-        </h1>
-        <h2 class="font-medium text-base">
-          {label}
-        </h2>
-      </div>
-      <!-- Image -->
-      <div class="relative mt-3.5">
-        <Image
-          src={image}
-          alt={imageAlt}
-          loading="eager"
-          class=`w-full block border`
-          style={`border-color: ${borderColor};`}
-          width={image.width}
-          height={image.height}
-        />
-        <!-- Sits on top of the image, simulating the paper casting a shadow inward -->
-        <div
-          class="absolute inset-0 shadow-[inset_0_0.5px_12px_rgba(0,0,0,0.35)]"
-        >
+<div class="relative">
+  <Tooltip client:visible tooltip={tooltip}>
+    <Link href={href} openNew={true} class="hover:brightness-95">
+      <div
+        class:list={[
+          "card-texture w-full h-fit px-4 border shadow-sm font-sans pointer-events-none",
+          theme === "dark" ? "text-white" : "text-black",
+        ]}
+        style={`--bg-url: url(${paperBg.src}); background-color: ${bgColor};`}
+      >
+        <!-- Header -->
+        <div class="px-0.5 pt-4 pb-3.5">
+          <h1 class="font-bold text-xl">
+            {title}
+          </h1>
+          <h2 class="font-medium text-base">
+            {label}
+          </h2>
+        </div>
+        <!-- Image -->
+        <div class="relative">
+          <Image
+            src={image}
+            alt={imageAlt}
+            loading="eager"
+            class=`w-full block border`
+            style={`border-color: ${borderColor};`}
+            width={image.width}
+            height={image.height}
+          />
+          <!-- Sits on top of the image, simulating the paper casting a shadow inward -->
+          <div
+            class="absolute inset-0 shadow-[inset_0_0.5px_12px_rgba(0,0,0,0.35)]"
+          >
+          </div>
+        </div>
+        <!-- Description -->
+        <p class="px-0.5 pt-3 text-pretty leading-tight">
+          {description}
+        </p>
+        <!-- Skills -->
+        <div class="skills-divider mt-4 pt-4 py-4 flex flex-wrap gap-2">
+          {
+            skills?.map((skill) => (
+              <div
+                class="card-texture flex items-center gap-1.5 px-2 py-1 uppercase text-sm border"
+                style={`background-color: ${skillColor}; border-color: ${skillBorder}`}
+              >
+                <Icon
+                  name={skill.icon}
+                  size={skill.size ?? 18}
+                  class="shrink-0"
+                />
+                <span>{skill.name}</span>
+              </div>
+            ))
+          }
         </div>
       </div>
-      <!-- Description -->
-      <p class="px-0.5 pt-3 text-pretty leading-tight">
-        {description}
-      </p>
-      <!-- Skills -->
-      <div class="skills-divider mt-4 pt-4 flex flex-wrap gap-2">
-        {
-          skills?.map((skill) => (
-            <div
-              class="card-texture flex items-center gap-1.5 px-2 py-1 uppercase text-sm border border-black/40"
-              style={`background-color: ${skillColor};`}
-            >
-              <Icon
-                name={skill.icon}
-                size={skill.size ?? 18}
-                class="shrink-0"
-              />
-              <span>{skill.name}</span>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </Link>
-</Tooltip>
-
+    </Link>
+  </Tooltip>
+  <!-- Sits outside tooltip, absolutely positioned to match header -->
+  <div
+    class="absolute top-[31px] right-[16.5px] font-sans font-medium flex flex-row gap-2"
+  >
+    {
+      links?.map((link) => (
+        <Link
+          href={link.href}
+          openNew={true}
+          class="card-texture flex flex-row items-center gap-2 px-2 py-1 border hover:brightness-95"
+          style={`--bg-url: url(${paperBg.src}); background-color: var(--color-creamy-white); border-color: #000`}
+        >
+          {link.name}
+          <Icon name={link.icon} size={link.size ?? 18} />
+        </Link>
+      ))
+    }
+  </div>
+</div>
 <style>
   /* Card Texture */
   .card-texture {

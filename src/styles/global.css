@@ -17,6 +17,7 @@ body {
   --color-sidebar: var(--color-background);
   --color-accent: #ff3131;
   --color-text-secondary: #3c3c3c;
+  --color-creamy-white: #F9F7F7;
 
   --animate-terminal-fade: terminal-fade 2s ease-in-out infinite;
 }
@@ -79,7 +80,7 @@ body {
 /* Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-scrollbar) var(--color-background) !important;
+  scrollbar-color: var(--color-accent) var(--color-background) !important;
 }
 
 ::selection {

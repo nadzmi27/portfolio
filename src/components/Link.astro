@@ -1,11 +1,24 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-type Props = HTMLAttributes<"a">;
-const { href, class: className, ...props } = Astro.props;
+interface Props extends HTMLAttributes<"a"> {
+  openNew?: boolean;
+}
+const { href, openNew = false, class: className, ...props } = Astro.props;
 const base = import.meta.env.BASE_URL;
+
+const isExternal = href
+  ? String(href).startsWith("http") || String(href).startsWith("mailto:")
+  : false;
+const resolvedHref = isExternal ? href : `${base}${href}`;
 ---
 
-<a href=`${base}${href}` class:list={[className]} {...props}>
+<a
+  href={resolvedHref}
+  target={openNew ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  class:list={[className]}
+  {...props}
+>
   <slot />
 </a>
 
