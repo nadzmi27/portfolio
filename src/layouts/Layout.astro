@@ -5,7 +5,11 @@ import "../styles/global.css";
 import HeaderClient from "../components/header/Header";
 const base = import.meta.env.BASE_URL;
 const segments = Astro.url.pathname.split("/").filter(Boolean);
-const { title = "Nadzmi's Porfolio" } = Astro.props;
+const {
+  title = "Nadzmi's Porfolio",
+  paddingTop = true,
+  showHeader = true,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -19,11 +23,11 @@ const { title = "Nadzmi's Porfolio" } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="bg-background">
-    <main class="pt-[80px] min-h-screen">
-          <slot />
+    <main class:list={["min-h-screen", paddingTop ? "pt-[80px]" : ""]}>
+      <slot />
     </main>
   </body>
-  <Header client:load segments={segments} base={base} />
+  {showHeader && <Header client:load segments={segments} base={base} />}
 </html>
 
 <style>

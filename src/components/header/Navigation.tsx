@@ -28,17 +28,14 @@ const Navigation = ({
       </a>
       <span className="ml-0.5"></span>
 
-      {ancestors.map((crumb) => {
-        const href = crumb.href;
-        return (
-          <>
-            {"/"}
-            <a href={href} className="nav-link mx-1">
-              {crumb.label}
-            </a>
-          </>
-        );
-      })}
+      {ancestors.map((crumb) => (
+        <span key={crumb.href} className="flex items-center">
+          <span className="mx-0.5">/</span>
+          <a href={crumb.href} className="nav-link mx-1">
+            {crumb.label}
+          </a>
+        </span>
+      ))} 
 
       {/* current (NOT clickable) */}
       {current && (

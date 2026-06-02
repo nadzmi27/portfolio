@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Link from "../components/Link.astro";
+import FaultyTerminal from "../components/background/FaultyTerminal.tsx";
+import UselessBtn from "../components/background/UselessBtn.tsx";
+---
+
+<Layout title="Page not found :(" paddingTop={false} showHeader={false}>
+  <div class="relative w-full h-dvh">
+    <FaultyTerminal
+      client:only
+      className="absolute inset-0"
+      scale={1.5}
+      gridMul={[2, 1]}
+      digitSize={1.2}
+      timeScale={0.5}
+      pause={false}
+      scanlineIntensity={0.5}
+      glitchAmount={1}
+      flickerAmount={1}
+      noiseAmp={1}
+      chromaticAberration={0}
+      dither={0}
+      curvature={0.1}
+      tint="#A7EF9E"
+      mouseReact
+      mouseStrength={0.5}
+      pageLoadAnimation
+      brightness={0.3}
+    >
+      <div class="absolute inset-0 z-10 flex items-center justify-center">
+        <div
+          class="w-[1024px] h-fit px-6 md:px-12 py-6 md:py-12 flex flex-col items-start text-balance text-white font-mono font-semibold bg-white/20"
+        >
+          <h1 class="text-8xl md:text-9xl">Oops!</h1>
+          <h2 class="text-3xl md:text-4xl mt-4 md:mt-6">
+            This page may be under construction or may not exist at all :(
+          </h2>
+
+          <div class="mt-6 gap-4 flex flex-row">
+            <Link
+              class="px-3 py-1 md:mt-8 border text-2xl md:text-3xl text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white"
+              href="/"
+            >
+              Return Home
+            </Link>
+            <UselessBtn
+              client:load
+              className="hidden sm:block px-3 py-1 md:mt-8 border text-2xl md:text-3xl text-black bg-white hover:bg-black hover:text-white active:bg-black active:text-white"
+            />
+          </div>
+        </div>
+      </div>
+    </FaultyTerminal>
+  </div>
+</Layout>
