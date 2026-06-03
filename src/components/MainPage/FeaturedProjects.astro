@@ -1,13 +1,13 @@
 ---
 import ProjectCardEntry from "../ProjectCardEntry.astro";
-const projects = ["vocabforest", "ascii-art", "portfolio", "datavis", "retailforecasting", "embeddingsearch"];
+const projects = ["vocabforest", "ascii-art", "portfolio", "datavis", "embeddingsearch", "retailforecasting"];
 ---
 
-<div class="content-width h-fit py-10 px-4">
+<div class="content-width h-fit py-6 lg:py-7 px-4">
   <!-- Desktop -->
-  <div class="md:grid md:grid-cols-2 gap-8 hidden">
+  <div class="md:grid md:grid-cols-2 md:gap-4 lg:gap-6 hidden">
     <!-- Column 1 -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col md:gap-4 lg:gap-6">
       {
         projects
           .filter((_, i) => i % 2 === 0)
@@ -15,7 +15,7 @@ const projects = ["vocabforest", "ascii-art", "portfolio", "datavis", "retailfor
       }
     </div>
     <!-- Column 2 -->
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 lg:gap-6">
       {
         projects
           .filter((_, i) => i % 2 === 1)
@@ -24,7 +24,7 @@ const projects = ["vocabforest", "ascii-art", "portfolio", "datavis", "retailfor
     </div>
   </div>
   <!-- Mobile -->
-  <div class="md:hidden flex flex-col gap-6 px-2">
+  <div class="md:hidden flex flex-col gap-5 px-1">
     {projects.map((project) => <ProjectCardEntry id={project} />)}
   </div>
 </div>

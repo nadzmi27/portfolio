@@ -8,8 +8,8 @@ import paper from "../assets/paper.avif";
 const paperBg = await getImage({ src: paper });
 
 interface Skill {
-  icon: string;
-  name: string;
+  icon?: string;
+  name?: string;
   size?: number;
 }
 
@@ -123,10 +123,10 @@ const {
         <Link
           href={link.href}
           openNew={true}
-          class="card-texture flex flex-row items-center gap-2 px-2 py-1 border hover:brightness-95"
+          class="card-texture flex flex-row items-center gap-2 p-2 lg:px-2 lg:py-1 border hover:brightness-95 -translate-y-0.5 lg:translate-none"
           style={`--bg-url: url(${paperBg.src}); background-color: var(--color-creamy-white); border-color: #000`}
         >
-          {link.name}
+          {link.name && <span class="hidden lg:block">{link.name}</span>}
           <Icon name={link.icon} size={link.size ?? 18} />
         </Link>
       ))

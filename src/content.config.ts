@@ -15,8 +15,8 @@ const projects = defineCollection({
       href: z.string().optional(),
       links: z.array(
         z.object({
-          icon: z.string(),
-          name: z.string(),
+          icon: z.string().optional(),
+          name: z.string().optional(),
           size: z.number().optional(),
           href: z.string()
         })
@@ -24,8 +24,8 @@ const projects = defineCollection({
       skills: z
         .array(
           z.object({
-            icon: z.string(),
-            name: z.string(),
+            icon: z.string().optional(),
+            name: z.string().optional(),
             size: z.number().optional(),
           }),
         )
