@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+const canHover = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 export default function CursorCTA({
   children,
@@ -13,8 +16,15 @@ export default function CursorCTA({
   const target = useRef({ x: 0, y: 0 });
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [hoverable, setHoverable] = useState(false);
 
   useEffect(() => {
+    setHoverable(canHover());
+  }, []);
+
+  useEffect(() => {
+    if (!hoverable) return;
+
     const move = (e: MouseEvent) => {
       target.current = { x: e.clientX, y: e.clientY };
     };
@@ -32,20 +42,20 @@ export default function CursorCTA({
     animate();
 
     return () => window.removeEventListener("mousemove", move);
-  }, []);
+  }, [hoverable]);
 
-const tooltipWidth = tooltipRef.current?.offsetWidth ?? 0;
-const proximity =
-  typeof window !== "undefined"
-    ? Math.min(
-        1,
-        Math.max(
-          0,
-          (pos.x - (window.innerWidth - tooltipWidth - 100)) / tooltipWidth,
-        ),
-      )
-    : 0;
-const xOffset = 16 - proximity * (tooltipWidth + 32);
+  const tooltipWidth = tooltipRef.current?.offsetWidth ?? 0;
+  const proximity =
+    typeof window !== "undefined"
+      ? Math.min(
+          1,
+          Math.max(
+            0,
+            (pos.x - (window.innerWidth - tooltipWidth - 100)) / tooltipWidth,
+          ),
+        )
+      : 0;
+  const xOffset = 16 - proximity * (tooltipWidth + 32);
 
   return (
     <div
@@ -70,7 +80,7 @@ const xOffset = 16 - proximity * (tooltipWidth + 32);
             zIndex: 9999,
           }}
         >
-          <div className="bg-red-500 text-white px-2.5 pt-2 pb-2.5 text-base max-w-64 whitespace-pre-line leading-tight">
+          <div className="bg-red-500 text-white px-2.5 pt-2 pb-2.5 text-base max-w-64 whitespace-pre-line leading-tight hidden lg:block">
             {tooltip}
           </div>
         </div>

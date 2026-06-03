@@ -11,13 +11,14 @@ import UselessBtn from "../components/background/uselessBtn.astro";
 ---
 
 <Layout>
-  <div
+  <section
+    data-bg="#f9f7f7"
     class="content-width grid md:grid-cols-[55%_45%] pl-4 pr-4
     overflow-x-clip h-[calc(100vh-80px-48px)] pb-12"
   >
     <Intro />
     <Collage />
-  </div>
+  </section>
 
   <!-- Selected Projects -->
   <div class="bg-[#DDDDDD] h-fit">
@@ -39,8 +40,8 @@ import UselessBtn from "../components/background/uselessBtn.astro";
       </div>
     </div>
     <!-- Project Cards -->
-    <div class="content-width">
+    <section data-bg="#DDDDDD" class="content-width">
       <FeaturedProjects />
-    </div>
+    </section>
   </div>
 </Layout>

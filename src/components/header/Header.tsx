@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "./Navigation.tsx";
 import Tooltip from "../Tooltip.tsx";
 import Navbar from "./Navbar.jsx";
@@ -22,25 +22,40 @@ export default function Header({
   base: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [bgColor, setBgColor] = useState("transparent");
 
+useEffect(() => {
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>("section[data-bg]"),
+  );
+
+  const update = () => {
+    for (let i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].getBoundingClientRect().top <= 80) {
+        setBgColor(sections[i].dataset.bg ?? "transparent");
+        break;
+      }
+    }
+  };
+
+  update(); // run on mount
+  window.addEventListener("scroll", update);
+  return () => window.removeEventListener("scroll", update);
+}, []);
   return (
     <>
       <header
+        style={{
+          backgroundColor: bgColor,
+          transition: "background-color 0.4s ease",
+        }}
         className="
           fixed top-0 left-0 right-0 z-9999
-          flex justify-center w-full h-[80px]
+          flex justify-center w-full h-[70px]
           pt-4 px-4 pb-4
           font-mono
         "
       >
-        {/* Blur layer */}
-        <div
-          className="
-    absolute inset-0 backdrop-blur-xl bg-white/20
-    [mask-image:linear-gradient(to_bottom,white,rgba(0,0,0,0.8))]
-  "
-        />
-
         <nav
           className="
             relative z-10

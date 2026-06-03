@@ -1,7 +1,6 @@
 ---
 import LiveClock from "./LiveClock.astro";
 import { ArrowRight } from "@lucide/astro";
-import CursorCTA from "../Tooltip.tsx";
 import Link from "../Link.astro";
 ---
 
@@ -23,13 +22,12 @@ import Link from "../Link.astro";
     </span>
     <a href="mailto:nadzmiagthomas@gmail.com">nadzmiagthomas@gmail.com</a>
   </div>
-  <CursorCTA client:load tooltip={"Find out more :)"} className="mt-8">
-    <Link
-      class="flex items-center w-fit py-1.5 pl-3 pr-2 gap-2
-       text-white text-lg bg-nav-link hover:bg-black"
-      href="/about"
-    >
-      More about me <ArrowRight class="translate-y-0.5" size={18} />
-    </Link>
-  </CursorCTA>
+
+  <Link
+    class="flex items-center w-fit mt-8 py-1.5 pl-3 pr-2 gap-2
+       text-white text-lg bg-nav-link hover:bg-black active:bg-black"
+    href="/about"
+  >
+    More about me <ArrowRight class="translate-y-0.5" size={18} />
+  </Link>
 </div>
