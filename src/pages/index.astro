@@ -3,44 +3,34 @@ import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 import Intro from "../components/MainPage/Intro.astro";
 import Collage from "../components/MainPage/Collage.astro";
-import Trapezoid from "../components/MainPage/Trapezoid.astro";
-import Link from "../components/Link.astro";
-import { ArrowUpRight } from "@lucide/astro";
+import Section from "../components/MainPage/Section.astro";
 import FeaturedProjects from "../components/MainPage/FeaturedProjects.astro";
+import RecentPosts from "../components/MainPage/RecentPosts.astro";
+import MessageBoard from "../components/MainPage/MessageBoard.astro";
 ---
 
 <Layout>
   <section
     data-bg="#f9f7f7"
     class="content-width grid md:grid-cols-[55%_45%] pl-4 pr-4
-    overflow-x-clip h-[calc(100vh-80px-48px)] pb-12"
+    overflow-x-clip h-[calc(100vh-80px)] items-center pb-24"
   >
     <Intro />
     <Collage />
   </section>
 
-  <!-- Selected Projects -->
-  <div class="bg-[#DDDDDD] h-fit">
-    <div class="bg-background">
-      <div class="content-width flex items-end translate-y-1">
-        <Trapezoid class="bg-[#DDDDDD] px-6 md:px-10 pt-3">
-          <h1
-            class="text-black font-sans font-semibold text-lg md:text-2xl pb-1"
-          >
-            FEATURED PROJECT<span class="animate-terminal-fade">_</span>
-          </h1>
-        </Trapezoid>
-        <Link
-          class="flex justify-between items-center ml-auto underline text-lg font-sans font-bold text-nav-link gap-0.5 pr-4 pb-2"
-          href="/project"
-        >
-          view all <ArrowUpRight size={18} />
-        </Link>
-      </div>
-    </div>
-    <!-- Project Cards -->
-    <section data-bg="#DDDDDD" class="content-width">
-      <FeaturedProjects />
-    </section>
-  </div>
+  <!-- Featured Projects -->
+  <Section header="FEATURED PROJECT" backgroundHex="#DDDDDD" href="/project">
+    <FeaturedProjects />
+  </Section>
+
+  <!-- Recent Posts -->
+  <Section header="RECENT POST" backgroundHex="#C7A07A" href="/blog">
+    <RecentPosts />
+  </Section>
+
+  <!-- Leave A Message -->
+  <Section header="LEAVE A MESSAGE" backgroundHex="#D6D4C3">
+    <MessageBoard />
+  </Section>
 </Layout>

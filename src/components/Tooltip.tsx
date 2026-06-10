@@ -57,7 +57,7 @@ export default function CursorCTA({
       : 0;
   const xOffset = 16 - proximity * (tooltipWidth + 32);
 
-  return (
+  return tooltip ? (
     <div
       className={`w-fit h-fit ${className ?? ""} ${visible ? "z-9999" : ""}`}
     >
@@ -86,5 +86,7 @@ export default function CursorCTA({
         </div>
       )}
     </div>
+  ) : (
+    <div>{children}</div>
   );
 }

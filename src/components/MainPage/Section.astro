@@ -1,0 +1,52 @@
+---
+import Trapezoid from "./Trapezoid.astro";
+import Link from "../Link.astro";
+import { ArrowUpRight } from "@lucide/astro";
+
+interface Props {
+  backgroundHex: string;
+  header: string;
+  headerTextColor?: string;
+  viewAllColor?: string;
+  href?: string;
+}
+const { backgroundHex, header, headerTextColor, viewAllColor, href } =
+  Astro.props;
+---
+
+<div style={`background-color: ${backgroundHex}`} class="h-fit pb-10">
+  <div class="content-width flex items-end -translate-y-11">
+    <Trapezoid
+      style={`background-color: ${backgroundHex}`}
+      class="px-6 md:px-10 pt-3"
+    >
+      <h1
+        class:list={[
+          headerTextColor ?? "text-black",
+          "font-sans font-semibold text-lg md:text-2xl pb-2",
+        ]}
+      >
+        {header}
+        <!-- <span class="animate-terminal-fade">_</span> -->
+      </h1>
+    </Trapezoid>
+    {
+      href && (
+        <Link
+          class:list={[
+            viewAllColor ?? "nav-link",
+            "flex justify-between items-center ml-auto underline text-lg font-sans font-bold gap-0.5 pr-4 pb-2",
+          ]}
+          href={href}
+        >
+          view all <ArrowUpRight size={18} />
+        </Link>
+      )
+    }
+  </div>
+
+  <!-- Section -->
+  <section data-bg={backgroundHex} class="content-width -mt-11 p-0">
+    <slot />
+  </section>
+</div>

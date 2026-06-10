@@ -1,0 +1,23 @@
+---
+import PostCard from "./PostCard.astro";
+import { getEntry } from "astro:content";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const post = await getEntry("posts", id);
+if (!post) throw new Error(`Post '${id}' not found`);
+---
+
+<PostCard
+  title={post.data.title}
+  date={post.data.date}
+  description={post.data.description}
+  image={post.data.image}
+  imageAlt={post.data.imageAlt}
+  href={post.data.href}
+  tooltip={post.data.tooltip}
+  tags={post.data.tags}
+/>

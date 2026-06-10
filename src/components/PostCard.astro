@@ -1,0 +1,74 @@
+---
+import Link from "./Link.astro";
+import Tooltip from "./Tooltip";
+import { Image, getImage } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+interface Tags {
+  icon?: string;
+  name?: string;
+  size?: number;
+  color?: string;
+}
+
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  href?: string;
+  tooltip?: string;
+  tags?: Tags[];
+}
+
+const {
+  title,
+  date,
+  description,
+  image,
+  imageAlt = "",
+  href = "#",
+  tooltip = "",
+  tags,
+} = Astro.props;
+---
+
+<div class="relative">
+  <Tooltip client:visible tooltip={tooltip}>
+    <Link
+      href={href}
+      openNew={true}
+      class="flex flex-col sm:flex-row border p-4 gap-4"
+      >{
+        image && (
+          <Image
+            src={image}
+            alt={imageAlt}
+            loading="eager"
+            class="w-full sm:w-[256px] h-auto block border self-start"
+          />
+        )
+      }
+
+      <div class="flex flex-col">
+        <h1 class="font-semibold text-xl">{title}</h1>
+        <p>{description}</p>
+        <span class="flex flex-row gap-2 items-center"
+          >{
+            date.toLocaleDateString("en-AU", {
+              year: "numeric",
+              month: "long",
+              day: "2-digit",
+            })
+          }
+          <span class="border-l h-4 border-current"></span>
+          15 min read
+        </span>
+        <div class="flex flex-row">
+          {tags && tags.map((tag) => <div>{tag.name}</div>)}
+        </div>
+      </div>
+    </Link>
+  </Tooltip>
+</div>

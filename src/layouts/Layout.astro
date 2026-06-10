@@ -24,6 +24,9 @@ const {
     <main class:list={["min-h-screen", paddingTop ? "pt-[80px]" : ""]}>
       <slot />
     </main>
+    <script>
+      import "wired-elements";
+    </script>
   </body>
   {showHeader && <Header client:load segments={segments} base={base} />}
 </html>
