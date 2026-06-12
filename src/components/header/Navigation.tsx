@@ -17,21 +17,20 @@ const Navigation = ({
   const ancestors = breadcrumbs.slice(0, -1);
   return (
     <div className="flex items-center z-50">
-      <a href={base} className="flex items-center">
-        <span className="nav-link">~</span>
-        <span className="ml-0.5">/</span>
+      <a href={base} className="flex items-center pr-1">
+        <span className="nav-link mr-0.5">~</span>
+        <span>/</span>
 
         <span className="flex items-center nav-link">
-          <FolderOpen className="ml-1 mr-1 translate-y-[1px]" size={16} />
+          <FolderOpen className="mx-1 translate-y-[1px]" size={16} />
           portfolio
         </span>
       </a>
-      <span className="ml-0.5"></span>
 
       {ancestors.map((crumb) => (
         <span key={crumb.href} className="flex items-center">
-          <span className="mx-0.5">/</span>
-          <a href={crumb.href} className="nav-link mx-1">
+          <span className="mr-0.5">/</span>
+          <a href={crumb.href} className="nav-link pr-1">
             {crumb.label}
           </a>
         </span>
@@ -41,11 +40,11 @@ const Navigation = ({
       {current && (
         <>
           <span className="mr-0.5">/</span>
-          <span className="text-nav-link">{current.label}</span>
+          <span className="mr-0.5 text-nav-link">{current.label}</span>
         </>
       )}
 
-      <span className="ml-0.5">/</span>
+      <span className="">/</span>
       <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-terminal-fade"></span>
     </div>
   );

@@ -59,7 +59,7 @@ export default function CursorCTA({
 
   return tooltip ? (
     <div
-      className={`w-fit h-fit ${className ?? ""} ${visible ? "z-9999" : ""}`}
+      className={`w-fit h-fit ${className ?? ""} ${visible ? "z-1000" : ""}`}
     >
       <div
         onMouseEnter={() => setVisible(true)}
@@ -77,7 +77,7 @@ export default function CursorCTA({
             top: pos.y + 16,
             transform: `translateX(${xOffset}px)`,
             pointerEvents: "none",
-            zIndex: 9999,
+            zIndex: 1000,
           }}
         >
           <div className="bg-red-500 text-white px-2.5 pt-2 pb-2.5 text-base max-w-64 whitespace-pre-line leading-tight hidden lg:block">

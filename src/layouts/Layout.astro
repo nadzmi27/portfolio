@@ -1,4 +1,5 @@
 ---
+import Footer from "../components/Footer.astro";
 import Header from "../components/header/Header.tsx";
 import "../styles/global.css";
 const base = import.meta.env.BASE_URL;
@@ -7,6 +8,7 @@ const {
   title = "Nadzmi's Porfolio",
   paddingTop = true,
   showHeader = true,
+  showFooter = true,
 } = Astro.props;
 ---
 
@@ -21,14 +23,16 @@ const {
     <title>{title}</title>
   </head>
   <body class="bg-background">
+    {showHeader && <Header client:load segments={segments} base={base} />}
     <main class:list={["min-h-screen", paddingTop ? "pt-[80px]" : ""]}>
       <slot />
     </main>
+    {showFooter && <Footer />}
     <script>
       import "wired-elements";
     </script>
   </body>
-  {showHeader && <Header client:load segments={segments} base={base} />}
+  <!-- {showHeader && <Header client:load segments={segments} base={base} />} -->
 </html>
 
 <style>

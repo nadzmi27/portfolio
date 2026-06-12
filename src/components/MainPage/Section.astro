@@ -32,14 +32,25 @@ const { backgroundHex, header, headerTextColor, viewAllColor, href } =
     </Trapezoid>
     {
       href && (
+        // <Link
+        //   class:list={[
+        //     viewAllColor ?? "nav-link",
+        //     "flex justify-between items-center ml-auto underline text-lg font-sans font-bold gap-0.5 pr-4 pb-2",
+        //   ]}
+        //   href={href}
+        // >
+        //   view all <ArrowUpRight size={18} />
+        // </Link>
         <Link
           class:list={[
             viewAllColor ?? "nav-link",
-            "flex justify-between items-center ml-auto underline text-lg font-sans font-bold gap-0.5 pr-4 pb-2",
+            " ml-auto text-lg font-sans font-bold pr-3.5 pl-2 pb-2",
           ]}
           href={href}
         >
-          view all <ArrowUpRight size={18} />
+          <span class="hover-underline-animation flex justify-between items-center gap-0.5 pr-0.5 pl-2 pt-2">
+            view all <ArrowUpRight size={18} />
+          </span>
         </Link>
       )
     }
