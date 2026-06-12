@@ -44,12 +44,12 @@ const { backgroundHex, header, headerTextColor, viewAllColor, href } =
         <Link
           class:list={[
             viewAllColor ?? "nav-link",
-            " ml-auto text-lg font-sans font-bold pr-3.5 pl-2 pb-2",
+            " ml-auto text-lg font-sans font-bold pr-3.5 pl-2 pb-3",
           ]}
           href={href}
         >
-          <span class="hover-underline-animation flex justify-between items-center gap-0.5 pr-0.5 pl-2 pt-2">
-            view all <ArrowUpRight size={18} />
+          <span class="hover-underline-animation flex justify-between items-center gap-0.5 pr-0.5 pl-2 pt-2 leading-none">
+            view all <ArrowUpRight class="-translate-y-[1px]" size={18} />
           </span>
         </Link>
       )
