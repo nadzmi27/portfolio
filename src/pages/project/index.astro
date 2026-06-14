@@ -1,7 +1,7 @@
 ---
 import ProjectCardEntry from "../../components/Projects/ProjectCardEntry.astro";
-import Layout from "../../layouts/Layout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../components/Layout/Layout.astro";
+import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => (b.data.importance ?? 0) - (a.data.importance ?? 0),
@@ -27,7 +27,7 @@ const projects = (await getCollection("projects")).sort(
       <button
         data-tag="ds"
         class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer"
-        >Data Science</button
+        >Data</button
       >
     </div>
     <!-- Desktop -->
