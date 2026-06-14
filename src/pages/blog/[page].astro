@@ -8,7 +8,7 @@ import type { GetStaticPaths } from "astro";
 type Post = CollectionEntry<"posts">;
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
-  const posts: CollectionEntry<"posts">[] = (await getCollection("posts")).sort(
+  const posts: Post[] = (await getCollection("posts")).sort(
     (a, b) => b.data.date.getTime() - a.data.date.getTime(),
   );
 
@@ -47,10 +47,8 @@ const groupedEntries = Object.entries(grouped).sort(
 ---
 
 <Layout title="Blog" backgroundColor="bg-blog-background">
-  <div data-bg="var(--color-blog-background)" class="content-width mb-8">
-    <div
-      class="content-width px-5 md:px-4 py-6 flex flex-col gap-8 mb-2"
-    >
+  <div data-bg="var(--color-blog-background)" class="content-width mb-12">
+    <div class="content-width px-5 md:px-4 py-6 flex flex-col gap-8 mb-2">
       {
         groupedEntries.map(([year, posts]) => (
           <div>
@@ -65,14 +63,42 @@ const groupedEntries = Object.entries(grouped).sort(
       }
     </div>
 
-    <nav class="flex justify-center gap-4 pb-8">
-      {page.url.prev && <a href={page.url.prev}>← Previous</a>}
+    <nav class="flex justify-center items-center gap-4">
+      <div class="w-24 flex justify-end">
+        {page.url.prev && <a href={page.url.prev}>← Previous</a>}
+      </div>
 
-      <span>
-        Page {page.currentPage} of {page.lastPage}
-      </span>
-
-      {page.url.next && <a href={page.url.next}>Next →</a>}
+      <span class="flex items-center">
+        Page <input
+          id="page-input"
+          class="w-7 mx-1 border focus:outline-none text-center"
+          value={page.currentPage}
+          placeholder={String(page.currentPage)}
+        /> of {page.lastPage}</span
+      >
+      <div class="w-24 flex justify-start">
+        {page.url.next && <a href={page.url.next}>Next →</a>}
+      </div>
     </nav>
   </div>
 </Layout>
+
+<script
+  define:vars={{
+    currentPage: page.currentPage,
+    lastPage: page.lastPage,
+    base: import.meta.env.BASE_URL,
+  }}
+>
+  document.getElementById("page-input").addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const page = parseInt(e.target.value, 10);
+    if (page >= 1 && page <= lastPage) {
+      window.location.href = `${base}/blog/${page}`;
+    } else if (page > lastPage) {
+      window.location.href = `${base}/blog/${lastPage}`;
+    } else {
+      e.target.value = `${currentPage}`;
+    }
+  });
+</script>

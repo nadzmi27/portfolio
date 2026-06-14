@@ -22,6 +22,8 @@ body {
 
   --animate-terminal-fade: terminal-fade 2s ease-in-out infinite;
 
+  /* Projects */
+  --color-project-background: #DDDDDD;
   /* Blogs */
   --color-blog-background: #C89D7C;
 }

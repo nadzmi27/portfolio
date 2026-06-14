@@ -1,10 +1,10 @@
 ---
-import Tooltip from "./Tooltip";
-import Link from "./Link.astro";
+import Tooltip from "../Tooltip";
+import Link from "../Link.astro";
 import { Image, getImage } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import watercolor from "../assets/watercolor.webp";
-import paper from "../assets/paper.avif";
+import paper from "../../assets/paper.avif";
 const paperBg = await getImage({ src: paper });
 
 interface Skill {

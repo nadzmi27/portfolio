@@ -1,7 +1,123 @@
 ---
+import ProjectCardEntry from "../../components/Projects/ProjectCardEntry.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => (b.data.importance ?? 0) - (a.data.importance ?? 0),
+);
 ---
 
-<Layout title="Project">
-  <h1>Project</h1>
+<Layout title="Projects" backgroundColor="bg-project-background">
+  <div
+    data-bg="var(--color-project-background)"
+    class="content-width h-fit py-6 lg:py-7 px-4 mb-8 mt-2"
+  >
+    <div class="flex gap-2 mb-6 px-1 md:px-0">
+      <button
+        data-tag=""
+        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer"
+        >All</button
+      >
+      <button
+        data-tag="web"
+        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer"
+        >Web</button
+      >
+      <button
+        data-tag="ds"
+        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer"
+        >Data Science</button
+      >
+    </div>
+    <!-- Desktop -->
+    <div class="hidden md:grid md:grid-cols-2 md:gap-4 lg:gap-6">
+      <div id="col-1" class="flex flex-col md:gap-4 lg:gap-6"></div>
+      <div id="col-2" class="flex flex-col md:gap-4 lg:gap-6"></div>
+    </div>
+
+    <!-- Single source of truth (hidden) -->
+    <div id="project-pool" class="hidden">
+      {
+        projects.map((project) => (
+          <div data-labels={project.data.labels?.join(",")}>
+            <ProjectCardEntry id={project.id} />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Mobile -->
+    <div id="project-mobile" class="md:hidden flex flex-col gap-5 px-1">
+      {
+        projects.map((project) => (
+          <div data-labels={project.data.labels?.join(",")}>
+            <ProjectCardEntry id={project.id} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
 </Layout>
+
+<script>
+  function distribute(tag: string | null) {
+    const pool = document.getElementById("project-pool")!;
+    const col1 = document.getElementById("col-1")!;
+    const col2 = document.getElementById("col-2")!;
+    const mobile = document.getElementById("project-mobile")!;
+
+    const allCards = Array.from(pool.children) as HTMLElement[];
+
+    // Clear columns
+    col1.innerHTML = "";
+    col2.innerHTML = "";
+
+    const visible = allCards.filter((el) => {
+      if (!tag) return true;
+      return el.dataset.labels?.split(",").includes(tag);
+    });
+
+    visible.forEach((card, i) => {
+      const clone = card.cloneNode(true);
+      if (i % 2 === 0) col1.appendChild(clone);
+      else col2.appendChild(clone);
+    });
+
+    // Mobile
+    Array.from(mobile.children).forEach((el) => {
+      const element = el as HTMLElement;
+      const labels = element.dataset.labels?.split(",") ?? [];
+      element.style.display = !tag || labels.includes(tag) ? "" : "none";
+    });
+
+    // Update active button
+    document.querySelectorAll("[data-tag]").forEach((btn) => {
+      const el = btn as HTMLElement;
+      const isActive = (el.dataset.tag || null) === tag;
+      if (isActive) {
+        el.classList.replace("border-transparent", "border-black");
+        el.classList.replace("font-normal", "font-medium");
+        el.classList.replace("text-nav-link", "text-black");
+      } else {
+        el.classList.replace("border-black", "border-transparent");
+        el.classList.replace("font-medium", "font-normal");
+        el.classList.replace("text-black", "text-nav-link");
+      }
+    });
+  }
+
+  // Initial load (supports direct URL with ?tag=)
+  const initial = new URLSearchParams(window.location.search).get("tag");
+  distribute(initial);
+
+  // Nav clicks
+  document.querySelectorAll("[data-tag]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tag = (btn as HTMLElement).dataset.tag || null;
+      const url = tag ? `?tag=${tag}` : window.location.pathname;
+      history.pushState({}, "", url);
+      distribute(tag);
+    });
+  });
+</script>
