@@ -27,7 +27,7 @@ export default function Header({
 
 useEffect(() => {
   const sections = Array.from(
-    document.querySelectorAll<HTMLElement>("section[data-bg]"),
+    document.querySelectorAll<HTMLElement>("div[data-bg]"),
   );
 
   let lastY = window.scrollY;

@@ -13,8 +13,14 @@ const Navigation = ({
       href: "/" + segments.slice(0, index + 1).join("/"),
     }))
     .slice(1);
-  const current = breadcrumbs[breadcrumbs.length - 1];
   const ancestors = breadcrumbs.slice(0, -1);
+  const current = breadcrumbs[breadcrumbs.length - 1];
+  const lastAncestor = ancestors.at(-1);
+
+  if (lastAncestor?.label === "blog") {
+    current.label = `page ${current.label.trim()}`;
+  }
+
   return (
     <div className="flex items-center z-50">
       <a href={base} className="flex items-center pr-1">
@@ -34,13 +40,15 @@ const Navigation = ({
             {crumb.label}
           </a>
         </span>
-      ))} 
+      ))}
 
       {/* current (NOT clickable) */}
       {current && (
         <>
           <span className="mr-0.5">/</span>
-          <span className="mr-0.5 text-nav-link">{current.label}</span>
+          <span className="mr-0.5 text-nav-link [word-spacing:-0.25em]">
+            {current.label}
+          </span>
         </>
       )}
 

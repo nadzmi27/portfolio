@@ -13,7 +13,7 @@ body {
   --font-serif: "Source Serif 4", serif;
   --font-sans: "Archivo", sans-serif;
   --color-background: #f9f7f7;
-  --color-nav-link: #3c3c3c;
+  --color-nav-link: rgba(0, 0, 0, 0.75);
   --color-scrollbar: #ff3131;
   --color-sidebar: var(--color-background);
   --color-accent: #ff3131;
@@ -21,6 +21,9 @@ body {
   --color-creamy-white: #F9F7F7;
 
   --animate-terminal-fade: terminal-fade 2s ease-in-out infinite;
+
+  /* Blogs */
+  --color-blog-background: #C89D7C;
 }
 
 .content-width {
@@ -47,9 +50,14 @@ body {
 }
 
 /* Navigation */
-.nav-link {
+/* .nav-link {
+  @apply hover:text-black text-nav-link transition-colors duration-100;
+} */
+ .nav-link {
   @apply hover:text-black text-nav-link transition-colors duration-100;
 }
+
+
 
 .hover-underline-animation {
   /* display: inline-block; */
@@ -111,3 +119,6 @@ body {
     opacity: 0;
   }
 }
+
+
+/* Blogs */

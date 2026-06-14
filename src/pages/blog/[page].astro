@@ -1,0 +1,78 @@
+---
+import PostCardEntry from "../../components/PostCardEntry.astro";
+import Layout from "../../layouts/Layout.astro";
+
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+
+type Post = CollectionEntry<"posts">;
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const posts: CollectionEntry<"posts">[] = (await getCollection("posts")).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+  );
+
+  const fakePosts = Array(5).fill(posts).flat();
+  return paginate(fakePosts, {
+    pageSize: 4,
+  });
+};
+
+const { page } = Astro.props as {
+  page: {
+    data: Post[];
+    currentPage: number;
+    lastPage: number;
+    url: {
+      prev?: string;
+      next?: string;
+    };
+  };
+};
+
+function groupByYear(posts: Post[]) {
+  return posts.reduce((acc: Record<string, Post[]>, post) => {
+    const year = new Date(post.data.date).getFullYear().toString();
+
+    (acc[year] ??= []).push(post);
+
+    return acc;
+  }, {});
+}
+
+const grouped = groupByYear(page.data);
+const groupedEntries = Object.entries(grouped).sort(
+  ([a], [b]) => Number(b) - Number(a),
+);
+---
+
+<Layout title="Blog" backgroundColor="bg-blog-background">
+  <div data-bg="var(--color-blog-background)" class="content-width mb-8">
+    <div
+      class="content-width px-5 md:px-4 py-6 flex flex-col gap-8 mb-2"
+    >
+      {
+        groupedEntries.map(([year, posts]) => (
+          <div>
+            <h2 class="text-lg font-semibold mb-4">{year}</h2>
+            <div class="flex flex-col gap-4">
+              {posts.map((post) => (
+                <PostCardEntry id={post.id} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <nav class="flex justify-center gap-4 pb-8">
+      {page.url.prev && <a href={page.url.prev}>← Previous</a>}
+
+      <span>
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+
+      {page.url.next && <a href={page.url.next}>Next →</a>}
+    </nav>
+  </div>
+</Layout>
