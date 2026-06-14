@@ -6,7 +6,7 @@ import Navbar from "./Navbar.jsx";
 const links = [
   { href: "/about", label: "About", tooltip: "Learn more about me :)" },
   { href: "/project", label: "Projects", tooltip: "Check out my works!" },
-  { href: "/blog", label: "Blog", tooltip: "Read what I've written!" },
+  { href: "/blog/1", label: "Blog", tooltip: "Read what I've written!" },
   {
     href: "/visitor",
     label: "Visitor Corner",
