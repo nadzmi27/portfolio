@@ -9,7 +9,9 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       label: z.string(),
+      labels: z.array(z.string()).optional(),
       description: z.string(),
+      importance: z.number().optional(),
       image: image(),
       imageAlt: z.string().optional(),
       tooltip: z.string().optional(),

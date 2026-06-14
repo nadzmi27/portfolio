@@ -1,5 +1,5 @@
 ---
-import ProjectCardEntry from "../ProjectCardEntry.astro";
+import ProjectCardEntry from "../Projects/ProjectCardEntry.astro";
 const projects = ["vocabforest", "ascii-art", "portfolio", "datavis", "embeddingsearch", "retailforecasting"];
 ---
 
@@ -23,6 +23,7 @@ const projects = ["vocabforest", "ascii-art", "portfolio", "datavis", "embedding
       }
     </div>
   </div>
+  
   <!-- Mobile -->
   <div class="md:hidden flex flex-col gap-5 px-1">
     {projects.map((project) => <ProjectCardEntry id={project} />)}

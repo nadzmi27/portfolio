@@ -10,22 +10,26 @@ import MessageBoard from "../components/MainPage/MessageBoard.astro";
 ---
 
 <Layout>
-  <section
+  <div
     data-bg="#f9f7f7"
     class="content-width grid md:grid-cols-[55%_45%] pl-4 pr-4
     overflow-x-clip min-h-[500px] h-[calc(100vh-80px)] items-center pb-24"
   >
     <Intro />
     <Collage />
-  </section>
+  </div>
 
   <!-- Featured Projects -->
-  <Section header="FEATURED PROJECT" backgroundHex="#DDDDDD" href="/project">
+  <Section header="FEATURED PROJECT" backgroundHex="var(--color-project-background)" href="/project">
     <FeaturedProjects />
   </Section>
 
   <!-- Recent Posts -->
-  <Section header="RECENT POST" backgroundHex="#C7A07A" href="/blog">
+  <Section
+    header="RECENT POST"
+    backgroundHex="var(--color-blog-background)"
+    href="/blog"
+  >
     <RecentPosts />
   </Section>
 

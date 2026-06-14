@@ -9,6 +9,7 @@ const {
   paddingTop = true,
   showHeader = true,
   showFooter = true,
+  backgroundColor = "bg-background"
 } = Astro.props;
 ---
 
@@ -22,7 +23,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-background">
+  <body class={backgroundColor}>
     {showHeader && <Header client:load segments={segments} base={base} />}
     <main class:list={["min-h-screen", paddingTop ? "pt-[80px]" : ""]}>
       <slot />
