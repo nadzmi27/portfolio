@@ -1,11 +1,16 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Link from "../components/Link.astro";
-import FaultyTerminal from "../components/background/FaultyTerminal.tsx";
-import UselessBtn from "../components/background/UselessBtn.tsx";
+import Layout from "../components/Layout/Layout.astro";
+import Link from "../components/Layout/Link.astro";
+import FaultyTerminal from "../components/Background/FaultyTerminal.tsx";
+import UselessBtn from "../components/Background/UselessBtn.tsx";
 ---
 
-<Layout title="Page not found :(" paddingTop={false} showHeader={false} showFooter={false}>
+<Layout
+  title="Page not found :("
+  paddingTop={false}
+  showHeader={false}
+  showFooter={false}
+>
   <div class="relative w-full h-dvh">
     <FaultyTerminal
       client:only
@@ -30,7 +35,7 @@ import UselessBtn from "../components/background/UselessBtn.tsx";
     >
       <div class="absolute inset-0 z-10 flex items-center justify-center">
         <div
-          class="w-[1024px] h-fit px-6 md:px-12 py-6 md:py-12 flex flex-col items-start 
+          class="w-[1024px] h-fit px-6 md:px-12 py-6 md:py-12 flex flex-col items-start
           text-balance text-white font-mono font-semibold bg-black/25"
         >
           <h1 class="text-8xl md:text-9xl">Oops!</h1>
