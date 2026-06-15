@@ -38,6 +38,24 @@ export async function fetchMessages(recent = 0): Promise<Message[]> {
   }
 }
 
+// Fetch message for pagination
+export async function fetchMessagesPaginated(
+  page = 1,
+  pageSize = 9,
+): Promise<{ data: Message[]; count: number }> {
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  const { data, error, count } = await supabase
+    .from("nadzmi_guestbook")
+    .select("id, message, name, created_at", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  if (error) throw error;
+  return { data: data ?? [], count: count ?? 0 };
+}
+
 // Insert message
 export async function sendMessage(
   messageInput: NewMessageInput,

@@ -1,7 +1,12 @@
 ---
 import Layout from "../../components/Layout/Layout.astro";
+import GuestbookMessages from "../../components/Visitor/GuestbookMessages";
+const res = await fetch("https://zenquotes.io/api/today");
+const [quote] = await res.json();
 ---
 
-<Layout>
-  <h1>Visitor Corner</h1>
+<Layout title="Blog" backgroundColor="bg-visitor-background">
+  <div class="content-width pt-6" data-bg="var(--color-visitor-background)">
+    <GuestbookMessages client:load quote={quote} />
+  </div>
 </Layout>

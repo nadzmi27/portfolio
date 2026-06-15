@@ -25,34 +25,33 @@ export default function Header({
   const [bgColor, setBgColor] = useState("transparent");
   const [hidden, setHidden] = useState(false);
 
-useEffect(() => {
-  const sections = Array.from(
-    document.querySelectorAll<HTMLElement>("div[data-bg]"),
-  );
+  useEffect(() => {
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("div[data-bg]"),
+    );
 
-  let lastY = window.scrollY;
+    let lastY = window.scrollY;
 
-  const update = () => {
-    const currentY = window.scrollY;
+    const update = () => {
+      const currentY = window.scrollY;
 
-    // Hide/show based on direction
-    setHidden(currentY > lastY && currentY > 80);
-    lastY = currentY;
+      // Hide/show based on direction
+      setHidden(currentY > lastY && currentY > 80);
+      lastY = currentY;
 
-    // Existing bg logic
-    for (let i = sections.length - 1; i >= 0; i--) {
-      if (sections[i].getBoundingClientRect().top <= 80) {
-        setBgColor(sections[i].dataset.bg ?? "transparent");
-        break;
+      // Existing bg logic
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].getBoundingClientRect().top <= 80) {
+          setBgColor(sections[i].dataset.bg ?? "transparent");
+          break;
+        }
       }
-    }
-  };
+    };
 
-  update();
-  window.addEventListener("scroll", update);
-  return () => window.removeEventListener("scroll", update);
-}, []);
-
+    update();
+    window.addEventListener("scroll", update);
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   return (
     <>
@@ -92,13 +91,15 @@ useEffect(() => {
               </a>
             ))}
             <Tooltip tooltip={links.at(-1)!.tooltip}>
-              <p
-                key={links.at(-1)!.href}
-                // href={`/portfolio${links.at(-1)!.href}`}
-                className="nav-link cursor-default px-2 ml-2 py-1.25 border select-none"
-              >
-                {links.at(-1)!.label}
-              </p>
+              <a className="h-fit cursor-pointer" href={`/portfolio${links.at(-1)!.href}`}>
+                <p
+                  key={links.at(-1)!.href}
+                  // href={`/portfolio${links.at(-1)!.href}`}
+                  className="nav-link px-2 ml-2 py-1.25 border"
+                >
+                  {links.at(-1)!.label}
+                </p>
+              </a>
             </Tooltip>
           </div>
 

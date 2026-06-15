@@ -1,13 +1,6 @@
 import HandDrawnDiv from "../HandDrawn/HandDrawnDiv";
 import { type Message } from "../../services/supabase/messages";
-const formatDate = (createdAt: string) => {
-  const date = new Date(createdAt);
-  return date.toLocaleString(undefined, {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-};
+import { formatDate } from "./formatDate";
 
 function RecentMessages({ messages }: { messages: Message[] }) {
   return (
