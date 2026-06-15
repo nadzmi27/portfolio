@@ -4,7 +4,7 @@ import { formatDate } from "./formatDate";
 
 function RecentMessages({ messages }: { messages: Message[] }) {
   return (
-    <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto no-scrollbar mb-4">
+    <div className="flex flex-col gap-3 md:max-h-[60vh] md:overflow-y-auto no-scrollbar mb-4">
       {messages.map((message) => (
         <HandDrawnDiv
           key={message.id}

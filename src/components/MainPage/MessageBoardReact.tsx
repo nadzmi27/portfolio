@@ -17,9 +17,6 @@ function MessageBoard() {
     async function loadMessages() {
       const data = await fetchMessages(6);
       setMessages(data);
-      console.log("data");
-      console.log(data);
-      console.log(data[0].created_at);
     }
     loadMessages();
   }, []);
@@ -43,17 +40,17 @@ function MessageBoard() {
     });
   };
   return (
-    <div className="flex flex-row">
-      <div className="basis-9/20 flex flex-col items-center ">
-        <div className="flex flex-col  w-[70%] text-pretty mb-8 leading-loose">
+    <div className="flex flex-col md:flex-row md:pr-2 lg:px-0 mb-8">
+      <div className="flex flex-col items-center md:basis-9/20">
+        <div className="flex flex-col leading-loose min-w-[300px] w-[90%] text-pretty mb-2 md:mb-4 md:self-start md:pl-10">
           Leave a little note, a kind word, or a random thought. I'd love to
           read it!
         </div>
-        <div className="w-[90%] mb-4">
-          <MessageInput onMessageSent={handleNewMessage}/>
+        <div className="min-w-[300px] w-[90%] mb-4">
+          <MessageInput onMessageSent={handleNewMessage} />
         </div>
         <HandDrawnLine
-          className="w-[95%] mb-8"
+          className="w-[95%] mb-2 hidden md:block"
           styles={{
             stroke: "#999A92",
             strokeWidth: 2,
@@ -63,20 +60,27 @@ function MessageBoard() {
           seed={1}
           pad={1}
         />
-        <HandDrawnDiv
-          className="w-[85%]"
-          styles={{
-            default: { stroke: "#76726C", fill: "#F3EDDF", fillStyle: "solid" },
-          }}
-        >
-          <div className="break w-full px-4 py-3">
-            Thank you for stopping by and leaving a little piece of you here!
-          </div>
-        </HandDrawnDiv>
+        <div className="hidden md:flex flex-col w-full">
+          <HandDrawnDiv
+            className="w-[85%] self-center"
+            styles={{
+              default: {
+                stroke: "#76726C",
+                fill: "#F3EDDF",
+                fillStyle: "solid",
+              },
+            }}
+          >
+            <div className="break w-full px-4 py-3">
+              Thank you for stopping by and leaving a little piece of you here!
+            </div>
+          </HandDrawnDiv>
+        </div>
       </div>
+
       {/* Message board */}
-      <div className="basis-11/20  w-full pt-4 pl-2 pr-2">
-        <div className="flex flex-row items-center gap-2 pl-4 mb-2">
+      <div className="md:basis-11/20 self-center min-w-[300px] w-[90%] md:w-[85%] md:self-start md:w-full md:px-2 mt-4 md:mt-0">
+        <div className="flex flex-row items-center gap-2 pl-2 md:pl-4 mb-2">
           <div className="w-2 h-2 rounded-full bg-green-800" />
           RECENT MESSAGES
         </div>

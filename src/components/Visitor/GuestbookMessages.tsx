@@ -20,13 +20,15 @@ export default function GuestbookMessages({
 }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const [inputValue, setInputValue] = useState("1");
+  const [totalCount, setTotalCount] = useState(1);
   const [loading, setLoading] = useState(true);
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
   // For pagination
   useEffect(() => {
     setLoading(true);
+    setInputValue(String(page));
     fetchMessagesPaginated(page, PAGE_SIZE)
       .then(({ data, count }) => {
         setMessages(data);
@@ -34,6 +36,22 @@ export default function GuestbookMessages({
       })
       .finally(() => setLoading(false));
   }, [page]);
+
+  const onEnterPageInput = (p: string) => {
+    const pageInput = parseInt(p);
+    if (isNaN(pageInput)) {
+      setInputValue(String(page));
+    }
+    if (pageInput > 0 && pageInput <= totalPages) {
+      setInputValue(String(pageInput));
+      setPage(pageInput);
+    } else if (pageInput > totalPages) {
+      setInputValue(String(totalPages));
+      setPage(totalPages);
+    } else {
+      setPage(page);
+    }
+  };
 
   const handleNewMessage = async (newMessage: NewMessageInput) => {
     setMessages((prev) => [
@@ -55,17 +73,17 @@ export default function GuestbookMessages({
   };
 
   return (
-    <div className="flex flex-row pr-2 lg:px-0">
-      <div className="basis-9/20 flex flex-col items-center">
-        <div className="flex flex-col w-[90%] text-pretty mb-2 leading-loose self-start pl-10">
+    <div className="flex flex-col md:flex-row md:pr-2 lg:px-0 mb-12">
+      <div className="flex flex-col items-center md:basis-9/20">
+        <div className="flex flex-col leading-loose min-w-[300px] w-[90%] text-pretty mb-2 md:mb-4 md:self-start md:pl-10">
           Leave a little note, a kind word, or a random thought. I'd love to
           read it!
         </div>
-        <div className="w-[90%] mb-4">
+        <div className="min-w-[300px] w-[90%] mb-4">
           <MessageInput onMessageSent={handleNewMessage} />
         </div>
         <HandDrawnLine
-          className="w-[95%] mb-2"
+          className="w-[95%] mb-2 hidden md:block"
           styles={{
             stroke: "#999A92",
             strokeWidth: 2,
@@ -76,10 +94,10 @@ export default function GuestbookMessages({
           pad={1}
         />
         {quote ? (
-          <>
-            <p className="self-start pl-10 mb-2">Quotes of The Day</p>
+          <div className="hidden md:flex flex-col w-full">
+            <p className="self-start mb-2 pl-10">Quotes of The Day</p>
             <HandDrawnDiv
-              className="w-[85%]"
+              className="w-[85%] self-center"
               styles={{
                 default: {
                   stroke: "#76726C",
@@ -88,24 +106,25 @@ export default function GuestbookMessages({
                 },
               }}
             >
-              <div className="break w-full px-4 py-3">
+              <div className="break px-4 py-3">
                 <p className="italic">"{quote.q}"</p>
                 <p className="mt-1 text-black/65">— {quote.a}</p>
               </div>
             </HandDrawnDiv>
-          </>
+          </div>
         ) : (
           <p className="text-sm opacity-50">Loading quote...</p>
         )}
       </div>
+
       {/* Message board */}
-      <div className="basis-11/20  w-full pl-2 pr-2">
-        <div className="flex flex-row items-center gap-2 pl-4 mb-2">
+      <div className="md:basis-11/20 self-center min-w-[300px] w-[90%] md:w-[85%] md:self-start md:w-full md:px-2 mt-4 md:mt-0">
+        <div className="flex flex-row items-center gap-2 pl-2 md:pl-4 mb-2">
           <div className="w-2 h-2 rounded-full bg-green-800" />
           RECENT MESSAGES
         </div>
         {/* Messages */}
-        <div className="flex flex-col gap-3 h-[400px] overflow-y-auto no-scrollbar mb-4">
+        <div className="flex flex-col gap-3 md:h-[450px] md:overflow-y-auto no-scrollbar mb-4">
           {messages.map((message) => (
             <HandDrawnDiv
               key={message.id}
@@ -132,31 +151,50 @@ export default function GuestbookMessages({
           ))}
         </div>
         {/* Pagination */}
-        <div className="flex gap-2 mt-6 justify-self-center">
+        <div className="flex gap-2 mt-4 justify-self-center">
           <button
             onClick={() => setPage((p) => p - 1)}
             disabled={page === 1}
             className="..."
           >
-            Prev
+            ← Prev
           </button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-            <button
-              key={p}
-              onClick={() => setPage(p)}
-              className={p === page ? "font-bold underline" : ""}
+          <span>
+            <HandDrawnDiv
+              className="w-fit"
+              styles={{
+                default: {
+                  roughness: 1,
+                  bowing: 0.5,
+                  stroke: "#76726C",
+                  seed: 3,
+                  // fill: "#F3EDDF",
+                  // fillStyle: "solid",
+                },
+              }}
             >
-              {p}
-            </button>
-          ))}
-
+              <input
+                className="w-7 focus:outline-none text-center"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder={String(page)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    onEnterPageInput(e.currentTarget.value);
+                  }
+                }}
+              />
+            </HandDrawnDiv>
+            &nbsp;of&nbsp;
+            {totalPages}
+          </span>
           <button
             onClick={() => setPage((p) => p + 1)}
             disabled={page === totalPages}
             className="..."
           >
-            Next
+            Next →
           </button>
         </div>
       </div>

@@ -10,7 +10,7 @@ const links = [
   {
     href: "/visitor",
     label: "Visitor Corner",
-    tooltip: "Under construction :(",
+    // tooltip: "Under construction :(",
   },
 ];
 
