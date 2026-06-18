@@ -8,7 +8,7 @@ const projects = (await getCollection("projects")).sort(
 );
 ---
 
-<Layout title="Projects" backgroundColor="bg-project-background">
+<Layout title="Projects" backgroundColor="var(--color-project-background)">
   <div
     data-bg="var(--color-project-background)"
     class="content-width h-fit py-6 lg:py-7 px-4 mb-8 mt-2"
@@ -120,4 +120,21 @@ const projects = (await getCollection("projects")).sort(
       distribute(tag);
     });
   });
+
+  function init() {
+    const initial = new URLSearchParams(window.location.search).get("tag");
+    distribute(initial);
+
+    document.querySelectorAll("[data-tag]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tag = (btn as HTMLElement).dataset.tag || null;
+        const url = tag ? `?tag=${tag}` : window.location.pathname;
+        history.pushState({}, "", url);
+        distribute(tag);
+      });
+    });
+  }
+
+  // Runs on first load and every subsequent navigation
+  document.addEventListener("astro:page-load", init);
 </script>

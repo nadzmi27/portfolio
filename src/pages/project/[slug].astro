@@ -6,6 +6,7 @@ import TableOfContents from "../../components/Layout/TableOfContents";
 import Layout from "../../components/Layout/Layout.astro";
 import { Icon } from "astro-icon/components";
 import Link from "../../components/Layout/Link.astro";
+import { hexLighten } from "../../util/hexLighten";
 
 export async function getStaticPaths() {
   const projects = await getCollection(
@@ -20,14 +21,21 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
+const bgColor = hexLighten(entry.data.bgColor ?? "#f9f7f7", 0.1);
+
 const skillColor = "#DDDDDD";
 const skillBorder = "#000000";
 ---
 
-<Layout title={entry.data.title} description={entry.data.description}>
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  backgroundColor={bgColor}
+>
   <div
-    data-bg="var(--color-background)"
+    data-bg={bgColor}
     class="flex max-w-[840px] lg:max-w-[1400px] mx-auto px-4 mb-24 mt-4"
+    style=`background-color:${bgColor} ;`
   >
     <!-- TOC floats outside, anchored to the left of the centered content -->
     <aside id="toc-aside" class="basis-1/5 hidden lg:block sticky top-0">
@@ -46,7 +54,7 @@ const skillBorder = "#000000";
         id="case-study-image"
         src={entry.data.image}
         alt={entry.data.imageAlt ?? entry.data.title}
-        class="object-cover border border-black/80 mb-6"
+        class="object-cover border border-black/20 mb-6"
       />
       <div class="px-4 sm:px-6 md:px-8 lg:px-12 w-full">
         <h1 class="font-semibold text-3xl mb-2 mt-8">{entry.data.title}</h1>
@@ -67,8 +75,8 @@ const skillBorder = "#000000";
         </div>
         <article
           class:list={[
-            "prose prose-neutral max-w-none",
-            "prose-p:mt-3",
+            "prose prose-slate max-w-none",
+            "prose-p:mt-3 text-black/95",
             "prose-headings:font-bold prose-headings:mb-0 prose-headings:mt-8",
             "prose-h1:text-2xl prose-h1:border-b prose-h1:border-black/20 prose-h1:pb-2",
             "prose-h2:text-xl prose-h2:border-b prose-h2:border-black/20 prose-h2:pb-2",
@@ -76,7 +84,7 @@ const skillBorder = "#000000";
             // Figure
             "prose-figure:mt-6",
             "prose-img:my-0 prose-img:border prose-img:border-black/20",
-            "prose-figcaption:text-gray-400 prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:mt-2",
+            "prose-figcaption:text-black/60 prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:mt-2",
             // Code blcok
             "prose-code:bg-black/10 prose-code:px-1 prose-code:text-sm",
             "prose-code:before:content-none prose-code:after:content-none",

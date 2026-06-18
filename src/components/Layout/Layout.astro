@@ -11,7 +11,7 @@ const {
   paddingTop = true,
   showHeader = true,
   showFooter = true,
-  backgroundColor = "bg-background",
+  backgroundColor = "var(--color-background)",
 } = Astro.props;
 ---
 
@@ -27,7 +27,7 @@ const {
     <title>{title}</title>
     <ClientRouter />
   </head>
-  <body class={backgroundColor}>
+  <body style={`background-color: ${backgroundColor};`}>
     {showHeader && <Header client:load segments={segments} base={base} />}
     <main class:list={["min-h-screen", paddingTop ? "pt-[80px]" : ""]}>
       <slot />

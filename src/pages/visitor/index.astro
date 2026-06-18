@@ -4,31 +4,32 @@ import GuestbookMessages from "../../components/Visitor/GuestbookMessages";
 import fallbackQuotes from "../../data/fallbackQuotes.json";
 
 // Fallback quotes in case API fail
+// Actually just use fallbackQuotes
 let quote = fallbackQuotes[new Date().getDay()];
 
-// Try api
-try {
-  const controller = new AbortController();
+// // Try api
+// try {
+//   const controller = new AbortController();
 
-  const timeout = setTimeout(() => {
-    controller.abort();
-  }, 5000);
+//   const timeout = setTimeout(() => {
+//     controller.abort();
+//   }, 5000);
 
-  const res = await fetch("https://zenquotes.io/api/today", {
-    signal: controller.signal,
-  });
+//   const res = await fetch("https://zenquotes.io/api/today", {
+//     signal: controller.signal,
+//   });
 
-  clearTimeout(timeout);
+//   clearTimeout(timeout);
 
-  if (res.ok) {
-    [quote] = await res.json();
-  }
-} catch (err) {
-  console.error("Quote API unavailable:", err);
-}
+//   if (res.ok) {
+//     [quote] = await res.json();
+//   }
+// } catch (err) {
+//   console.error("Quote API unavailable:", err);
+// }
 ---
 
-<Layout title="Visitor Corner" backgroundColor="bg-visitor-background">
+<Layout title="Visitor Corner" backgroundColor="var(--color-visitor-background)">
   <div class="content-width pt-6" data-bg="var(--color-visitor-background)">
     <GuestbookMessages client:load quote={quote} />
   </div>
