@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Footer from "./Footer.astro";
 import Header from "./Header.tsx";
 import "../../styles/global.css";
@@ -24,6 +25,7 @@ const {
     <link rel="icon" href=`${base}/favicon.ico` />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body class={backgroundColor}>
     {showHeader && <Header client:load segments={segments} base={base} />}
@@ -34,8 +36,7 @@ const {
     <script>
       import "wired-elements";
     </script>
-  </body>
-  <!-- {showHeader && <Header client:load segments={segments} base={base} />} -->
+  </body><!-- {showHeader && <Header client:load segments={segments} base={base} />} -->
 </html>
 
 <style>
