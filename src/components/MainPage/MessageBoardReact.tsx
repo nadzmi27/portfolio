@@ -87,7 +87,9 @@ function MessageBoard() {
         <RecentMessages messages={messages} />
         <HandDrawnDiv
           className="w-full text-center"
-          onClick={() => window.open("/portfolio/visitor", "_blank")}
+          onClick={() => {
+            window.location.href = "/portfolio/visitor";
+          }}
           styles={{
             default: {
               roughness: 1,

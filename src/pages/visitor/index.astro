@@ -1,7 +1,7 @@
 ---
 import Layout from "../../components/Layout/Layout.astro";
 import GuestbookMessages from "../../components/Visitor/GuestbookMessages";
-import fallbackQuotes from "./fallbackQuotes.json";
+import fallbackQuotes from "../../data/fallbackQuotes.json";
 
 // Fallback quotes in case API fail
 let quote = fallbackQuotes[new Date().getDay()];

@@ -37,7 +37,8 @@ const projects = defineCollection({
       bgColor: z.string().optional(),
       skillColor: z.string().optional(),
       skillBorder: z.string().optional(),
-      theme: z.enum(["light", "dark"]).optional()
+      theme: z.enum(["light", "dark"]).optional(),
+      hasCaseStudy: z.boolean().optional(),
     }),
 });
 

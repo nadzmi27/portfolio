@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from "astro:content";
+import TableOfContents from "../../components/Layout/TableOfContents";
+import Layout from "../../components/Layout/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<Layout title={entry.data.title} description={entry.data.description}>
+  <div class="max-w-6xl mx-auto px-6 py-16 flex gap-12">
+    <aside class="hidden lg:block w-64 shrink-0">
+      <nav class="sticky top-24">
+        <TableOfContents headings={headings} client:load />
+      </nav>
+    </aside>
+
+    <article
+      class="min-w-0 flex-1 prose prose-neutral dark:prose-invert max-w-none"
+    >
+      <h1>{entry.data.title}</h1>
+      <p class="text-sm text-muted-foreground">
+        {entry.data.date.toLocaleDateString("en-AU", { dateStyle: "long" })}
+      </p>
+      <Content />
+    </article>
+  </div>
+</Layout>
