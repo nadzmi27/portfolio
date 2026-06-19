@@ -28,6 +28,7 @@ body {
   
   /* Blogs */
   --color-blog-background: #c89d7c;
+  /* --color-blog-background: #D5AD8E; */
 
   /* Visitor */
   --color-visitor-background: #d6d4c3;
@@ -124,4 +125,22 @@ body {
   }
 }
 
-/* Blogs */
+/* MDX */
+.prose {
+  --tw-prose-body: #000000cc;
+  --tw-prose-headings: #000000;
+  --tw-prose-lead: #000000cc;
+  --tw-prose-links: #000000;
+  --tw-prose-bold: #000000;
+  --tw-prose-counters: #00000099;
+  --tw-prose-bullets: #00000099;
+  --tw-prose-hr: #00000033;
+  --tw-prose-quotes: #000000cc;
+  --tw-prose-quote-borders: #00000033;
+  --tw-prose-captions: #00000099;
+  --tw-prose-code: #000000;
+  --tw-prose-pre-code: #000000;
+  --tw-prose-pre-bg: #00000011;
+  --tw-prose-th-borders: #00000033;
+  --tw-prose-td-borders: #00000022;
+}

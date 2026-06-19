@@ -9,6 +9,7 @@ interface Props {
 const { id } = Astro.props;
 const post = await getEntry("posts", id);
 if (!post) throw new Error(`Post '${id}' not found`);
+const readingTime = Math.ceil((post.body ?? "").split(/\s+/).length / 200);
 ---
 
 <PostCard
@@ -20,4 +21,5 @@ if (!post) throw new Error(`Post '${id}' not found`);
   href={post.data.href}
   tooltip={post.data.tooltip}
   tags={post.data.tags}
+  readingTime={readingTime}
 />

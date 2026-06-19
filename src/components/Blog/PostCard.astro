@@ -1,8 +1,8 @@
 ---
-import Link from "./Layout/Link.astro";
-import Tooltip from "./Tooltip";
+import { Icon } from "astro-icon/components";
+import Link from "../Layout/Link.astro";
+import Tooltip from "../Tooltip";
 import { Image } from "astro:assets";
-
 
 interface Tags {
   icon?: string;
@@ -20,6 +20,7 @@ interface Props {
   href?: string;
   tooltip?: string;
   tags?: Tags[];
+  readingTime: number;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   href = "#",
   tooltip = "",
   tags,
+  readingTime = 15,
 } = Astro.props;
 ---
 
@@ -38,7 +40,7 @@ const {
   <Tooltip client:visible tooltip={tooltip}>
     <Link
       href={href}
-      openNew={true}
+      openNew={false}
       class="flex flex-col sm:flex-row border p-4 gap-4"
       >{
         image && (
@@ -52,9 +54,9 @@ const {
       }
 
       <div class="flex flex-col">
-        <h1 class="font-semibold text-xl">{title}</h1>
-        <p>{description}</p>
-        <span class="flex flex-row gap-2 items-center"
+        <h1 class="font-semibold text-xl mb-2">{title}</h1>
+        <p class="mb-1 text-pretty">{description}</p>
+        <span class="flex flex-row gap-2 items-center mb-1"
           >{
             date.toLocaleDateString("en-AU", {
               year: "numeric",
@@ -62,11 +64,22 @@ const {
               day: "2-digit",
             })
           }
-          <span class="border-l h-4 border-current"></span>
-          15 min read
+          <span class="border-l h-4 border-black/70"></span>
+          {readingTime} min read
         </span>
-        <div class="flex flex-row">
-          {tags && tags.map((tag) => <div>{tag.name}</div>)}
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2">
+          {
+            tags?.map((tag) => (
+              <div
+                class="card-texture flex items-center gap-1.5 px-1.5 py-0.5 lowercase text-sm border"
+                style={`background-color: ${tag.color ?? "#D5AD8E"}`}
+              >
+                <Icon name={tag.icon} size={tag.size ?? 16} class="shrink-0" />
+                <span>{tag.name}</span>
+              </div>
+            ))
+          }
         </div>
       </div>
     </Link>
