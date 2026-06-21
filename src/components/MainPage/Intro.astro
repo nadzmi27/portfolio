@@ -1,7 +1,7 @@
 ---
 import LiveClock from "./LiveClock.astro";
-import { ArrowRight } from "@lucide/astro";
 import Link from "../Layout/Link.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <div class="my-auto md:pr-10">
@@ -28,6 +28,10 @@ import Link from "../Layout/Link.astro";
        text-white text-lg bg-nav-link hover:bg-black active:bg-black"
     href="/about"
   >
-    More about me <ArrowRight class="translate-y-[1px]" size={18} />
+    More about me <Icon
+      name="ph:arrow-up-right"
+      size={18}
+      class="translate-y-[1px]"
+    />
   </Link>
 </div>

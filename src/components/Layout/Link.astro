@@ -14,7 +14,7 @@ const resolvedHref = isExternal ? href : `${base}${href}`;
 
 <a
   href={resolvedHref}
-  target={openNew ? "_blank" : undefined}
+  target={(openNew || isExternal) ? "_blank" : undefined}
   rel={isExternal ? "noopener noreferrer" : undefined}
   class:list={[className]}
   {...props}

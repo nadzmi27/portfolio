@@ -1,7 +1,217 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../../components/Layout/Layout.astro";
+import Link from "../../components/Layout/Link.astro";
+import Collage from "../../components/MainPage/Collage.astro";
+import LiveClock from "../../components/MainPage/LiveClock.astro";
+import { ArrowRight } from "@lucide/astro";
+
+import picture from "../../assets/aboutme/me.jpg";
+import { Icon } from "astro-icon/components";
+
+import SkillsTerminal from "../../components/About/SkillsTerminal.astro"
+
+type EducationEntry = {
+  institution: string;
+  name: string;
+  majors?: string;
+  dateRange: string;
+  link?: string;
+  icon: {
+    name: string;
+    size?: number;
+  };
+};
+const educations: EducationEntry[] = [
+  {
+    institution: "Monash University",
+    name: "Bachelor of Computer Science & Bachelor of Commerce",
+    majors: "Data Science / Business Analytics",
+    dateRange: "Mar 2021 – Sep 2025",
+    link: "https://www.myequals.net/sharelink/246c086d-2c3e-4e98-abbc-eb12f2716307/988fe4c2-b756-4943-9d39-4aff2c38c7a0",
+    icon: {
+      name: "ph:graduation-cap",
+    },
+  },
+];
+
+type CertificationEntry = {
+  institution: string;
+  name: string;
+  platform?: string;
+  link?: string;
+};
+const certifications: CertificationEntry[] = [
+  {
+    institution: "DeepLearning.AI & AWS",
+    name: "Data Engineering",
+    platform: "Coursera",
+    link: "https://www.coursera.org/account/accomplishments/professional-cert/64N2TD5SHQWE?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=prof",
+  },
+];
 ---
 
-<Layout title="About Me">
-  <h1>About</h1>
+<Layout>
+  <!--  -->
+  <div class="content-width px-4 mb-24">
+    <div
+      data-bg="#f9f7f7"
+      class="grid md:grid-cols-[55%_45%]
+    overflow-x-clip min-h-[500px] h-[calc(100vh-80px)] items-center pb-24"
+    >
+      <div class="my-auto md:pr-10">
+        <h1 class="text-5xl font-serif mb-6">
+          Hey, I'm <span class="font-cursive-regular">Nadzmi!</span>
+        </h1>
+
+        <p class="text-xl mb-6 leading-tight">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <!-- <div class="mt-6 text-text-secondary text-base leading-tight mb-4">
+        <span class="flex gap-1.5">
+          <span>Melbourne</span>
+          <span>/</span>
+          <LiveClock />
+        </span>
+        <a href="mailto:nadzmiagthomas@gmail.com">nadzmiagthomas@gmail.com</a>
+      </div> -->
+
+        <div class="flex gap-2 items-center mb-4">
+          <Link
+            class="border-b"
+            href="https://github.com/nadzmi27"
+            openNew={true}
+          >
+            <Icon name="ph:github-logo" size={24} />
+          </Link>
+          <Link
+            class="border-b"
+            href="https://au.linkedin.com/in/nadzmi-ag-thomas-0267a6219"
+            openNew={true}
+          >
+            <Icon name="ph:linkedin-logo" size={24} />
+          </Link>
+          <Link
+            class="border-b"
+            href="https://www.kaggle.com/nadzmiagthomas/code"
+            openNew={true}
+          >
+            kaggle
+          </Link>
+          <Link class="border-b" href="mailto:nadzmiagthomas@gmail.com">
+            <Icon name="ph:envelope-simple" size={24} />
+          </Link>
+        </div>
+        <Link
+          class="flex items-center w-fit py-1.5 pl-3 pr-2 gap-1
+       text-white text-lg bg-nav-link hover:bg-black active:bg-black"
+          href="/Nadzmi_Resume.pdf"
+          openNew={true}
+        >
+          Resume <Icon
+            name="ph:arrow-up-right"
+            size={18}
+            class="translate-y-[1px]"
+          />
+        </Link>
+      </div>
+
+      <!-- Picture -->
+      <div class="h-full flex flex-col items-center justify-center">
+        <Image
+          src={picture}
+          alt="Picture of me"
+          loading="eager"
+          class="max-w-[300px] shrink"
+        />
+        <p class="text-black/50 mt-1">I need a better picture :p</p>
+      </div>
+    </div>
+
+    <!-- Education and Certification -->
+    <div class="mb-20">
+      <h1 class="text-2xl font-semibold">Education and Certifications</h1>
+      <div class="grid grid-cols-2 max-w-[1048px] gap-8">
+        <div>
+          <h2 class="text-xs uppercase tracking-wide text-neutral-400 mb-2.5">
+            Education
+          </h2>
+          <div class="flex flex-col">
+            {
+              educations.map((educ) => {
+                return (
+                  <div class="flex items-center gap-4">
+                    <div class="bg-black/5 w-12 h-12 flex items-center justify-center">
+                      <Icon
+                        class=""
+                        name={educ.icon.name}
+                        size={educ.icon.size ?? 32}
+                      />
+                    </div>
+                    <Link
+                      class="flex flex-col text-nav-link hover:text-black"
+                      href={educ.link}
+                    >
+                      <span class="flex">
+                        <p class="font-semibold text-black">
+                          {educ.institution}
+                        </p>
+                        <p class="ml-auto text-black">{educ.dateRange}</p>
+                      </span>
+                      <i class="text-pretty">{educ.name}</i>
+                      {/* {educ.majors && <i>{educ.majors}</i>} */}
+                      <span class="flex items-center gap-1  ">
+                        <i>{educ.majors}</i>
+                        <Icon name="ph:arrow-square-out" />
+                      </span>
+                    </Link>
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+        <!-- Certification -->
+        <div>
+          <h2 class="text-xs uppercase tracking-wide text-neutral-400 mb-2.5">
+            Certifications
+          </h2>
+          <div class="flex items-center gap-4 border-b pb-1 mb-2">
+            {
+              certifications.map((cert) => {
+                return (
+                  <Link
+                    class="flex flex-col text-nav-link hover:text-black"
+                    href={cert.link}
+                  >
+                    <span class="flex text-black">
+                      <p class="font-semibold">{cert.institution}</p>
+                      {cert.platform && <p class="ml-1">| {cert.platform}</p>}
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <i>{cert.name}</i>
+                      <Icon name="ph:arrow-square-out" />
+                    </span>
+                  </Link>
+                );
+              })
+            }
+          </div>
+          <p class="text-black/50 text-sm">More to come as I complete them</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div>
+      <h1 class="text-2xl font-semibold">Skills</h1>
+      <SkillsTerminal/>
+    </div>
+  </div>
 </Layout>

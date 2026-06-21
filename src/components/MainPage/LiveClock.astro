@@ -6,6 +6,33 @@ const timeZone = "Australia/Melbourne";
 <div id="clock"></div>
 
 <script>
+  let intervalId: ReturnType<typeof setInterval>;
+
+  function startClock() {
+    clearInterval(intervalId);
+
+    const el = document.getElementById("clock");
+    if (!el) return;
+
+    const tick = () => {
+      const time = new Intl.DateTimeFormat("en-AU", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).format(new Date());
+
+      el.textContent = time.replace("am", "AM").replace("pm", "PM");
+    };
+
+    tick();
+    intervalId = setInterval(tick, 1000);
+  }
+
+  document.addEventListener("astro:page-load", startClock);
+  startClock();
+</script>
+<!-- <script>
   const el = document.getElementById("clock");
 
   function tick() {
@@ -21,4 +48,4 @@ const timeZone = "Australia/Melbourne";
 
   tick();
   setInterval(tick, 1000);
-</script>
+</script> -->
