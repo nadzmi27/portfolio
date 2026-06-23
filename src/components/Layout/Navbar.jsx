@@ -68,7 +68,7 @@ const Navbar = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 w-full h-[120vh] pb-[10vh] origin-top bg-yellow-50 text-black z-40"
+            className="fixed left-0 top-0 w-full h-[120vh] pb-[10vh] origin-top bg-[#F6EDC3] text-black z-40"
           >
             <div className="flex h-full flex-col">
               <motion.div
@@ -80,7 +80,7 @@ const Navbar = () => {
               >
                 {navLinks.map((link, index) => {
                   return (
-                    <div key={index}  className="overflow-hidden">
+                    <div key={index} className="overflow-hidden">
                       <MobileNavLink
                         key={`nav-${index}`}
                         title={link.title}
