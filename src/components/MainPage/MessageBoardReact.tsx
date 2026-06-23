@@ -98,9 +98,25 @@ function MessageBoard() {
               seed: 7,
               bowing: 0.2,
             },
+            hover: {
+              roughness: 1,
+              stroke: "#76726C",
+              strokeLineDash: [8, 4],
+              seed: 7,
+              bowing: 0.2,
+            },
+            active: {
+              roughness: 1,
+              stroke: "#76726C",
+              strokeLineDash: [8, 4],
+              seed: 7,
+              bowing: 0.2,
+            },
           }}
         >
-          <p className="py-2 text-black/60">view all messages</p>
+          <p className="py-2 text-black/60 hover:text-black/75 active:text-black/75">
+            view all messages
+          </p>
         </HandDrawnDiv>
       </div>
     </div>
