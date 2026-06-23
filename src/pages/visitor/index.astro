@@ -29,7 +29,11 @@ let quote = fallbackQuotes[new Date().getDay()];
 // }
 ---
 
-<Layout title="Visitor Corner" backgroundColor="var(--color-visitor-background)">
+<Layout
+  title="Visitor Corner"
+  description="Nadzmi's Portfolio Visitor Corner aka playground"
+  backgroundColor="var(--color-visitor-background)"
+>
   <div class="content-width pt-6" data-bg="var(--color-visitor-background)">
     <GuestbookMessages client:load quote={quote} />
   </div>
