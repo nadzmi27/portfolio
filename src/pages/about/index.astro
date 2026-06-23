@@ -9,7 +9,8 @@ import { ArrowRight } from "@lucide/astro";
 import picture from "../../assets/aboutme/me.jpg";
 import { Icon } from "astro-icon/components";
 
-import SkillsTerminal from "../../components/About/SkillsTerminal.astro"
+import SkillsTerminal from "../../components/About/SkillsTerminal.astro";
+import SkillSection from "../../components/About/SkillSection.astro";
 
 type EducationEntry = {
   institution: string;
@@ -56,74 +57,98 @@ const certifications: CertificationEntry[] = [
   <div class="content-width px-4 mb-24">
     <div
       data-bg="#f9f7f7"
-      class="grid md:grid-cols-[55%_45%]
-    overflow-x-clip min-h-[500px] h-[calc(100vh-80px)] items-center pb-24"
+      class="md:grid md:grid-cols-[55%_45%]
+    overflow-x-clip min-h-[550px] md:h-[calc(100vh-80px)] items-center pb-16 pt-8 md:pt-0"
     >
       <div class="my-auto md:pr-10">
         <h1 class="text-5xl font-serif mb-6">
           Hey, I'm <span class="font-cursive-regular">Nadzmi!</span>
         </h1>
 
-        <p class="text-xl mb-6 leading-tight">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+        <p class="text-lg mb-6 leading-tight text-pretty">
+          I've always wanted to be an inventor ever since I was a kid. I used to
+          take toys apart just to see what was inside, and reassemble them into
+          something new. I discovered programming in my last year of high
+          school, learning Python, trying out libraries like Turtle and Tkinter,
+          and since then, I've never looked back. Turns out coding is just a
+          faster way to build things.
+          <br />
+          <br />
+          Nowadays I spend most of my time trying new tools (recently it’s Astro)
+          or building whatever I feel like building, like <a
+            class="underline"
+            href="https://vocabforest.com/"
+            target="_blank">vocabforest.com</a
+          >.
+          <br />
+          <br />
+          A bit more about me: I LOVE chess. I started competing recently, and my
+          current goal is to reach 2000 FIDE rating. You can check my live rating
+          <a
+            class="underline"
+            href="https://ratings.fide.com/profile/573006424"
+            target="_blank">here</a
+          >.
         </p>
-        <!-- <div class="mt-6 text-text-secondary text-base leading-tight mb-4">
-        <span class="flex gap-1.5">
-          <span>Melbourne</span>
-          <span>/</span>
-          <LiveClock />
-        </span>
-        <a href="mailto:nadzmiagthomas@gmail.com">nadzmiagthomas@gmail.com</a>
-      </div> -->
-
-        <div class="flex gap-2 items-center mb-4">
+        <div class="flex items-center">
           <Link
-            class="border-b"
-            href="https://github.com/nadzmi27"
+            class="flex items-center w-fit py-1.5 pl-3 pr-2 gap-1
+       text-white text-sm bg-nav-link hover:bg-black active:bg-black mb-1 mr-4"
+            href="/Nadzmi_Resume.pdf"
             openNew={true}
           >
-            <Icon name="ph:github-logo" size={24} />
+            Resume <Icon
+              name="ph:arrow-up-right"
+              size={18}
+              class="translate-y-[1px]"
+            />
           </Link>
-          <Link
-            class="border-b"
-            href="https://au.linkedin.com/in/nadzmi-ag-thomas-0267a6219"
-            openNew={true}
-          >
-            <Icon name="ph:linkedin-logo" size={24} />
-          </Link>
-          <Link
-            class="border-b"
-            href="https://www.kaggle.com/nadzmiagthomas/code"
-            openNew={true}
-          >
-            kaggle
-          </Link>
-          <Link class="border-b" href="mailto:nadzmiagthomas@gmail.com">
-            <Icon name="ph:envelope-simple" size={24} />
-          </Link>
-        </div>
-        <Link
-          class="flex items-center w-fit py-1.5 pl-3 pr-2 gap-1
+          <div class="flex gap-2 items-center">
+            <Link
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              href="https://github.com/nadzmi27"
+              openNew={true}
+            >
+              <Icon name="ph:github-logo" size={24} />
+            </Link>
+            <Link
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              href="https://au.linkedin.com/in/nadzmi-ag-thomas-0267a6219"
+              openNew={true}
+            >
+              <Icon name="ph:linkedin-logo" size={24} />
+            </Link>
+            <Link
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              href="https://www.kaggle.com/nadzmiagthomas/code"
+              openNew={true}
+            >
+              kaggle
+            </Link>
+            <Link
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              href="mailto:nadzmiagthomas@gmail.com"
+            >
+              <Icon name="ph:envelope-simple" size={24} />
+            </Link>
+          </div>
+          <!-- <Link
+            class="flex items-center w-fit py-1.5 pl-3 pr-2 gap-1
        text-white text-lg bg-nav-link hover:bg-black active:bg-black"
-          href="/Nadzmi_Resume.pdf"
-          openNew={true}
-        >
-          Resume <Icon
-            name="ph:arrow-up-right"
-            size={18}
-            class="translate-y-[1px]"
-          />
-        </Link>
+            href="/Nadzmi_Resume.pdf"
+            openNew={true}
+          >
+            Resume <Icon
+              name="ph:arrow-up-right"
+              size={18}
+              class="translate-y-[1px]"
+            />
+          </Link> -->
+        </div>
       </div>
 
       <!-- Picture -->
-      <div class="h-full flex flex-col items-center justify-center">
+      <div class="hidden h-full md:flex flex-col items-center justify-center">
         <Image
           src={picture}
           alt="Picture of me"
@@ -135,11 +160,11 @@ const certifications: CertificationEntry[] = [
     </div>
 
     <!-- Education and Certification -->
-    <div class="mb-20">
-      <h1 class="text-2xl font-semibold">Education and Certifications</h1>
-      <div class="grid grid-cols-2 max-w-[1048px] gap-8">
-        <div>
-          <h2 class="text-xs uppercase tracking-wide text-neutral-400 mb-2.5">
+    <div class="mb-16 md:mb-20 md:mt-16 lg:mt-0">
+      <h1 class="text-2xl font-semibold mb-2">Education and Certifications</h1>
+      <div class="flex flex-col md:flex-row max-w-[1048px] gap-8">
+        <div class="basis-1/2">
+          <h2 class="text-xs tracking-wide text-neutral-400 mb-2.5">
             Education
           </h2>
           <div class="flex flex-col">
@@ -178,11 +203,11 @@ const certifications: CertificationEntry[] = [
           </div>
         </div>
         <!-- Certification -->
-        <div>
-          <h2 class="text-xs uppercase tracking-wide text-neutral-400 mb-2.5">
+        <div class="basis-1/2 md:pl-2">
+          <h2 class="text-xs tracking-wide text-neutral-400 mb-2.5">
             Certifications
           </h2>
-          <div class="flex items-center gap-4 border-b pb-1 mb-2">
+          <div class="flex items-center gap-4 pb-1 mb-2">
             {
               certifications.map((cert) => {
                 return (
@@ -203,15 +228,15 @@ const certifications: CertificationEntry[] = [
               })
             }
           </div>
-          <p class="text-black/50 text-sm">More to come as I complete them</p>
+          <!-- <p class="text-black/50 border-t text-sm pt-1">More to come as I complete them</p> -->
         </div>
       </div>
     </div>
 
     <!-- Skills -->
     <div>
-      <h1 class="text-2xl font-semibold">Skills</h1>
-      <SkillsTerminal/>
+      <h1 class="text-2xl font-semibold mb-4">Skills</h1>
+      <SkillSection />
     </div>
   </div>
 </Layout>

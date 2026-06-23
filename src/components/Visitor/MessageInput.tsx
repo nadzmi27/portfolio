@@ -18,6 +18,7 @@ function MessageInput({
   const charCount = message.length;
 
   const handleSubmit = async () => {
+    setMessage("");
     const submit = onMessageSent
       ? () => onMessageSent({ name, message, website })
       : () => sendMessage({ name, message, website });
@@ -86,7 +87,7 @@ function MessageInput({
           >
             <input
               className="w-full pl-3 py-2 focus:outline-none"
-              placeholder="Name"
+              placeholder="Name (or leave it empty)"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}

@@ -1,200 +1,20 @@
 ---
 import { Icon } from "astro-icon/components";
 import Tooltip from "../Tooltip";
-type SkillsEntry = {
+import { softwareEntries, type SkillsEntry } from "./Skills";
+interface Props {
   category: string;
-  skills: {
-    name: string;
-    icon?: string;
-    size?: number;
-    tooltip?: string;
-  }[];
-};
-const skillEntries: SkillsEntry[] = [
-  {
-    category: "languages",
-    skills: [
-      {
-        name: "Python",
-        icon: "simple-icons:python",
-        tooltip:
-          "Mostly used for data-related task. Mainly taught during my study at Monash Uni. Also, my top language",
-      },
-      {
-        name: "R",
-        icon: "simple-icons:r",
-        tooltip:
-          "Used for statistic and analytics related task, especially heavy analysis",
-      },
-      {
-        name: "TypeScript",
-        icon: "simple-icons:typescript",
-        tooltip:
-          "I like typescript's typechecking, helps prevent unwanted bugs",
-      },
-      {
-        name: "JavaScript",
-        icon: "simple-icons:javascript",
-        tooltip: "Can't do TypeScript without knowing JavaScript  ¯\\_(ツ)_/¯",
-      },
-      {
-        name: "Java",
-        icon: "ph:coffee-fill",
-        tooltip:
-          "Learnt this through MOOC when I started codign. Not really used that much, but I taught people Java and OOP",
-      },
-    ],
-  },
-  {
-    category: "frontend",
-    skills: [
-      {
-        name: "Figma",
-        icon: "simple-icons:figma",
-        tooltip: "I like to roughly design on figma (or paper) before coding",
-      },
-      {
-        name: "React",
-        icon: "simple-icons:react",
-        tooltip:
-          "First learned via fullstackopen, and has been my go-to UI library ever since",
-      },
-      {
-        name: "React Router",
-        icon: "simple-icons:reactrouter",
-        tooltip:
-          "Used for implementing  routing (client-side) and especially protected route to control what user can visit",
-      },
-      {
-        name: "React Query",
-        icon: "simple-icons:reactquery",
-        tooltip:
-          "Used for managing API data (fetching, caching, ...) and optimising API usage.",
-      },
-      {
-        name: "Redux",
-        icon: "simple-icons:redux",
-        tooltip: "Personally I prefer React Query + React Context",
-      },
-      {
-        name: "Tailwind",
-        icon: "simple-icons:tailwindcss",
-        tooltip:
-          "I mainly style using tailwindcss, especially for reusable components",
-      },
-      {
-        name: "Astro",
-        icon: "simple-icons:astro",
-        tooltip: "This site is designed using Astro + React",
-      },
-    ],
-  },
-  {
-    category: "backend",
-    skills: [
-      {
-        name: "PostgreSQL",
-        icon: "simple-icons:postgresql",
-        tooltip:
-          "My main SQL database since I use Supabase heavily. I'm also familiar with Oracle SQL.",
-      },
-
-      {
-        name: "Supabase",
-        icon: "simple-icons:supabase",
-        tooltip:
-          "My go-to BaaS due to its generous free tier and complete feature set (e.g., real-time database, edge functions, vector database, authentication, storage)",
-      },
-      {
-        name: "Deno",
-        icon: "simple-icons:deno",
-        tooltip:
-          "Used Deno in Supabase to handled server-side logic in edge functions",
-      },
-      {
-        name: "Node.js",
-        icon: "simple-icons:nodedotjs",
-        tooltip:
-          "I learnt Node from fullstackopen. Quite similar to Deno (which was developed by same creator of Node.js)",
-      },
-      {
-        name: "Express.js",
-        icon: "simple-icons:express",
-        tooltip:
-          "Anyone who learns Node will usually learn Express at the same time. I quite like the middleware concept from express.",
-      },
-      {
-        name: "MongoDB",
-        icon: "simple-icons:mongodb",
-        tooltip: "",
-      },
-    ],
-  },
-  {
-    category: "devops",
-    skills: [
-      {
-        name: "Git(Hub)",
-        icon: "simple-icons:git",
-        tooltip: "Version control and collaboration",
-      },
-      {
-        name: "GitHub Actions",
-        icon: "simple-icons:githubactions",
-        tooltip:
-          "This portfolio is build automatically using Github Actions on push to main branch.",
-      },
-      {
-        name: "Cloudflare",
-        icon: "simple-icons:cloudflare",
-        tooltip:
-          "I used cloudflare Workers/Pages to setup free CI/CD pipeline \n(e.g. vocabforest.com)",
-      },
-      {
-        name: "Docker",
-        icon: "simple-icons:docker",
-        tooltip: "Gotta make sure your code work on everyone's machine :)",
-      },
-      {
-        name: "AWS",
-        icon: "mdi:aws",
-        tooltip:
-          "Know how to use, and used it for my final year project at Monash. However, I prefer Supabase + Cloudflare.",
-      },
-    ],
-  },
-  {
-    category: "data",
-    skills: [
-      { name: "jupyter", icon: "simple-icons:jupyter" },
-      { name: "pandas", icon: "simple-icons:pandas" },
-      { name: "numpy", icon: "simple-icons:numpy" },
-      { name: "scipy", icon: "simple-icons:scipy" },
-      { name: "seaborn", icon: "" },
-      { name: "plotly", icon: "simple-icons:plotly" },
-      { name: "pytorch", icon: "simple-icons:pytorch" },
-      { name: "sklearn", icon: "simple-icons:scikitlearn" },
-      { name: "huggingface", icon: "simple-icons:huggingface" },
-      { name: "tableau", icon: "simple-icons:tableau" },
-      { name: "airflow", icon: "simple-icons:apacheairflow" },
-      {
-        name: "spark",
-        icon: "simple-icons:apachespark",
-        tooltip:
-          "I'm traumatised by Spark structured streaming & window functions. Have to stay up multiple days just to finish my assignment ughh",
-      },
-      { name: "kafka", icon: "simple-icons:apachekafka" },
-    ],
-  },
-];
+  skillEntries: SkillsEntry[];
+}
+const { category = "f", skillEntries = softwareEntries } = Astro.props;
 ---
 
-<div class="border w-[70%] flex flex-col font-mono">
+<div class="border w-full h-fit flex flex-col font-mono">
   <div class="bg-black/10 border-b flex flex-row items-center py-2 pl-4">
-    <p>~/portfolio/skills/</p>
-    <span
+    <p>~/portfolio/skills/{category}/</p>
+    <!-- <span
       class="relative bottom-[-1px] h-[16px] w-[6px] ml-1 bg-nav-link animate-terminal-fade"
-    ></span>
+    ></span> -->
   </div>
   <div class="bg-black/5 flex flex-col pt-4 pb-6">
     {
@@ -210,7 +30,7 @@ const skillEntries: SkillsEntry[] = [
               {entry.skills.map((skill) =>
                 skill.tooltip ? (
                   <Tooltip client:load tooltip={skill.tooltip}>
-                    <div class="bg-blue-100 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border">
+                    <div class="bg-blue-100 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border hover:brightness-95">
                       {skill.icon && (
                         <Icon
                           name={skill.icon}
@@ -222,7 +42,7 @@ const skillEntries: SkillsEntry[] = [
                     </div>
                   </Tooltip>
                 ) : (
-                  <div class="bg-blue-100 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border">
+                  <div class="bg-blue-100 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border hover:brightness-95">
                     {skill.icon && (
                       <Icon
                         name={skill.icon}

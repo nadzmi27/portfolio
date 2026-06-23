@@ -13,15 +13,19 @@ body {
   --font-mono: "JetBrains", monospace;
   --font-serif: "Source Serif 4", serif;
   --font-sans: "Archivo", sans-serif;
-  --color-background: #f9f7f7;
+ 
   --color-nav-link: rgba(0, 0, 0, 0.75);
-  --color-scrollbar: #ff3131;
+  --color-scrollbar: #0a0a0a;
   --color-sidebar: var(--color-background);
   --color-accent: #ff3131;
   --color-text-secondary: #3c3c3c;
   --color-creamy-white: #f9f7f7;
+  --color-jetblack: #0a0a0a;
 
   --animate-terminal-fade: terminal-fade 2s ease-in-out infinite;
+
+  /* Background and About Me */
+   --color-background: #f9f7f7;
 
   /* Projects */
   --color-project-background: #dddddd;
@@ -62,7 +66,7 @@ body {
   @apply hover:text-black text-nav-link transition-colors duration-100;
 } */
 .nav-link {
-  @apply hover:text-black text-nav-link transition-colors duration-100;
+  @apply hover:text-black active:text-black text-nav-link transition-colors duration-100;
 }
 
 .hover-underline-animation {
@@ -90,7 +94,7 @@ body {
 /* Main Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) var(--color-background) !important;
+  scrollbar-color: var(--color-scrollbar) var(--color-background) !important;
 }
 
 ::selection {

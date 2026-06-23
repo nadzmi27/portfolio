@@ -1,0 +1,44 @@
+---
+const email = "nadzmiagthomas@gmail.com";
+const github = "https://github.com/nadzmi27";
+---
+
+<footer
+  class="bg-[#161616] text-white w-full flex justify-center dark:border-t"
+>
+  <div
+    class="max-w-7xl content-width px-12 sm:py-16 py-8 pb-10 flex sm:flex-row flex-col justify-between"
+  >
+    <div class="flex flex-col gap-4 items-start">
+      <button id="scroll-top-btn" class="font-serif text-4xl cursor-pointer"
+        >nadzmi ag thomas.</button
+      >
+      <p class="font-sans text-base">
+        &copy <span id="copyright-year"></span> Nadzmi Ag Thomas. All rights reserved.
+      </p>
+    </div>
+    <div
+      class="flex sm:flex-col flex-row font-sans text-base gap-0.5 sm:text-right pt-4 sm:pt-0 sm:items-end justify-between items-center"
+    >
+      <p class="font-serif text-lg">Get in touch</p>
+      <div class="flex sm:flex-col flex-row gap-4 sm:gap-1">
+        <a href={email} class="hover:text-footer-subtext cursor-pointer"
+          >Email</a
+        >
+        <a href={github} class="hover:text-footer-subtext cursor-pointer"
+          >GitHub</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelector("#copyright-year")!.textContent = new Date()
+    .getFullYear()
+    .toString();
+
+  document.getElementById("scroll-top-btn")?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

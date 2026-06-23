@@ -27,6 +27,10 @@ export default function CursorCTA({
 
     const move = (e: MouseEvent) => {
       target.current = { x: e.clientX, y: e.clientY };
+      // Snap on first move so tooltip doesn't flash at (0,0)
+      setPos((prev) =>
+        prev.x === 0 && prev.y === 0 ? { x: e.clientX, y: e.clientY } : prev,
+      );
     };
 
     window.addEventListener("mousemove", move);

@@ -1,0 +1,9 @@
+---
+import { softwareEntries, dataEntries, type SkillsEntry } from "./Skills";
+import SkillsTerminal from "./SkillsTerminal.astro";
+---
+
+<div class="flex flex-col md:flex-row gap-10">
+  <SkillsTerminal category="software" skillEntries={softwareEntries} />
+  <SkillsTerminal category="data" skillEntries={dataEntries} />
+</div>

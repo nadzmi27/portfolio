@@ -95,7 +95,7 @@ export default function GuestbookMessages({
         />
         {quote ? (
           <div className="hidden md:flex flex-col w-full">
-            <p className="self-start mb-2 pl-10">Quotes of The Day</p>
+            <p className="self-start mb-2 pl-10">Quote of The Day</p>
             <HandDrawnDiv
               className="w-[85%] self-center"
               styles={{
