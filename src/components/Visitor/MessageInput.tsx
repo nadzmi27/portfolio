@@ -19,6 +19,9 @@ function MessageInput({
 
   const handleSubmit = async () => {
     setMessage("");
+    if (message.length <= 3){
+      return null
+    }
     const submit = onMessageSent
       ? () => onMessageSent({ name, message, website })
       : () => sendMessage({ name, message, website });

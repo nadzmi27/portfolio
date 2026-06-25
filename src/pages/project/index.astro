@@ -8,7 +8,11 @@ const projects = (await getCollection("projects")).sort(
 );
 ---
 
-<Layout title="Projects" description="Nadzmi's worked projects" backgroundColor="var(--color-project-background)">
+<Layout
+  title="Projects"
+  description="Nadzmi's worked projects"
+  backgroundColor="var(--color-project-background)"
+>
   <div
     data-bg="var(--color-project-background)"
     class="content-width h-fit py-6 lg:py-7 px-4 mb-8 mt-2"
@@ -16,17 +20,17 @@ const projects = (await getCollection("projects")).sort(
     <div class="flex gap-2 mb-6 px-1 md:px-0">
       <button
         data-tag=""
-        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer hover:text-black/90"
+        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer hover:text-black/90 active:text-black/90"
         >All</button
       >
       <button
         data-tag="web"
-        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer hover:text-black/90"
+        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer hover:text-black/90 active:text-black/90"
         >Web</button
       >
       <button
         data-tag="ds"
-        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer hover:text-black/90"
+        class="px-2 py-1 border border-transparent text-lg text-black font-normal cursor-pointer hover:text-black/90 active:text-black/90"
         >Data</button
       >
     </div>

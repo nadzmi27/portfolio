@@ -55,7 +55,7 @@ const {
 
 <div class="relative">
   <Tooltip client:load tooltip={tooltip}>
-    <Link href={href} openNew={false} class="hover:brightness-95">
+    <Link href={href} openNew={false} class="hover:brightness-95 active:brightness-95">
       <div
         class:list={[
           "card-texture w-full h-fit px-4 border shadow-sm font-sans pointer-events-none",
@@ -123,7 +123,7 @@ const {
         <Link
           href={link.href}
           openNew={true}
-          class="card-texture flex flex-row items-center gap-2 p-2 lg:px-2 lg:py-1 border hover:brightness-95 -translate-y-0.5 lg:translate-none"
+          class="card-texture flex flex-row items-center gap-2 p-2 lg:px-2 lg:py-1 border hover:brightness-95 active:brightness-95 -translate-y-0.5 lg:translate-none"
           style={`--bg-url: url(${paperBg.src}); background-color: var(--color-creamy-white); border-color: #000`}
         >
           {link.name && <span class="hidden lg:block">{link.name}</span>}

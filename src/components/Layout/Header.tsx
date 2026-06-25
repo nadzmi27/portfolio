@@ -71,7 +71,7 @@ export default function Header({
         <nav
           className="
             relative z-10
-            flex justify-between items-center
+            flex justify-between items-center gap-8
             w-full max-w-[1048px]
             text-lg
           "

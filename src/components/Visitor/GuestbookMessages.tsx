@@ -155,7 +155,7 @@ export default function GuestbookMessages({
           <button
             onClick={() => setPage((p) => p - 1)}
             disabled={page === 1}
-            className="cursor-pointer text-black/80 hover:text-black disabled:pointer-events-none disabled:opacity-50"
+            className="cursor-pointer text-black/80 hover:text-black active:text-black disabled:pointer-events-none disabled:opacity-50"
           >
             ← Prev
           </button>
@@ -192,7 +192,7 @@ export default function GuestbookMessages({
           <button
             onClick={() => setPage((p) => p + 1)}
             disabled={page === totalPages}
-            className="cursor-pointer text-black/80 hover:text-black disabled:pointer-events-none disabled:opacity-50"
+            className="cursor-pointer text-black/80 hover:text-black active:text-black disabled:pointer-events-none disabled:opacity-50"
           >
             Next →
           </button>

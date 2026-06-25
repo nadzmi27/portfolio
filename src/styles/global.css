@@ -9,6 +9,7 @@ body {
   font-family: var(--font-serif);
 }
 
+
 @theme {
   --font-mono: "JetBrains", monospace;
   --font-serif: "Source Serif 4", serif;

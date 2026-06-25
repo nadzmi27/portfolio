@@ -15,7 +15,7 @@ function HandDrawnDiv({
   onClick,
   styles,
   pad = 5,
-  seed
+  seed,
 }: {
   children: ReactNode;
   className?: string;
@@ -85,7 +85,6 @@ function HandDrawnDiv({
     <div
       ref={containerRef}
       className={`relative inline-block p-2 cursor-${onClick ? "pointer" : "default"} ${className}`}
-      onClick={onClick}
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={(e) => {
@@ -94,13 +93,14 @@ function HandDrawnDiv({
           onClick(e as any);
         }
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
+      onPointerDown={() => setIsPressed(true)}
+      onPointerUp={() => setIsPressed(false)}
+      onPointerLeave={() => setIsPressed(false)}
+      onPointerCancel={() => setIsPressed(false)}
+      onClick={(e) => {
         setIsPressed(false);
+        onClick?.(e);
       }}
-      onMouseDown={() => setIsPressed(true)}
-      onMouseUp={() => setIsPressed(false)}
     >
       <svg
         ref={svgRef}

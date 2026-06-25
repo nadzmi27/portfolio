@@ -6,7 +6,7 @@ const navLinks = [
   { title: "Home", href: "" },
   { title: "About me", href: "/about" },
   { title: "Projects", href: "/project" },
-  { title: "Blog", href: "/blog" },
+  { title: "Blog", href: "/blog/1" },
   { title: "Visitor Corner", href: "/visitor" },
 ];
 
@@ -120,7 +120,7 @@ const MobileNavLink = ({ title, href }) => {
   return (
     <motion.div
       variants={mobileLinkVars}
-      className="text-4xl uppercase text-black"
+      className="text-4xl uppercase nav-link"
     >
       <a href={base + href}>{title}</a>
     </motion.div>

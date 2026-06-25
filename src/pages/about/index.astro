@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Layout from "../../components/Layout/Layout.astro";
 import Link from "../../components/Layout/Link.astro";
+import Tooltip from "../../components/Tooltip.jsx";
 import Collage from "../../components/MainPage/Collage.astro";
 import LiveClock from "../../components/MainPage/LiveClock.astro";
 import { ArrowRight } from "@lucide/astro";
@@ -41,6 +42,10 @@ type CertificationEntry = {
   name: string;
   platform?: string;
   link?: string;
+  icon?: {
+    name?: string;
+    size?: number;
+  };
 };
 const certifications: CertificationEntry[] = [
   {
@@ -105,28 +110,28 @@ const certifications: CertificationEntry[] = [
           </Link>
           <div class="flex gap-2 items-center">
             <Link
-              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black active:text-black"
               href="https://github.com/nadzmi27"
               openNew={true}
             >
               <Icon name="ph:github-logo" size={24} />
             </Link>
             <Link
-              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black active:text-black"
               href="https://au.linkedin.com/in/nadzmi-ag-thomas-0267a6219"
               openNew={true}
             >
               <Icon name="ph:linkedin-logo" size={24} />
             </Link>
             <Link
-              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black active:text-black"
               href="https://www.kaggle.com/nadzmiagthomas/code"
               openNew={true}
             >
               kaggle
             </Link>
             <Link
-              class="hover-underline-animation pb-1 text-black/75 hover:text-black"
+              class="hover-underline-animation pb-1 text-black/75 hover:text-black active:text-black"
               href="mailto:nadzmiagthomas@gmail.com"
             >
               <Icon name="ph:envelope-simple" size={24} />
@@ -161,13 +166,15 @@ const certifications: CertificationEntry[] = [
 
     <!-- Education and Certification -->
     <div class="mb-16 md:mb-20 md:mt-16 lg:mt-0">
-      <h1 class="text-2xl font-semibold mb-2">Education and Certifications</h1>
+      <h1 class="text-2xl font-semibold mb-2 font-serif">
+        Education and Certifications
+      </h1>
       <div class="flex flex-col md:flex-row max-w-[1048px] gap-8">
         <div class="basis-1/2">
-          <h2 class="text-xs tracking-wide text-neutral-400 mb-2.5">
+          <h2 class="text-sm tracking-wide text-neutral-400 mb-2.5 font-serif">
             Education
           </h2>
-          <div class="flex flex-col">
+          <div class="flex flex-col gap-4">
             {
               educations.map((educ) => {
                 return (
@@ -175,27 +182,29 @@ const certifications: CertificationEntry[] = [
                     <div class="bg-black/5 w-12 h-12 flex items-center justify-center">
                       <Icon
                         class=""
-                        name={educ.icon.name}
-                        size={educ.icon.size ?? 32}
+                        name={educ.icon?.name ?? "ph:graduation-cap"}
+                        size={educ.icon?.size ?? 32}
                       />
                     </div>
-                    <Link
-                      class="flex flex-col text-nav-link hover:text-black"
-                      href={educ.link}
-                    >
-                      <span class="flex">
-                        <p class="font-semibold text-black">
-                          {educ.institution}
-                        </p>
-                        <p class="ml-auto text-black">{educ.dateRange}</p>
-                      </span>
-                      <i class="text-pretty">{educ.name}</i>
-                      {/* {educ.majors && <i>{educ.majors}</i>} */}
-                      <span class="flex items-center gap-1  ">
-                        <i>{educ.majors}</i>
-                        <Icon name="ph:arrow-square-out" />
-                      </span>
-                    </Link>
+                    <Tooltip client:load tooltip="View transcript">
+                      <Link
+                        class="flex flex-col text-nav-link hover:text-black active:text-black"
+                        href={educ.link}
+                      >
+                        <span class="flex">
+                          <p class="font-semibold text-black">
+                            {educ.institution}
+                          </p>
+                          <p class="ml-auto text-black">{educ.dateRange}</p>
+                        </span>
+                        <i class="text-pretty">{educ.name}</i>
+                        {/* {educ.majors && <i>{educ.majors}</i>} */}
+                        <span class="flex items-center gap-1  ">
+                          <i>{educ.majors}</i>
+                          <Icon name="ph:arrow-square-out" />
+                        </span>
+                      </Link>
+                    </Tooltip>
                   </div>
                 );
               })
@@ -204,26 +213,39 @@ const certifications: CertificationEntry[] = [
         </div>
         <!-- Certification -->
         <div class="basis-1/2 md:pl-2">
-          <h2 class="text-xs tracking-wide text-neutral-400 mb-2.5">
+          <h2 class="text-sm tracking-wide text-neutral-400 mb-2.5 font-serif">
             Certifications
           </h2>
-          <div class="flex items-center gap-4 pb-1 mb-2">
+          <div class="flex flex-col gap-4 pb-1 mb-2">
             {
               certifications.map((cert) => {
                 return (
-                  <Link
-                    class="flex flex-col text-nav-link hover:text-black"
-                    href={cert.link}
-                  >
-                    <span class="flex text-black">
-                      <p class="font-semibold">{cert.institution}</p>
-                      {cert.platform && <p class="ml-1">| {cert.platform}</p>}
-                    </span>
-                    <span class="flex items-center gap-1">
-                      <i>{cert.name}</i>
-                      <Icon name="ph:arrow-square-out" />
-                    </span>
-                  </Link>
+                  <div class="flex items-center gap-4">
+                    <div class="bg-black/5 w-12 h-12 flex items-center justify-center">
+                      <Icon
+                        class=""
+                        name={cert.icon?.name ?? "ph:scroll"}
+                        size={cert.icon?.size ?? 32}
+                      />
+                    </div>
+                    <Tooltip client:load tooltip="View certificate">
+                      <Link
+                        class="flex flex-col text-nav-link hover:text-black active:text-black"
+                        href={cert.link}
+                      >
+                        <span class="flex text-black">
+                          <p class="font-semibold">{cert.institution}</p>
+                          {cert.platform && (
+                            <p class="ml-1">| {cert.platform}</p>
+                          )}
+                        </span>
+                        <span class="flex items-center gap-1">
+                          <i>{cert.name}</i>
+                          <Icon name="ph:arrow-square-out" />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                  </div>
                 );
               })
             }
@@ -235,7 +257,7 @@ const certifications: CertificationEntry[] = [
 
     <!-- Skills -->
     <div>
-      <h1 class="text-2xl font-semibold mb-4">Skills</h1>
+      <h1 class="text-2xl font-semibold mb-4 font-serif">Skills</h1>
       <SkillSection />
     </div>
   </div>

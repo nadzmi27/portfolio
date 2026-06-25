@@ -64,7 +64,7 @@ const groupedEntries = Object.entries(grouped).sort(
     </div>
 
     <nav class="flex justify-center items-center gap-4">
-      <div class="w-24 flex justify-end text-black/80 hover:text-black">
+      <div class="w-24 flex justify-end text-black/80 hover:text-black active:text-black">
         {page.url.prev && <a href={page.url.prev}>← Previous</a>}
       </div>
 
@@ -76,7 +76,7 @@ const groupedEntries = Object.entries(grouped).sort(
           placeholder={String(page.currentPage)}
         /> of {page.lastPage}</span
       >
-      <div class="w-24 flex justify-start text-black/80 hover:text-black">
+      <div class="w-24 flex justify-start text-black/80 hover:text-black active:text-black">
         {page.url.next && <a href={page.url.next}>Next →</a>}
       </div>
     </nav>

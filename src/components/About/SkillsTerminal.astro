@@ -30,7 +30,8 @@ const { category = "f", skillEntries = softwareEntries } = Astro.props;
               {entry.skills.map((skill) =>
                 skill.tooltip ? (
                   <Tooltip client:load tooltip={skill.tooltip}>
-                    <div class="bg-blue-100 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border hover:brightness-95">
+                    {/* D4E2EB */}
+                    <div class="bg-blue-100/50 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border hover:brightness-95">
                       {skill.icon && (
                         <Icon
                           name={skill.icon}
@@ -42,7 +43,7 @@ const { category = "f", skillEntries = softwareEntries } = Astro.props;
                     </div>
                   </Tooltip>
                 ) : (
-                  <div class="bg-blue-100 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border hover:brightness-95">
+                  <div class="bg-blue-100/50 flex items-center gap-1.5 px-2 py-1 uppercase text-sm border hover:brightness-95">
                     {skill.icon && (
                       <Icon
                         name={skill.icon}
