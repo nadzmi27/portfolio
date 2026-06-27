@@ -7,6 +7,7 @@ import Layout from "../../components/Layout/Layout.astro";
 import { Icon } from "astro-icon/components";
 import Link from "../../components/Layout/Link.astro";
 import { hexLighten } from "../../util/hexLighten";
+import LinkAnimate from "../../components/LinkAnimate";
 
 export async function getStaticPaths() {
   const projects = await getCollection(
@@ -90,7 +91,7 @@ const skillBorder = "#000000";
             "prose-code:before:content-none prose-code:after:content-none",
           ]}
         >
-          <Content />
+          <Content components={{LinkAnimate}} />
         </article>
       </div>
     </div>
