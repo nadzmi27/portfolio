@@ -55,12 +55,12 @@ export const softwareEntries: SkillsEntry[] = [
         name: "React Query",
         icon: "simple-icons:reactquery",
         tooltip:
-          "Used for managing API data (fetching, caching, ...) and optimising API usage.",
+          "Used for managing API data (fetching, caching, ...) and optimising API usage",
       },
       {
         name: "Redux",
         icon: "simple-icons:redux",
-        tooltip: "Personally I prefer React Query + React Context",
+        tooltip: "Personally I prefer React Query + React Context. I know how to use, but never really find the right use case for it",
       },
       {
         name: "Tailwind",
@@ -82,7 +82,7 @@ export const softwareEntries: SkillsEntry[] = [
         name: "PostgreSQL",
         icon: "simple-icons:postgresql",
         tooltip:
-          "My main SQL database since I use Supabase heavily. I'm also familiar with Oracle SQL.",
+          "My main SQL database since I use Supabase heavily. I'm also familiar with Oracle SQL",
       },
 
       {
@@ -107,12 +107,12 @@ export const softwareEntries: SkillsEntry[] = [
         name: "Express.js",
         icon: "simple-icons:express",
         tooltip:
-          "Anyone who learns Node will usually learn Express at the same time. I quite like the middleware concept from express.",
+          "Anyone who learns Node will usually learn Express at the same time. I quite like the middleware concept from express",
       },
       {
         name: "MongoDB",
         icon: "simple-icons:mongodb",
-        tooltip: "",
+        tooltip: "Learnt in uni and fullstackopen, never really used it",
       },
     ],
   },
@@ -128,7 +128,7 @@ export const softwareEntries: SkillsEntry[] = [
         name: "GitHub Actions",
         icon: "simple-icons:githubactions",
         tooltip:
-          "This portfolio is build automatically using Github Actions on push to main branch.",
+          "This portfolio is build automatically using Github Actions on push to main branch",
       },
       {
         name: "Cloudflare",
@@ -145,8 +145,18 @@ export const softwareEntries: SkillsEntry[] = [
         name: "AWS",
         icon: "mdi:aws",
         tooltip:
-          "Know how to use, and used it for my final year project at Monash. However, I prefer Supabase + Cloudflare.",
+          "Know how to use, and used it for my final year project at Monash. However, I prefer Supabase + Cloudflare",
       },
+      {
+        name: "Linux (WSL)",
+        icon: "simple-icons:linux",
+        tooltip:"I initially installed WSL to run Kali Linux for CTF. Now I also use it for Docker and OpenCode"
+      },
+      {
+        name: "OpenCode",
+        icon: "simple-icons:opencode",
+        tooltip: "I mainly use the planning mode to help me plan my project. Also used for me helping write my case study and blogs"
+      }
     ],
   },
 ];
@@ -182,7 +192,7 @@ export const dataEntries: SkillsEntry[] = [
 
       { name: "Streamlit", icon: "simple-icons:streamlit" },
       { name: "SciPy", icon: "simple-icons:scipy" },
-      { name: "Pillow", tooltip: "Image manipulation" },
+      { name: "Pillow"},
     ],
   },
   {
@@ -209,19 +219,14 @@ export const dataEntries: SkillsEntry[] = [
       {
         name: "Kafka",
         icon: "simple-icons:apachekafka",
-        tooltip: "Used together with PySpark",
       },
       {
         name: "PySpark",
         icon: "simple-icons:apachespark",
-        tooltip:
-          "I'm traumatised by Spark structured streaming & window functions. Have to stay up multiple days just to finish my assignment ughh",
       },
       {
         name: "Airflow",
         icon: "simple-icons:apacheairflow",
-        tooltip:
-          "Data orchestration. Good for ETL jobs with sequential tasks. Used it for daily cron jobs for my uni final year project.",
       },
     ],
   },

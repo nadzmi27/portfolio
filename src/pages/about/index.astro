@@ -186,7 +186,21 @@ const certifications: CertificationEntry[] = [
                         size={educ.icon?.size ?? 32}
                       />
                     </div>
-                    <Tooltip client:load tooltip="View transcript">
+                      <div
+                        class="flex flex-col text-nav-link"
+                      >
+                        <span class="flex">
+                          <p class="font-semibold text-black">
+                            {educ.institution}
+                          </p>
+                          <p class="ml-auto text-black">{educ.dateRange}</p>
+                        </span>
+                        <i class="text-pretty">{educ.name}</i>
+                        <span class="flex items-center gap-1  ">
+                          <i>{educ.majors}</i>
+                        </span>
+                      </div>
+                    {/* <Tooltip client:load tooltip="View transcript">
                       <Link
                         class="flex flex-col text-nav-link hover:text-black active:text-black"
                         href={educ.link}
@@ -198,13 +212,12 @@ const certifications: CertificationEntry[] = [
                           <p class="ml-auto text-black">{educ.dateRange}</p>
                         </span>
                         <i class="text-pretty">{educ.name}</i>
-                        {/* {educ.majors && <i>{educ.majors}</i>} */}
                         <span class="flex items-center gap-1  ">
                           <i>{educ.majors}</i>
                           <Icon name="ph:arrow-square-out" />
                         </span>
                       </Link>
-                    </Tooltip>
+                    </Tooltip> */}
                   </div>
                 );
               })

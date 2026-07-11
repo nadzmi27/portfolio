@@ -35,8 +35,8 @@ hasCaseStudy: True
 
 # Background
 This project is my attempt at leveraging the power of **sentence embedding** (e.g. BERT). I decided to use sentence embedding to design a search engine. The project is divided into two main components:
-1. Using **textual information** provided in the **[MyAnimeList](https://myanimelist.net/)** such as **synopsis, genre, demographic, and etc.** and transforming them into **vector representation** and storing them into **[vector database](https://www.pinecone.io/learn/vector-database/)** (since the size of the data will be small, we will store them as Numpy file). 
-2. Take in **query** by the user and convert them into **vector representation** and match them to **top k** anime in the **vector database** using **Bi-Encoder** (explanation below) then we will narrow down the matches using **Cross-Encoder**. The ranking of the matches is decided with the combination of **score, popularity and favourites** using **[geometric mean](https://en.wikipedia.org/wiki/Geometric_mean)**.
+1. Using **textual information** provided in the <a href="https://myanimelist.net/" target="_blank" rel="noopener noreferrer">MyAnimeList</a> such as **synopsis, genre, demographic, and etc.** and transforming them into **vector representation** and storing them into <a href="https://www.pinecone.io/learn/vector-database/" target="_blank" rel="noopener noreferrer">vector database</a> (since the size of the data will be small, we will store them as Numpy file). 
+2. Take in **query** by the user and convert them into **vector representation** and match them to **top k** anime in the **vector database** using **Bi-Encoder** (explanation below) then we will narrow down the matches using **Cross-Encoder**. The ranking of the matches is decided with the combination of **score, popularity and favourites** using <a href="https://en.wikipedia.org/wiki/Geometric_mean" target="_blank" rel="noopener noreferrer">geometric mean</a>.
 
 # Architecture
 <figure>

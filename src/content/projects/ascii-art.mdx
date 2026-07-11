@@ -7,7 +7,7 @@ description: >
     Every ASCII art on the internet is bulky, so I decided to make one that goes into fine grain. 
     Website coming soon...
 importance: 109
-image: "../../assets/greatwaves.webp"
+image: "../../assets/ascii/greatwaves.webp"
 imageAlt: "The Great Waves / Ascii"
 href: "/project/ascii-art"
 links: 
@@ -33,5 +33,178 @@ skillColor: "#DFCAA0"
 hasCaseStudy: True
 ---
 
-## To be written
-Case study is on the way...
+import placeholder from "../../assets/ascii/placeholder.png"
+
+<div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <img src={placeholder.src} alt="The Great Wave off Kanagawa rendered as ASCII art" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Mona Lisa rendered as ASCII art" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Starry Night rendered as ASCII art" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Girl with a Pearl Earring rendered as ASCII art" className="w-full h-auto rounded" />
+</div>
+
+Some of the ASCII outputs generated from various artworks — The Great Wave off Kanagawa, Mona Lisa, Starry Night, and Girl with a Pearl Earring.
+
+# Background
+
+Most ASCII art generators you find online are bulky — they use a small grid and lose a lot of detail. I wanted to build something that goes into fine grain. Something where you can crank the resolution up to 512 characters per row and the output still looks clean.
+
+This project explores three approaches to converting images to ASCII art: brightness-based mapping, a hybrid that mixes brightness with edge orientation, and a lineart method that uses template matching with font-rendered characters. I also built an interactive widget so I could tweak parameters on the fly without re-running code.
+
+Optionally, each character can be rendered in its original pixel color instead of pure black — more on that below.
+
+All code is on [Kaggle](https://www.kaggle.com/code/nadzmiagthomas/image-to-ascii) and I'm working on a React web version so anyone can try it out.
+
+# Pipeline Overview
+
+Character selection is driven entirely by **grayscale brightness** — the original image gets converted to luminance using the standard formula:
+
+```
+Y = 0.299R + 0.587G + 0.114B
+```
+
+Green is weighted heaviest because our eyes are most sensitive to it.
+
+Once the brightness grid is built, each cell maps to a character. If **color mode** is on, there is a second parallel path — the original RGB image is resized to the same grid dimensions, and each cell's average RGB is sampled and used as the ink color at render time.
+
+```
+Original image
+  ├──→ grayscale → resize to grid → brightness → character grid
+  └──→ original RGB → resize to grid → per-cell color samples
+                                         └──→ optional: paint each character in sampled color
+```
+
+The grid dimensions aren't arbitrary. Characters in a monospace font are taller than wide, so an aspect-ratio correction is applied:
+
+```
+num_rows = floor(num_chars × (orig_h / orig_w) × (char_w / char_h))
+```
+
+The final step renders the character grid at high resolution using a monospace font, then downscales. At high character counts the individual letters blur into texture — this is intentional.
+
+Here's the comparison between the three methods on the same source image:
+
+<div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <img src={placeholder.src} alt="Original grayscale image" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Brightness-based ASCII output" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Hybrid ASCII output with edge orientation" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Lineart ASCII output" className="w-full h-auto rounded" />
+</div>
+
+**Methods compared (left to right):** Original grayscale, brightness-based, hybrid, lineart.
+
+# Brightness-Based Method
+
+This is the classic approach. Each pixel's luminance maps directly to a character — dark areas get dense characters, bright areas get sparse ones.
+
+## Quantization
+
+The grayscale pixel value is normalised, optionally gamma-corrected, then inverted to get darkness:
+
+```
+d = 1 − (p / 255)^γ
+```
+
+**Linear** quantizes darkness into equal-width bins, one per character:
+
+```
+i = min(floor(d × |char_set|), |char_set| − 1)
+character = char_set[i]
+```
+
+**Adaptive** applies min-max normalisation first, so the full character range is always used even on low-contrast images:
+
+```
+d_norm = (d − d_min) / (d_max − d_min + ε)
+```
+
+<div className="not-prose grid grid-cols-2 gap-4 my-6">
+  <img src={placeholder.src} alt="Linear brightness mapping output" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Adaptive brightness mapping output" className="w-full h-auto rounded" />
+</div>
+
+**Linear (left) vs Adaptive (right).** Notice how adaptive makes better use of the character range.
+
+## Character Set Sorting
+
+Instead of manually ordering characters by perceived brightness, I followed the approach from [Parberry (2011)](https://ianparberry.com/art/ascii/shader/) and measured actual ink coverage. Each character is rendered onto a canvas, and the fraction of inked pixels determines its rank:
+
+```
+coverage(c) = 1 − (1 / hw) × Σ(I_c(x, y) / 255)
+```
+
+This gave me empirically sorted character sets — no guesswork. The `custom2` set I settled on was ` .:;*^+|TIVFXZKHENMW`.
+
+## Parameters
+
+- **Gamma correction** — exponential tonal shift (γ < 1 = lighter, γ > 1 = darker)
+- **Blank threshold** — pixels above this brightness are always mapped to space (keeps backgrounds clean)
+- **Font size** — smaller = finer grid = more detail
+- **Number of characters per row** — 32, 64, 128, 256, 512 — more = finer texture
+- **Color (optional)** — when enabled, each character inherits the original pixel's RGB color instead of rendering in black
+
+<div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <img src={placeholder.src} alt="Gamma values sweep from 0.125 to 4" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Char widths sweep from 32 to 512" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Character set comparison across 8 sets" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Blank threshold comparison from 0.5 to 0.99" className="w-full h-auto rounded" />
+</div>
+
+**Parameter sweeps.** Gamma correction, grid width (num_chars), character set comparison, and blank threshold.
+
+# Hybrid Method
+
+Pure brightness-based mapping loses structural information — edges and contours get muddled. The hybrid method addresses this by overlaying edge orientation on top of brightness.
+
+The idea: for pixels where the Sobel or Canny edge detector finds a strong edge, replace the brightness character with an orientation-specific one (like `/`, `\`, `|`, `-`) that follows the direction of the edge.
+
+This gives the best of both worlds — tonal depth from brightness, structural clarity from edges.
+
+<div className="not-prose grid grid-cols-2 gap-4 my-6">
+  <img src={placeholder.src} alt="Hybrid method with Sobel edge detection" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Hybrid method with Canny edge detection" className="w-full h-auto rounded" />
+</div>
+
+**Hybrid output.** Brightness provides tone, edge orientation provides contour lines.
+
+# Lineart Method
+
+This is the most experimental approach. Instead of mapping pixels to characters, it converts the image into lineart using Sobel or Canny edge detection, then matches edge patterns against a library of font-rendered character templates using 2D convolution (`scipy.ndimage.convolve`).
+
+Each character is rendered at the target font size, and its pixel grid becomes a template K. The convolution score at each position determines the best match:
+
+```
+(I ∗ K)(x, y) = Σᵢ Σⱼ I(x − i, y − j) K(i, j)
+```
+
+The `shapes` character set (`. -=+|/\\<>^v[]{}()*#@`) works best here — the characters are structurally distinct, so template matching can actually tell them apart.
+
+<div className="not-prose grid grid-cols-2 gap-4 my-6">
+  <img src={placeholder.src} alt="Lineart method using Sobel edge detection" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Lineart method using Canny edge detection" className="w-full h-auto rounded" />
+</div>
+
+**Lineart output.** Clean line-art style ASCII from Canny edges. The individual characters are more readable here compared to the brightness method.
+
+# Gallery
+
+Here are some more outputs generated with different parameter combinations:
+
+<div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <img src={placeholder.src} alt="The Great Wave off Kanagawa - detailed ASCII render" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Mona Lisa - adaptive brightness" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Starry Night - color ASCII render" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Islamic tiles - high resolution ASCII" className="w-full h-auto rounded" />
+</div>
+
+And here's the same thing with **color mode** enabled. Character shapes are still picked from grayscale, but the ink color is sampled from the original image:
+
+<div className="not-prose grid grid-cols-2 gap-4 my-6">
+  <img src={placeholder.src} alt="Color ASCII rendering of Mona Lisa" className="w-full h-auto rounded" />
+  <img src={placeholder.src} alt="Color ASCII rendering of The Great Wave" className="w-full h-auto rounded" />
+</div>
+
+# What's Next
+
+I'm building a React web app that wraps this pipeline so anyone can upload an image, tweak parameters, and download their ASCII art without touching a single line of Python. Stay tuned.
+
+The full notebook is on [Kaggle](https://www.kaggle.com/code/nadzmiagthomas/image-to-ascii).
