@@ -84,14 +84,14 @@ export default function Header({
             {links.slice(0, -1).map((link) => (
               <a
                 key={link.href}
-                href={`/portfolio${link.href}`}
+                href={`${link.href}`}
                 className="nav-link px-2 py-1.25 hover-underline-animation"
               >
                 {link.label}
               </a>
             ))}
-            <Tooltip tooltip={links.at(-1)!.tooltip}>
-              <a className="h-fit cursor-pointer" href={`/portfolio${links.at(-1)!.href}`}>
+            {/* <Tooltip tooltip={links.at(-1)!.tooltip}> */}
+              <a className="h-fit cursor-pointer" href={`${links.at(-1)!.href}`}>
                 <p
                   key={links.at(-1)!.href}
                   // href={`/portfolio${links.at(-1)!.href}`}
@@ -100,7 +100,7 @@ export default function Header({
                   {links.at(-1)!.label}
                 </p>
               </a>
-            </Tooltip>
+            {/* </Tooltip> */}
           </div>
 
           {/* Mobile button */}

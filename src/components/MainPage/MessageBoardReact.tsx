@@ -88,7 +88,7 @@ function MessageBoard() {
         <HandDrawnDiv
           className="w-full text-center"
           onClick={() => {
-            window.location.href = "/portfolio/visitor";
+            window.location.href = "/visitor";
           }}
           styles={{
             default: {

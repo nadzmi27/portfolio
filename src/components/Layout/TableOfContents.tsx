@@ -47,7 +47,10 @@ export default function TableOfContents({ headings }: Props) {
   if (filtered.length === 0) return null;
 
   return (
-    <nav aria-label="Table of contents">
+    <nav
+      aria-label="Table of contents"
+      className="sticky max-h-[calc(100vh-6rem)] pb-10 md:pb-20 overflow-y-auto no-scrollbar"
+    >
       <ul className="space-y-1">
         {filtered.map((heading) => (
           <li

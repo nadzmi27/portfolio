@@ -1,8 +1,5 @@
+
 /* Section */
 .section {
   @apply max-w-[1120px] mx-auto w-full;
-}
-
-.featured-project-bg {
-    
 }
