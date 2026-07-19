@@ -13,7 +13,6 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://nadzmi.dev",
-  trailingSlash: "always",
 
   vite: {
     plugins: [tailwindcss()],
