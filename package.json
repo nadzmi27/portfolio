@@ -37,5 +37,8 @@
     "@iconify-json/ph": "^1.2.2",
     "@iconify-json/simple-icons": "^1.2.89",
     "@tailwindcss/typography": "^0.5.20"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

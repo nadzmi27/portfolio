@@ -5,9 +5,13 @@ import Header from "./Header.tsx";
 import "../../styles/global.css";
 const base = import.meta.env.BASE_URL;
 const segments = Astro.url.pathname.split("/").filter(Boolean);
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
 const {
-  title = "Nadzmi's Porfolio",
-  description = "Nadzmi's portfolio",
+  title = "Nadzmi Ag Thomas — Portfolio",
+  description = "Personal portfolio and blog of Nadzmi Ag Thomas, a full-stack developer and data science student.",
+  image,
   paddingTop = true,
   showHeader = true,
   showFooter = true,
@@ -19,12 +23,43 @@ const {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href=`${base}/favicon.svg` />
-    <link rel="icon" href=`${base}/favicon.ico` />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {image && <meta name="twitter:image" content={new URL(image, Astro.site)} />}
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nadzmi Ag Thomas",
+      "url": canonicalURL.origin + "/",
+      "sameAs": [
+        "https://github.com/nadzmi27",
+        "https://au.linkedin.com/in/nadzmi-ag-thomas-0267a6219",
+        "https://www.kaggle.com/nadzmiagthomas",
+        "https://ratings.fide.com/profile/573006424",
+        "https://au.seek.com/profiles/dbMnhTsCj2"
+      ],
+    })}>
+    </script>
+
     <ClientRouter />
   </head>
   <body style={`background-color: ${backgroundColor};`}>

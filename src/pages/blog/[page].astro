@@ -87,16 +87,15 @@ const groupedEntries = Object.entries(grouped).sort(
   define:vars={{
     currentPage: page.currentPage,
     lastPage: page.lastPage,
-    base: import.meta.env.BASE_URL,
   }}
 >
   document.getElementById("page-input").addEventListener("keydown", (e) => {
     if (e.key !== "Enter") return;
     const page = parseInt(e.target.value, 10);
     if (page >= 1 && page <= lastPage) {
-      window.location.href = `${base}/blog/${page}`;
+      window.location.href = `/blog/${page}`;
     } else if (page > lastPage) {
-      window.location.href = `${base}/blog/${lastPage}`;
+      window.location.href = `/blog/${lastPage}`;
     } else {
       e.target.value = `${currentPage}`;
     }

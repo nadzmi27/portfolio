@@ -11,8 +11,7 @@ const Navigation = ({
     .map((segment, index) => ({
       label: segment,
       href: "/" + segments.slice(0, index + 1).join("/"),
-    }))
-    .slice(1);
+    }));
   const ancestors = breadcrumbs.slice(0, -1);
   const current = breadcrumbs[breadcrumbs.length - 1];
   const lastAncestor = ancestors.at(-1);
@@ -35,7 +34,7 @@ const Navigation = ({
       {ancestors.map((crumb) => (
         <span key={crumb.href} className="flex items-center shrink-0">
           <span className="mr-0.5">/</span>
-          <a href={crumb.href} className="nav-link pr-1">
+          <a href={crumb.href} className="nav-link mr-0.5">
             {crumb.label}
           </a>
         </span>
@@ -50,7 +49,7 @@ const Navigation = ({
         </>
       )}
 
-      <span className="shrink-0 pl-0.5">/</span>
+      <span className="shrink-0">/</span>
       <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-terminal-fade shrink-0"></span>
     </div>
   );
