@@ -11,7 +11,7 @@ import MessageBoard from "../components/MainPage/MessageBoard.astro";
 
 <Layout
   title="Nadzmi Ag Thomas — Portfolio"
-  description="Full-stack developer and data science student. I build web apps, analyse data, and write about what I learn."
+  description="Software developer with a background in data. I build full-stack apps and data tools, from a React frontend down to the database and pipeline."
 >
   <div
     data-bg="#f9f7f7"
@@ -23,7 +23,11 @@ import MessageBoard from "../components/MainPage/MessageBoard.astro";
   </div>
 
   <!-- Featured Projects -->
-  <Section header="FEATURED PROJECT" backgroundHex="var(--color-project-background)" href="/project">
+  <Section
+    header="FEATURED PROJECT"
+    backgroundHex="var(--color-project-background)"
+    href="/project"
+  >
     <FeaturedProjects />
   </Section>
 
@@ -37,7 +41,10 @@ import MessageBoard from "../components/MainPage/MessageBoard.astro";
   </Section>
 
   <!-- Leave A Message -->
-  <Section header="LEAVE A MESSAGE" backgroundHex="var(--color-visitor-background)">
+  <Section
+    header="LEAVE A MESSAGE"
+    backgroundHex="var(--color-visitor-background)"
+  >
     <MessageBoard />
   </Section>
 </Layout>
