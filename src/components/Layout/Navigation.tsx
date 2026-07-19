@@ -11,8 +11,7 @@ const Navigation = ({
     .map((segment, index) => ({
       label: segment,
       href: "/" + segments.slice(0, index + 1).join("/"),
-    }))
-    .slice(1);
+    }));
   const ancestors = breadcrumbs.slice(0, -1);
   const current = breadcrumbs[breadcrumbs.length - 1];
   const lastAncestor = ancestors.at(-1);
