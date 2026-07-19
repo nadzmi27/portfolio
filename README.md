@@ -1,1 +1,1 @@
-[Portoflio](https://nadzmi27.github.io/portfolio/)
+[Portoflio](https://nadzmi.dev)

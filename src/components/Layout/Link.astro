@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 const isExternal = href
   ? String(href).startsWith("http") || String(href).startsWith("mailto:")
   : false;
-const resolvedHref = isExternal ? href : `${base}${href}`;
+const resolvedHref = isExternal ? href : `${base.replace(/\/+$/, "")}${href}`;
 ---
 
 <a

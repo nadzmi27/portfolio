@@ -10,16 +10,11 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://nadzmi27.github.io",
-  base: "/portfolio",
+  site: "https://nadzmi.dev",
 
   vite: {
     plugins: [tailwindcss()],
   },
 
-  integrations: [
-    react(),
-    icon(),
-    mdx(),
-  ],
+  integrations: [react(), icon(), mdx()],
 });

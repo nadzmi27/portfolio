@@ -50,7 +50,7 @@ const Navigation = ({
         </>
       )}
 
-      <span className="shrink-0">/</span>
+      <span className="shrink-0 pl-0.5">/</span>
       <span className="relative bottom-[-1.5px] h-[16px] w-[6px] ml-1 bg-nav-link animate-terminal-fade shrink-0"></span>
     </div>
   );

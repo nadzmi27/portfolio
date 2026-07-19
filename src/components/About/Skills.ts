@@ -155,7 +155,7 @@ export const softwareEntries: SkillsEntry[] = [
       {
         name: "OpenCode",
         icon: "simple-icons:opencode",
-        tooltip: "I mainly use the planning mode to help me plan my project. Also used for me helping write my case study and blogs"
+        tooltip: "I mainly use the planning mode to help me plan my project. Also used for helping me write my case study and blogs"
       }
     ],
   },

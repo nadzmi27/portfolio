@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const base = "/portfolio";
+const base = "";
 const navLinks = [
   { title: "Home", href: "" },
   { title: "About me", href: "/about" },
