@@ -96,7 +96,7 @@ export default function Header({
                 <p
                   key={links.at(-1)!.href}
                   // href={`/portfolio${links.at(-1)!.href}`}
-                  className="nav-link px-2 ml-2 py-1.25 border"
+                  className="nav-link px-2 ml-2 py-1.25 border text-center"
                 >
                   {links.at(-1)!.label}
                 </p>
