@@ -1,0 +1,38 @@
+<div
+  id="mobile-banner"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-jetblack/95 text-white px-5 py-4 font-serif block md:hidden"
+>
+  <div class="max-w-[1048px] mx-auto flex flex-row items-center gap-3">
+    <p class="flex-1 m-0 text-base leading-tight text-pretty">
+      Hey there! Just letting you know that this site is best experienced
+      on desktop, some features might not work as intended on
+      different devices. Happy browsing :)
+    </p>
+    <button
+      id="mobile-banner-ok"
+      class="shrink-0 bg-white text-jetblack px-6 py-1.5 text-base cursor-pointer font-serif font-medium hover:brightness-95 active:brightness-95"
+    >
+      Okay
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", function init() {
+    const banner = document.getElementById("mobile-banner");
+    if (!banner) return;
+    try {
+      if (localStorage.getItem("mobile-banner-dismissed")) {
+        banner.remove();
+        return;
+      }
+    } catch {}
+    const btn = banner.querySelector("#mobile-banner-ok");
+    if (btn) {
+      btn.addEventListener("click", function dismiss() {
+        try { localStorage.setItem("mobile-banner-dismissed", "true"); } catch {}
+        banner.remove();
+      });
+    }
+  });
+</script>
