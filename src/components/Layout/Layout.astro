@@ -9,7 +9,7 @@ const segments = Astro.url.pathname.split("/").filter(Boolean);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const {
-  title = "Nadzmi Ag Thomas — Portfolio",
+  title = "Nadzmi Ag Thomas - Portfolio",
   description = "Personal portfolio and blog of Nadzmi Ag Thomas, a software developer with a background in data.",
   image,
   paddingTop = true,
@@ -27,6 +27,8 @@ const {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
@@ -56,7 +58,8 @@ const {
         "https://www.kaggle.com/nadzmiagthomas",
         "https://ratings.fide.com/profile/573006424",
         "https://au.seek.com/profiles/dbMnhTsCj2",
-        "https://public.tableau.com/app/profile/nadzmi.ag.thomas"
+        "https://public.tableau.com/app/profile/nadzmi.ag.thomas",
+        "https://www.youtube.com/@nadzmiagthomas2054"
       ],
     })}>
     </script>
