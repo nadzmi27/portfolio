@@ -66,6 +66,7 @@ export default function Header({
         flex justify-center w-full h-[80px]
         pt-4 px-4 pb-4
         font-mono
+        caret-transparent
       "
       >
         <nav
