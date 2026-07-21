@@ -42,29 +42,34 @@ import placeholder from "../../assets/ascii/placeholder.png"
   <img src={placeholder.src} alt="Girl with a Pearl Earring rendered as ASCII art" className="w-full h-auto rounded" />
 </div>
 
-Some of the ASCII outputs generated from various artworks — The Great Wave off Kanagawa, Mona Lisa, Starry Night, and Girl with a Pearl Earring.
+Some of the ASCII outputs generated from various artworks: The Great Wave off Kanagawa, Mona Lisa, Starry Night, and Girl with a Pearl Earring.
 
 # Background
 
-Most ASCII art generators you find online are bulky — they use a small grid and lose a lot of detail. I wanted to build something that goes into fine grain. Something where you can crank the resolution up to 512 characters per row and the output still looks clean.
+Most ASCII art generators I find online are bulky. They use a small grid and lose a lot of detail. 
+I wanted to build something that goes into fine grain, something where you can crank the resolution up to 512 characters per row and still being able to zoom in to see the characters.
 
-This project explores three approaches to converting images to ASCII art: brightness-based mapping, a hybrid that mixes brightness with edge orientation, and a lineart method that uses template matching with font-rendered characters. I also built an interactive widget so I could tweak parameters on the fly without re-running code.
+This project explores three approaches to converting images to ASCII art: 
+brightness-based mapping, a hybrid that mixes brightness with edge orientation, and a lineart method that uses template matching with font-rendered characters. 
+I also built an interactive widget so I could tweak parameters on the fly without re-running code.
 
-Optionally, each character can be rendered in its original pixel color instead of pure black — more on that below.
+Optionally, each character can be rendered in its original pixel color instead of pure black. I'll epxand more on that below.
 
-All code is on [Kaggle](https://www.kaggle.com/code/nadzmiagthomas/image-to-ascii) and I'm working on a React web version so anyone can try it out.
+All code is on [Kaggle](https://www.kaggle.com/code/nadzmiagthomas/image-to-ascii) and I'm planning on a React web version so anyone can try it out.
 
 # Pipeline Overview
 
-Character selection is driven entirely by **grayscale brightness** — the original image gets converted to luminance using the standard formula:
+Character selection is driven entirely by **grayscale brightness**. The original image gets converted to greyscale using the standard formula:
 
 ```
 Y = 0.299R + 0.587G + 0.114B
 ```
 
-Green is weighted heaviest because our eyes are most sensitive to it.
+Green is weighted heaviest because human eyes are most sensitive to it.
 
-Once the brightness grid is built, each cell maps to a character. If **color mode** is on, there is a second parallel path — the original RGB image is resized to the same grid dimensions, and each cell's average RGB is sampled and used as the ink color at render time.
+Once the brightness grid is built, each cell maps to a character. 
+If **color mode** is on, there is a second parallel path, in which, the original RGB image is resized to the same grid dimensions, 
+and each cell's average RGB is sampled and used as the ink color at render time.
 
 ```
 Original image
@@ -73,13 +78,15 @@ Original image
                                          └──→ optional: paint each character in sampled color
 ```
 
-The grid dimensions aren't arbitrary. Characters in a monospace font are taller than wide, so an aspect-ratio correction is applied:
+The grid dimensions aren't randomly selected. Characters in a monospace font are taller than wide, so an aspect-ratio correction is applied:
 
 ```
 num_rows = floor(num_chars × (orig_h / orig_w) × (char_w / char_h))
 ```
 
-The final step renders the character grid at high resolution using a monospace font, then downscales. At high character counts the individual letters blur into texture — this is intentional.
+The final step renders the character grid at high resolution using a monospace font, then downscales. 
+At high character counts the individual letters blur into texture, which can make the characters seems invisible.
+But upon zooming in, the characters should be visible, and this was intentional.
 
 Here's the comparison between the three methods on the same source image:
 
@@ -94,7 +101,7 @@ Here's the comparison between the three methods on the same source image:
 
 # Brightness-Based Method
 
-This is the classic approach. Each pixel's luminance maps directly to a character — dark areas get dense characters, bright areas get sparse ones.
+This is the classic approach. Each pixel's luminance maps directly to a character where dark areas get dense characters, and bright areas get sparse ones.
 
 ## Quantization
 
@@ -132,15 +139,16 @@ Instead of manually ordering characters by perceived brightness, I followed the 
 coverage(c) = 1 − (1 / hw) × Σ(I_c(x, y) / 255)
 ```
 
-This gave me empirically sorted character sets — no guesswork. The `custom2` set I settled on was ` .:;*^+|TIVFXZKHENMW`.
+This gave me empirically sorted character sets, eliminating manual guesswork. 
+The `custom2` set I settled on was ` .:;*^+|TIVFXZKHENMW` as it seems to be giving the best visual.
 
 ## Parameters
 
-- **Gamma correction** — exponential tonal shift (γ < 1 = lighter, γ > 1 = darker)
-- **Blank threshold** — pixels above this brightness are always mapped to space (keeps backgrounds clean)
-- **Font size** — smaller = finer grid = more detail
-- **Number of characters per row** — 32, 64, 128, 256, 512 — more = finer texture
-- **Color (optional)** — when enabled, each character inherits the original pixel's RGB color instead of rendering in black
+- **Gamma correction:** exponential tonal shift (γ < 1 = lighter, γ > 1 = darker)
+- **Blank threshold:** pixels above this brightness are always mapped to space (keeps backgrounds clean)
+- **Font size:** smaller = finer grid = more detail
+- **Number of characters per row:** 32, 64, 128, 256, 512. More = finer texture
+- **Color (optional):** when enabled, each character inherits the original pixel's RGB color instead of rendering in black
 
 <div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
   <img src={placeholder.src} alt="Gamma values sweep from 0.125 to 4" className="w-full h-auto rounded" />
@@ -153,11 +161,12 @@ This gave me empirically sorted character sets — no guesswork. The `custom2` s
 
 # Hybrid Method
 
-Pure brightness-based mapping loses structural information — edges and contours get muddled. The hybrid method addresses this by overlaying edge orientation on top of brightness.
+Pure brightness-based mapping loses structural information. Edges and contours get muddled. 
+The hybrid method addresses this by overlaying edge orientation on top of brightness.
 
 The idea: for pixels where the Sobel or Canny edge detector finds a strong edge, replace the brightness character with an orientation-specific one (like `/`, `\`, `|`, `-`) that follows the direction of the edge.
 
-This gives the best of both worlds — tonal depth from brightness, structural clarity from edges.
+This gives the best of both worlds. Tonal depth from brightness, structural clarity from edges.
 
 <div className="not-prose grid grid-cols-2 gap-4 my-6">
   <img src={placeholder.src} alt="Hybrid method with Sobel edge detection" className="w-full h-auto rounded" />
@@ -176,7 +185,7 @@ Each character is rendered at the target font size, and its pixel grid becomes a
 (I ∗ K)(x, y) = Σᵢ Σⱼ I(x − i, y − j) K(i, j)
 ```
 
-The `shapes` character set (`. -=+|/\\<>^v[]{}()*#@`) works best here — the characters are structurally distinct, so template matching can actually tell them apart.
+The `shapes` character set (`. -=+|/\\<>^v[]{}()*#@`) works best here. The characters are structurally distinct, so template matching can actually tell them apart.
 
 <div className="not-prose grid grid-cols-2 gap-4 my-6">
   <img src={placeholder.src} alt="Lineart method using Sobel edge detection" className="w-full h-auto rounded" />
@@ -189,22 +198,40 @@ The `shapes` character set (`. -=+|/\\<>^v[]{}()*#@`) works best here — the ch
 
 Here are some more outputs generated with different parameter combinations:
 
-<div className="not-prose grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
-  <img src={placeholder.src} alt="The Great Wave off Kanagawa - detailed ASCII render" className="w-full h-auto rounded" />
-  <img src={placeholder.src} alt="Mona Lisa - adaptive brightness" className="w-full h-auto rounded" />
-  <img src={placeholder.src} alt="Starry Night - color ASCII render" className="w-full h-auto rounded" />
-  <img src={placeholder.src} alt="Islamic tiles - high resolution ASCII" className="w-full h-auto rounded" />
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-6">
+  <figure>
+    <img src={placeholder.src} alt="The Great Wave off Kanagawa - detailed ASCII render" className="w-full h-auto rounded" />
+    <figcaption>The Great Wave off Kanagawa — detailed ASCII render</figcaption>
+  </figure>
+  <figure>
+    <img src={placeholder.src} alt="Mona Lisa - adaptive brightness" className="w-full h-auto rounded" />
+    <figcaption>Mona Lisa — adaptive brightness</figcaption>
+  </figure>
+  <figure>
+    <img src={placeholder.src} alt="Starry Night - color ASCII render" className="w-full h-auto rounded" />
+    <figcaption>Starry Night — color ASCII render</figcaption>
+  </figure>
+  <figure>
+    <img src={placeholder.src} alt="Islamic tiles - high resolution ASCII" className="w-full h-auto rounded" />
+    <figcaption>Islamic tiles — high resolution ASCII</figcaption>
+  </figure>
 </div>
 
-And here's the same thing with **color mode** enabled. Character shapes are still picked from grayscale, but the ink color is sampled from the original image:
+And here's the same thing with **color mode** enabled. Character shapes are still picked from grayscale, 
+  but the ink color is sampled from the original image:
 
-<div className="not-prose grid grid-cols-2 gap-4 my-6">
-  <img src={placeholder.src} alt="Color ASCII rendering of Mona Lisa" className="w-full h-auto rounded" />
-  <img src={placeholder.src} alt="Color ASCII rendering of The Great Wave" className="w-full h-auto rounded" />
+<div className="grid grid-cols-2 gap-4 my-6">
+  <figure>
+    <img src={placeholder.src} alt="Color ASCII rendering of Mona Lisa" className="w-full h-auto rounded" />
+    <figcaption>Color ASCII rendering of Mona Lisa</figcaption>
+  </figure>
+  <figure>
+    <img src={placeholder.src} alt="Color ASCII rendering of The Great Wave" className="w-full h-auto rounded" />
+    <figcaption>Color ASCII rendering of The Great Wave</figcaption>
+  </figure>
 </div>
 
 # What's Next
 
-I'm building a React web app that wraps this pipeline so anyone can upload an image, tweak parameters, and download their ASCII art without touching a single line of Python. Stay tuned.
-
-The full notebook is on [Kaggle](https://www.kaggle.com/code/nadzmiagthomas/image-to-ascii).
+I'm planning to build a React web app that wraps this pipeline so anyone can upload an image, 
+tweak parameters, and download their ASCII art without touching a single line of Python.
