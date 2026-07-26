@@ -50,7 +50,7 @@ const skillBorder = "#000000";
     </aside>
 
     <!-- Centered content -->
-    <div class="lg:basis-3/5">
+    <div class="lg:basis-3/5 min-w-0">
       <Image
         id="case-study-image"
         src={entry.data.image}
@@ -84,14 +84,15 @@ const skillBorder = "#000000";
             "prose-h3:text-lg",
             // Figure
             "prose-figure:mt-6",
-            "prose-img:my-0 prose-img:border prose-img:border-black/20",
+            "prose-img:my-0 prose-img:max-w-full prose-img:border prose-img:border-black/20",
             "prose-figcaption:text-black/60 prose-figcaption:text-sm prose-figcaption:text-center prose-figcaption:mt-2",
             // Code blcok
             "prose-code:bg-black/10 prose-code:px-1 prose-code:text-sm",
             "prose-code:before:content-none prose-code:after:content-none",
+            "prose-pre:overflow-x-auto prose-pre:max-w-full",
           ]}
         >
-          <Content components={{LinkAnimate}} />
+          <Content components={{ LinkAnimate }} />
         </article>
       </div>
     </div>
