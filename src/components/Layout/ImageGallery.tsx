@@ -21,13 +21,19 @@ import "swiper/css/thumbs";
 //   { src: 'https://swiperjs.com/demos/images/abstract-10.jpg', caption: 'Abstract ten' },
 // ];
 
+interface Image {
+  src: string;
+  caption?: string;
+}
+
 interface ImageGalleryProps {
   images: Image[];
   height?: string | number;
   thumbHeight?: string | number;
+  bgColor?: string;
 }
 
-export default function ImageGallery({ images, height, thumbHeight }: ImageGalleryProps) {
+export default function ImageGallery({ images, height, thumbHeight, bgColor }: ImageGalleryProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
 
   const slideHeight = height !== undefined
@@ -39,7 +45,7 @@ export default function ImageGallery({ images, height, thumbHeight }: ImageGalle
     : undefined;
 
   return (
-    <div className={`my-6 ${height ? 'flex justify-center' : 'w-full max-w-3xl mx-auto'}`}>
+    <div className={`my-6 ${height ? 'flex justify-center' : 'w-full max-w-3xl mx-auto'} select-none`}>
       {/* Main image swiper */}
       <Swiper
         style={
@@ -69,16 +75,16 @@ export default function ImageGallery({ images, height, thumbHeight }: ImageGalle
         {images.map((img, i) => (
           <SwiperSlide
             key={i}
-            className="relative bg-neutral-800 aspect-video"
-            style={slideHeight ? { height: slideHeight } : undefined}
+            className="relative aspect-video"
+            style={{ backgroundColor: bgColor ?? "rgba(0, 0, 0, 0.6)", ...slideHeight ? { height: slideHeight } : {} }}
           >
             <img
               src={img.src}
               alt={img.caption}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-8 pb-3">
-              <p className="text-white text-sm font-medium">{img.caption}</p>
+            <div className="absolute inset-x-0 bottom-0 px-4 pt-8 pb-3">
+              <p className="text-black/95 text-sm font-medium bg-white/65 py-2 px-2 w-fit">{img.caption}</p>
             </div>
           </SwiperSlide>
         ))}
@@ -93,18 +99,18 @@ export default function ImageGallery({ images, height, thumbHeight }: ImageGalle
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className={`mt-3 box-border py-1 ${thumbH ? '' : 'h-20'}`}
-        style={thumbH ? { height: thumbH } : undefined}
+        className="mt-3 box-border py-1"
       >
         {images.map((img, i) => (
           <SwiperSlide
             key={i}
-            className="h-full opacity-40 cursor-pointer transition-opacity [&.swiper-slide-thumb-active]:opacity-100"
+            className="relative aspect-video opacity-40 cursor-pointer transition-opacity [&.swiper-slide-thumb-active]:opacity-100"
+            style={{ backgroundColor: bgColor ?? "rgba(0, 0, 0, 0.6)", ...thumbH ? { height: thumbH } : {} }}
           >
             <img
               src={img.src}
               alt={img.caption}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain rounded-xs"
             />
           </SwiperSlide>
         ))}

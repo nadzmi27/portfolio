@@ -30,54 +30,37 @@ skillColor: "#DFCAA0"
 hasCaseStudy: True
 ---
 
-import placeholder from "../../assets/ascii/placeholder.webp";
 import ImageGallery from "../../components/Layout/ImageGallery";
 
+import greatwaves_intro from "../../assets/ascii/greatwaves_intro.png";
+import mona_lisa_intro from "../../assets/ascii/mona_lisa_intro.png";
+import starry_night_intro from "../../assets/ascii/starry_night_intro.webp";
+import pearl_earring_intro from "../../assets/ascii/pearl_earring_intro.webp";
 
-<ImageGallery client:load images={[
-  { src: 'https://swiperjs.com/demos/images/abstract-2.jpg', caption: 'Abstract two' },
-  { src: placeholder.src, caption: 'Abstract one' },
-  { src: 'https://swiperjs.com/demos/images/abstract-3.jpg', caption: 'Abstract three' },
-  { src: 'https://swiperjs.com/demos/images/abstract-4.jpg', caption: 'Abstract four' },
-  { src: 'https://swiperjs.com/demos/images/abstract-5.jpg', caption: 'Abstract five' },
-  { src: 'https://swiperjs.com/demos/images/abstract-6.jpg', caption: 'Abstract six' },
-  { src: 'https://swiperjs.com/demos/images/abstract-7.jpg', caption: 'Abstract seven' },
-  { src: 'https://swiperjs.com/demos/images/abstract-8.jpg', caption: 'Abstract eight' },
-  { src: 'https://swiperjs.com/demos/images/abstract-9.jpg', caption: 'Abstract nine' },
-  { src: 'https://swiperjs.com/demos/images/abstract-10.jpg', caption: 'Abstract ten' },
-]}/>
+import quantization_adaptive from "../../assets/ascii/quantization_adaptive.png";
+import quantization_linear from "../../assets/ascii/quantization_linear.png";
 
-<div className="grid grid-cols-2 items-center gap-4">
-<figure>
-  <img
-    src={placeholder.src}
-    alt="The Great Wave off Kanagawa rendered as ASCII art"
- />
-  <figcaption>The Great Wave off Kanagawa rendered as ASCII art</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Mona Lisa rendered as ASCII art" />
-  <figcaption>Mona Lisa rendered as ASCII art</figcaption>
-</figure>
-</div>
-
-<div className="grid grid-cols-2 items-center gap-4">
-<figure>
-  <img src={placeholder.src} alt="Starry Night rendered as ASCII art" />
-  <figcaption>Starry Night rendered as ASCII art</figcaption>
-</figure>
-
-<figure>
-  <img
-    src={placeholder.src}
-    alt="Girl with a Pearl Earring rendered as ASCII art"
- />
-  <figcaption>Girl with a Pearl Earring rendered as ASCII art</figcaption>
-</figure>
-</div>
+<ImageGallery
+  client:load
+  images={[
+    {
+      src: greatwaves_intro.src,
+      caption: "The Great Wave off Kanagawa rendered as ASCII art",
+    },
+    { src: mona_lisa_intro.src, caption: "Mona Lisa rendered as ASCII art" },
+    {
+      src: starry_night_intro.src,
+      caption: "Starry Night rendered as ASCII art (with color)",
+    },
+    {
+      src: pearl_earring_intro.src,
+      caption: "Girl with a Pearl Earring rendered as ASCII art (with color)",
+    },
+  ]}
+/>
 
 Some of the ASCII outputs generated from various artworks: The Great Wave off Kanagawa, Mona Lisa, Starry Night, and Girl with a Pearl Earring.
+Open image in new tab to zoom in and see the ascii characters in detail.
 
 # Background
 
@@ -123,30 +106,6 @@ The final step renders the character grid at high resolution using a monospace f
 At high character counts the individual letters blur into texture, which can make the characters seems invisible.
 But upon zooming in, the characters should be visible, and this was intentional.
 
-Here's the comparison between the three methods on the same source image:
-
-<figure>
-  <img src={placeholder.src} alt="Original grayscale image" />
-  <figcaption>Original grayscale image</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Brightness-based ASCII output" />
-  <figcaption>Brightness-based ASCII output</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Hybrid ASCII output with edge orientation" />
-  <figcaption>Hybrid ASCII output with edge orientation</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Lineart ASCII output" />
-  <figcaption>Lineart ASCII output</figcaption>
-</figure>
-
-**Methods compared (left to right):** Original grayscale, brightness-based, hybrid, lineart.
-
 # Brightness-Based Method
 
 This is the classic approach. Each pixel's luminance maps directly to a character where dark areas get dense characters, and bright areas get sparse ones.
@@ -172,17 +131,18 @@ character = char_set[i]
 d_norm = (d − d_min) / (d_max − d_min + ε)
 ```
 
+<div className="flex flex-col sm:flex-row sm:gap-2">
 <figure>
-  <img src={placeholder.src} alt="Linear brightness mapping output" />
+  <img src={quantization_linear.src} alt="Linear brightness mapping output" />
   <figcaption>Linear brightness mapping output</figcaption>
 </figure>
 
 <figure>
-  <img src={placeholder.src} alt="Adaptive brightness mapping output" />
+  <img src={quantization_adaptive.src} alt="Adaptive brightness mapping output" />
   <figcaption>Adaptive brightness mapping output</figcaption>
 </figure>
-
-**Linear (left) vs Adaptive (right).** Notice how adaptive makes better use of the character range.
+</div>
+**Linear  vs Adaptive.** Notice how adaptive makes better use of the character range (though linear could look better due to less range being used).
 
 ## Character Set Sorting
 
@@ -203,31 +163,6 @@ The `custom2` set I settled on was ` .:;*^+|TIVFXZKHENMW` as it seems to be givi
 - **Number of characters per row:** 32, 64, 128, 256, 512. More = finer texture
 - **Color (optional):** when enabled, each character inherits the original pixel's RGB color instead of rendering in black
 
-<figure>
-  <img src={placeholder.src} alt="Gamma values sweep from 0.125 to 4" />
-  <figcaption>Gamma values sweep from 0.125 to 4</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Char widths sweep from 32 to 512" />
-  <figcaption>Char widths sweep from 32 to 512</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Character set comparison across 8 sets" />
-  <figcaption>Character set comparison across 8 sets</figcaption>
-</figure>
-
-<figure>
-  <img
-    src={placeholder.src}
-    alt="Blank threshold comparison from 0.5 to 0.99"
-  />
-  <figcaption>Blank threshold comparison from 0.5 to 0.99</figcaption>
-</figure>
-
-**Parameter sweeps.** Gamma correction, grid width (num_chars), character set comparison, and blank threshold.
-
 # Hybrid Method
 
 Pure brightness-based mapping loses structural information. Edges and contours get muddled.
@@ -236,18 +171,6 @@ The hybrid method addresses this by overlaying edge orientation on top of bright
 The idea: for pixels where the Sobel or Canny edge detector finds a strong edge, replace the brightness character with an orientation-specific one (like `/`, `\`, `|`, `-`) that follows the direction of the edge.
 
 This gives the best of both worlds. Tonal depth from brightness, structural clarity from edges.
-
-<figure>
-  <img src={placeholder.src} alt="Hybrid method with Sobel edge detection" />
-  <figcaption>Hybrid method with Sobel edge detection</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Hybrid method with Canny edge detection" />
-  <figcaption>Hybrid method with Canny edge detection</figcaption>
-</figure>
-
-**Hybrid output.** Brightness provides tone, edge orientation provides contour lines.
 
 # Lineart Method
 
@@ -260,58 +183,6 @@ Each character is rendered at the target font size, and its pixel grid becomes a
 ```
 
 The `shapes` character set (`. -=+|/\\<>^v[]{}()*#@`) works best here. The characters are structurally distinct, so template matching can actually tell them apart.
-
-<figure>
-  <img src={placeholder.src} alt="Lineart method using Sobel edge detection" />
-  <figcaption>Lineart method using Sobel edge detection</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Lineart method using Canny edge detection" />
-  <figcaption>Lineart method using Canny edge detection</figcaption>
-</figure>
-
-**Lineart output.** Clean line-art style ASCII from Canny edges. The individual characters are more readable here compared to the brightness method.
-
-# Gallery
-
-Here are some more outputs generated with different parameter combinations:
-
-<figure>
-  <img
-    src={placeholder.src}
-    alt="The Great Wave off Kanagawa - detailed ASCII render"
-  />
-  <figcaption>The Great Wave off Kanagawa — detailed ASCII render</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Mona Lisa - adaptive brightness" />
-  <figcaption>Mona Lisa — adaptive brightness</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Starry Night - color ASCII render" />
-  <figcaption>Starry Night — color ASCII render</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Islamic tiles - high resolution ASCII" />
-  <figcaption>Islamic tiles — high resolution ASCII</figcaption>
-</figure>
-
-And here's the same thing with **color mode** enabled. Character shapes are still picked from grayscale,
-but the ink color is sampled from the original image:
-
-<figure>
-  <img src={placeholder.src} alt="Color ASCII rendering of Mona Lisa" />
-  <figcaption>Color ASCII rendering of Mona Lisa</figcaption>
-</figure>
-
-<figure>
-  <img src={placeholder.src} alt="Color ASCII rendering of The Great Wave" />
-  <figcaption>Color ASCII rendering of The Great Wave</figcaption>
-</figure>
 
 # What's Next
 
