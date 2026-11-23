@@ -25,7 +25,7 @@ const educations: EducationEntry[] = [
     institution: "Monash University",
     name: "Bachelor of Computer Science & Bachelor of Commerce",
     majors: "Data Science / Business Analytics",
-    dateRange: "Mar 2021 – Sep 2025",
+    dateRange: "Sep 2025",
     link: "https://www.myequals.net/sharelink",
     icon: {
       name: "ph:graduation-cap",
@@ -44,6 +44,22 @@ type CertificationEntry = {
   };
 };
 const certifications: CertificationEntry[] = [
+  {
+    institution: "Microsoft Applied Skills",
+    name: "Configure secure access to your workloads using Azure networking",
+    link: "https://learn.microsoft.com/api/credentials/share/en-gb/NadzmiAgThomas-6027/325EE42C725FDE35?sharingId=80043E62DA7C0FFA",
+    icon: {
+      name: "mdi:microsoft-azure",
+    },
+  },
+  {
+    institution: "Microsoft Applied Skills",
+    name: "Administer Active Directory Domain Services",
+    link: "https://learn.microsoft.com/api/credentials/share/en-gb/NadzmiAgThomas-6027/DF644DCB8FBB3061?sharingId=80043E62DA7C0FFA",
+    icon: {
+      name: "ph:windows-logo",
+    },
+  },
   {
     institution: "DeepLearning.AI & AWS",
     name: "Data Engineering",
@@ -68,28 +84,25 @@ const certifications: CertificationEntry[] = [
 
         <p class="text-lg mb-6 leading-tight text-pretty">
           I've always wanted to be an inventor ever since I was a kid. I used to
-          take toys apart just to see what was inside, and reassemble them into
-          something new. I discovered programming in my last year of high
-          school, learning Python, trying out libraries like Turtle and Tkinter,
-          and since then, I've never looked back. Turns out coding is just a
-          faster way to build things.
+          take toys apart just to see how they worked, and reassemble them into
+          something new. These days, I channel that curiosity into building
+          things, connecting different systems, and exploring how technology
+          works behind the scenes.
           <br />
           <br />
-          Nowadays I spend most of my time trying new tools (recently it’s Astro)
-          or building whatever I feel like building, like <a
+          Recently, I've had the opportunity to build and maintain my own <a
+            class="underline">homelab</a
+          >, experimenting with networking, self-hosted services, and private
+          cloud storage. I also enjoy bringing ideas to life through projects
+          like <a
             class="underline"
             href="https://vocabforest.com/"
             target="_blank">vocabforest.com</a
-          >.
+          > and this very portfolio.
           <br />
           <br />
-          A bit more about me: I LOVE chess. I started competing recently, and my
-          current goal is to reach 2000 FIDE rating. You can check my live rating
-          <a
-            class="underline"
-            href="https://ratings.fide.com/profile/573006424"
-            target="_blank">here</a
-          >.
+          Outside of tech, I enjoy playing chess, playing the guitar, and watching
+          anime.
         </p>
         <div class="flex items-center">
           <Link
@@ -175,27 +188,25 @@ const certifications: CertificationEntry[] = [
               educations.map((educ) => {
                 return (
                   <div class="flex items-center gap-4">
-                    <div class="bg-black/5 w-12 h-12 flex items-center justify-center">
+                    <div class="bg-black/5 w-12 h-12 shrink-0 flex items-center justify-center">
                       <Icon
                         class=""
                         name={educ.icon?.name ?? "ph:graduation-cap"}
                         size={educ.icon?.size ?? 32}
                       />
                     </div>
-                      <div
-                        class="flex flex-col text-black"
-                      >
-                        <span class="flex">
-                          <p class="font-semibold text-black">
-                            {educ.institution}
-                          </p>
-                          <p class="ml-auto text-black">{educ.dateRange}</p>
-                        </span>
-                        <i class="text-pretty">{educ.name}</i>
-                        <span class="flex items-center gap-1  ">
-                          <i>{educ.majors}</i>
-                        </span>
-                      </div>
+                    <div class="flex flex-col text-black">
+                      <span class="flex">
+                        <p class="font-semibold text-black">
+                          {educ.institution}
+                        </p>
+                        <p class="ml-auto text-black">{educ.dateRange}</p>
+                      </span>
+                      <i class="text-pretty">{educ.name}</i>
+                      <span class="flex items-center gap-1  ">
+                        <i>{educ.majors}</i>
+                      </span>
+                    </div>
                     {/* <Tooltip client:load tooltip="View transcript">
                       <Link
                         class="flex flex-col text-nav-link hover:text-black active:text-black"
@@ -230,7 +241,7 @@ const certifications: CertificationEntry[] = [
               certifications.map((cert) => {
                 return (
                   <div class="flex items-center gap-4">
-                    <div class="bg-black/5 w-12 h-12 flex items-center justify-center">
+                    <div class="bg-black/5 w-12 h-12 shrink-0 flex items-center justify-center">
                       <Icon
                         class=""
                         name={cert.icon?.name ?? "ph:scroll"}
@@ -249,8 +260,13 @@ const certifications: CertificationEntry[] = [
                           )}
                         </span>
                         <span class="flex items-center gap-1">
-                          <i>{cert.name}</i>
-                          <Icon name="ph:arrow-square-out" />
+                          <p>
+                            <i>{cert.name}</i>{" "}
+                            <Icon
+                              name="ph:arrow-square-out"
+                              class="inline-block relative top-[-1.5px]"
+                            />
+                          </p>
                         </span>
                       </Link>
                     </Tooltip>
