@@ -1,9 +1,12 @@
 ---
-import { softwareEntries, dataEntries} from "./Skills";
+import { softwareDataEntries, infraSystemEntries } from "./Skills";
 import SkillsTerminal from "./SkillsTerminal.astro";
 ---
 
 <div class="flex flex-col md:flex-row gap-10">
-  <SkillsTerminal category="software" skillEntries={softwareEntries} />
-  <SkillsTerminal category="data" skillEntries={dataEntries} />
+  <SkillsTerminal category="software_data" skillEntries={softwareDataEntries} />
+  <SkillsTerminal category="infrastructure" skillEntries={infraSystemEntries} />
+  <!-- <SkillsTerminal category="software" skillEntries={softwareEntries} />
+  <SkillsTerminal category="data" skillEntries={dataEntries} /> -->
+  <!-- <SkillsTerminal category="data" skillEntries={dataEntries} /> -->
 </div>
